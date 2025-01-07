@@ -5,7 +5,7 @@ const AboutList = [
   { id: 1, name: "360 Core Banking System", link: "/banking_system", section: "CoreBankingSystem" },
   { id: 2, name: "Internet Banking", link: "/internet_banking", section: "InternetBanking" },
   { id: 3, name: "Mobile Banking", link: "/mobile_banking", section: "MobileBanking" },
-  { id: 4, name: "Tab Banking", link: "/tab_banking", section: "TabBanking" },
+  { id: 4, name: "Mobile Teller", link: "/mobile-teller", section: "MobileTeller" },
   { id: 5, name: "ATM", link: "/atm", section: "Atm" },
 ];
 

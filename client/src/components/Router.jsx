@@ -10,6 +10,7 @@ import Company from "./about/Company";
 import ContactList from "../Admin/Contact/ContactList";
 import CoreBankingSystem from "./business/Pages/CoreBankingSystem";
 import DemoList from "../Admin/demo/DemoList";
+import DigitalBanking from "./business/DigitalBanking";
 import Ecosystem from "./about/Ecosystem";
 import ForgotPassword from "../Admin/ForgotPassword";
 import GetinTouch from "../pages/GetinTouch";
@@ -20,6 +21,7 @@ import Leadership from "./about/Leadership";
 import Media from "../pages/allNews";
 import Milestones from "./about/Milestones";
 import MobileBanking from "./business/Pages/MobileBanking";
+import MobileTeller from "./business/Pages/MobileTeller";
 import NotFoundPage from "../pages/PageNotFound";
 import Partnership from "./about/Partnership";
 import Pricing from "../pages/Pricing";
@@ -27,10 +29,8 @@ import PricingList from "../Admin/pricing/PricingList";
 import PricingList1 from "../Admin/pricing1/PricingList1";
 import Register from "../Admin/Register";
 import ResetPassword from "../Admin/ResetPassword";
-import TabBanking from "./business/Pages/TabBanking";
 import TableLists from "../Admin/TableLists";
 import { createBrowserRouter } from "react-router-dom";
-import DigitalBanking from "./business/DigitalBanking";
 
 const router = createBrowserRouter([
   {
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       { path: "banking_system", element: <CoreBankingSystem /> },
       { path: "internet_banking", element: <InternetBanking /> },
       { path: "mobile_banking", element: <MobileBanking /> },
-      { path: "tab_banking", element: <TabBanking /> },
+      { path: "mobile-teller", element: <MobileTeller /> },
       { path: "atm", element: <Atm /> },
 
     ],

@@ -1,7 +1,7 @@
 import React from "react";
 import { abanner } from "../../../Assets/index";
 
-const TabBanking = () => {
+const MobileTeller = () => {
   return (
     <div>
       <div>
@@ -52,4 +52,4 @@ const TabBanking = () => {
   );
 };
 
-export default TabBanking;
+export default MobileTeller;
