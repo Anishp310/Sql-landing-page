@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { mobileBanking, onlineBanking, trader } from "../../Assets/index";
-import { IoIosPhonePortrait } from "react-icons/io";
 import { CiBank } from "react-icons/ci";
 import { GiTrade } from "react-icons/gi";
+import { IoIosPhonePortrait } from "react-icons/io";
+import { mobileBanking, onlineBanking, trader } from "../../Assets/index";
 
 const Images = [
   {
@@ -35,7 +35,7 @@ const Images = [
     id: 3,
     image: <GiTrade className="text-4xl" />    ,
     text: "Banking has never been this easy, with the help of 360 Core Banking System.",
-    title: "Joonel in Trading",
+    title: "Jooneli in Trading",
     Content: [
       "Balance inquiry",
       "Deposit/Withdraw message",
@@ -77,7 +77,7 @@ const Container = () => {
               alt={item.title}
               className="object-cover w-12 h-12 bg-gray-200 rounded-full hover:opacity-60 "
             /> */}
-            <div className="object-cover w-12 h-12 bg-gray-200 rounded-full hover:opacity-60  flex justify-center items-center ">
+            <div className="flex items-center justify-center object-cover w-12 h-12 bg-gray-200 rounded-full hover:opacity-60 ">
             {item.image}
             </div>
             <p className="mt-4 text-[10px] sm:text-sm font-medium text-center md:text-base h-[40px] flex items-center justify-center hover:underline ">
