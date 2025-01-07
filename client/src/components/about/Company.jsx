@@ -1,11 +1,11 @@
 const Company = () => {
   return (
-    <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] mt-10">
+    <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] md:mt-10 mt-4">
       <div className="mb-10 text-left">
-        <div className="mb-6 text-3xl font-semibold">
+        <div className="mb-2 text-xl font-semibold md:mb-6 md:text-2xl lg:text-3xl">
           Inspiring Banking Systems with IT Solutions
         </div>
-        <p className="mb-4 text-lg leading-relaxed text-justify text-gray-700">
+        <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
           <strong className="text-red-900">Jooneli Inc Pvt. Ltd.</strong> is a leading Nepali software company that has
           established itself as a prominent player in the global IT solutions
           market, particularly in the financial and business sectors. Leveraging
@@ -21,15 +21,15 @@ const Company = () => {
           its clients.
         </p>
 
-        <div className="p-8 mt-4 ">
-          <h2 className="mb-4 text-2xl font-semibold text-red-600">
+        <div className="lg:mt-6 ">
+          <h2 className="mb-2 text-lg font-semibold text-red-600 md:mb-4 lg:text-2xl md:text-xl">
             Jooneli Inc.: Empowering Communities through Financial Innovation
           </h2>
 
-          <h3 className="mt-6 mb-2 text-xl font-semibold text-gray-800">
+          <h3 className="mb-2 text-base font-semibold text-gray-800 md:text-xl md:mt-6">
             Overview
           </h3>
-          <p className="text-lg leading-relaxed text-justify text-gray-700">
+          <p className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
             Jooneli Inc., founded in 2071 (Nepali calendar B.S), has become a
             pioneering force in the financial technology and banking sectors,
             committed to transforming communities through innovative solutions.
@@ -40,10 +40,10 @@ const Company = () => {
             technological advancements to underserved communities.
           </p>
 
-          <h3 className="mt-6 mb-2 text-xl font-semibold text-gray-800">
+          <h3 className="mt-3 mb-2 text-xl font-semibold text-gray-800 md:mt-6">
             Regional Expansion and Growth
           </h3>
-          <p className="text-lg leading-relaxed text-justify text-gray-700">
+          <p className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
             Starting in Myanmar, Jooneli quickly expanded to Bangladesh,
             addressing the financial needs of underserved populations. The
             company entered Nepal in 2074 Chaitra, recognizing the vital role
@@ -53,15 +53,15 @@ const Company = () => {
             thousands.
           </p>
 
-          <h3 className="mt-6 mb-2 text-xl font-semibold text-gray-800">
+          <h3 className="mt-3 mb-2 text-xl font-semibold text-gray-800 md:mt-6">
             Flagship Products
           </h3>
-          <p className="text-lg leading-relaxed text-justify text-gray-700">
+          <p className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
             Jooneli Inc. has developed a range of flagship products that cater
             to the specific needs of cooperatives, financial institutions, and
             businesses, driving economic empowerment and financial inclusion:
           </p>
-          <p className="mt-4 text-lg leading-relaxed text-justify text-gray-700">
+          <p className="mt-2 text-sm leading-relaxed text-justify text-gray-700 md:mt-4 lg:text-lg md:text-base">
             <strong className="text-red-900">360 Core Banking System: </strong>A
             state-of-the-art platform designed to optimize the operations of
             financial institutions. This system integrates essential banking
@@ -69,7 +69,7 @@ const Company = () => {
             user-friendly interface, improving operational efficiency, reducing
             errors, and ensuring compliance with regulatory standards.
           </p>
-          <p className="mt-4 text-lg leading-relaxed text-justify text-gray-700">
+          <p className="mt-2 text-sm leading-relaxed text-justify text-gray-700 md:mt-4 lg:text-lg md:text-base">
             <strong className="text-red-900">Jooneli Trading: </strong>A
             comprehensive accounting and business management system designed to
             streamline financial operations for various industries, including
@@ -78,10 +78,10 @@ const Company = () => {
             real-time financial management.
           </p>
 
-          <h3 className="mt-6 mb-2 text-xl font-semibold text-gray-800">
+          <h3 className="mt-3 mb-2 text-xl font-semibold text-gray-800 md:mt-6">
             Vision and Impact
           </h3>
-          <p className="text-lg leading-relaxed text-justify text-gray-700">
+          <p className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
             Our core vision is to empower communities through financial
             innovation, ensuring that underserved populations gain better access
             to financial services. By combining advanced technology with a deep
@@ -93,7 +93,7 @@ const Company = () => {
           <h3 className="mt-6 mb-2 text-xl font-semibold text-gray-800">
             Global Reach and Future Growth
           </h3>
-          <p className="text-lg leading-relaxed text-justify text-gray-700">
+          <p className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
             We continues to expand its influence across borders, committed to
             improving financial access and inclusion globally. With a focus on
             innovative solutions and strong partnerships, Jooneli is poised to
