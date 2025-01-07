@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { NavLink, Outlet } from "react-router-dom";
 
 const AboutList = [
-  { id: 1, name: "360 Core Banking System", link: "/business/banking_system", section: "CoreBankingSystem" },
-  { id: 2, name: "Internet Banking", link: "/business/internet_banking", section: "InternetBanking" },
-  { id: 3, name: "Mobile Banking", link: "/business/mobile_banking", section: "MobileBanking" },
-  { id: 4, name: "Tab Banking", link: "/business/tab_banking", section: "TabBanking" },
-  { id: 5, name: "ATM", link: "/business/atm", section: "Atm" },
+  { id: 1, name: "360 Core Banking System", link: "/banking_system", section: "CoreBankingSystem" },
+  { id: 2, name: "Internet Banking", link: "/internet_banking", section: "InternetBanking" },
+  { id: 3, name: "Mobile Banking", link: "/mobile_banking", section: "MobileBanking" },
+  { id: 4, name: "Tab Banking", link: "/tab_banking", section: "TabBanking" },
+  { id: 5, name: "ATM", link: "/atm", section: "Atm" },
 ];
 
 const BusinessListComponent = ({ onSectionChange }) => (
@@ -18,7 +18,7 @@ const BusinessListComponent = ({ onSectionChange }) => (
           className="items-center justify-around px-0 py-0 m-1 ease-out rounded-md cursor-pointer md:text-black md:flex md:py-1 md:px-1 hover:text-orange-400 text-rose-800"
         >
           <NavLink
-            to="/digital_banking"
+            to={item.link}
             onClick={() => onSectionChange(item.section)}
             className={({ isActive }) =>
               isActive ? "md:text-black text-rose-800" : "text-rose-800"
@@ -29,9 +29,7 @@ const BusinessListComponent = ({ onSectionChange }) => (
         </li>
       ))}
     </ul>
-    <div>
-      <Outlet />
-    </div>
+  
   </div>
 );
 

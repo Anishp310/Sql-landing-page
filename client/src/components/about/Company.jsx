@@ -1,6 +1,6 @@
 const Company = () => {
   return (
-    <div className="max-w-screen-lg mx-auto px-4 py-8">
+    <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] mt-10">
       <div className="text-left mb-10">
         <div className="text-3xl font-semibold mb-6">
           Inspiring Banking Systems with IT Solutions
