@@ -1,74 +1,133 @@
+import React from "react";
+
 const Ecosystem = () => {
+  const features = [
+    {
+      id: 1,
+      title: "Programming Framework",
+      points: [
+        "C# with .NET Core provides a reliable and high-performance framework.",
+        "Cross-platform capabilities enable deployment across various environments, ensuring flexibility and scalability.",
+      ],
+    },
+    {
+      id: 2,
+      title: "CubeProcess Bigtable Data",
+      points: [
+        "This database architecture is built for handling massive datasets with low latency, making it ideal for high-transaction banking environments.",
+        "Distributed storage ensures horizontal scalability, while schema flexibility adapts to evolving data models.",
+        "Real-time replication and consistency mechanisms ensure data reliability and system resilience.",
+      ],
+    },
+  ];
+
   return (
     <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] md:mt-[2rem] mt-[1rem] space-y-12">
       {/* Unified Digital Banking Ecosystem Section */}
       <section>
-        <h2 className="text-center text-4xl font-extrabold text-red-900 mb-6">
+        <h2 className="mb-6 text-4xl font-extrabold text-black">
           Unified Digital Banking Ecosystem
         </h2>
-        <p className="text-gray-700 text-lg leading-relaxed">
-          The modern banking ecosystem integrates various channels to provide seamless and efficient services to customers. At its core is the
-          <strong> 360 Core Banking System</strong>, enabling real-time operations and a unified customer experience across platforms.
+        <p className="mb-4 text-lg leading-relaxed text-justify text-gray-700">
+          The modern banking ecosystem integrates various channels to provide
+          seamless and efficient services to customers. At its core is the
+          <strong className="text-red-900"> 360 Core Banking System</strong>,
+          enabling real-time operations and a unified customer experience across
+          platforms.
         </p>
-        <p className="mt-4 text-gray-700 text-lg leading-relaxed">
-          Together, these components form a robust digital banking ecosystem, driving efficiency, customer convenience, and financial inclusion.
+        <div className="">
+        <p className="mb-4 text-lg leading-relaxed text-justify text-gray-700">
+        The Ecosystem seamlessly integrates:
+        </p>
+          <ul className="ml-[4rem] pl-8 space-y-4 list-disc">
+            <li className="text-lg leading-relaxed text-justify text-gray-700 ">
+              <strong className="text-red-900">SMS Banking </strong> ensures
+              accessibility through instant alerts, balance inquiries, and quick
+              transactions using simple text commands.
+            </li>
+            <li className="text-lg leading-relaxed text-justify text-gray-700">
+              <strong className="text-red-900">Mobile Banking</strong> offers
+              24/7 account management, fund transfers, bill payments, and mobile
+              top-ups, delivering unmatched convenience.
+            </li>
+            <li className="text-lg leading-relaxed text-justify text-gray-700">
+            <strong className="text-red-900">ATM services</strong> extend the
+              ecosystem's reach, providing cash withdrawals, deposits, and other
+              services anytime, anywhere.
+            </li>
+            <li className="text-lg leading-relaxed text-justify text-gray-700">
+              <strong className="text-red-900">Tab Banking </strong>streamlines
+              onboarding and service delivery, enabling representatives to
+              handle tasks like account openings or KYC processes remotely.
+            </li>
+            <li className="text-lg leading-relaxed text-justify text-gray-700">
+              <strong className="text-red-900">Mobile Teller </strong>enhances
+              customer engagement by bringing banking services directly to the
+              user’s location, improving efficiency and satisfaction.
+            </li>
+          </ul>
+        </div>
+        <p className="mt-2 text-lg leading-relaxed text-justify text-gray-700">
+          Together, these components form a robust digital banking ecosystem,
+          driving efficiency, customer convenience, and financial inclusion.
         </p>
       </section>
 
-      {/* Banking Services Section */}
+      {/* Core Architecture Section */}
       <section>
-        <h2 className="text-center text-4xl font-extrabold text-red-900 mb-6">
-          Banking Services
+        <h2 className="mb-6 text-4xl font-extrabold text-center text-black">
+          Designing a 360 Core Banking System with C# and CubeProcess Bigtable
+          Data
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            { title: "SMS Banking", description: "Instant alerts, balance inquiries, and quick transactions using simple text commands." },
-            { title: "Mobile Banking", description: "24/7 access to account management, fund transfers, bill payments, and mobile top-ups." },
-            { title: "ATM Services", description: "Secure cash withdrawals, deposits, and account inquiries anytime, anywhere." },
-            { title: "Tab Banking", description: "Streamlines remote onboarding and KYC processes." },
-            { title: "Mobile Teller", description: "Enhances customer engagement through location-based banking services." },
-          ].map((service, index) => (
-            <div
-              key={index}
-              className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <h3 className="text-xl font-semibold text-red-800 mb-2">
-                {service.title}
-              </h3>
-              <p className="text-gray-600">{service.description}</p>
+        <p className="mb-4 text-lg leading-relaxed text-justify text-gray-700">
+          The 360 Core Banking System designed with C# and powered by
+          CubeProcess Bigtable Data offers a robust, scalable, and secure
+          platform tailored to meet modern banking demands. This design focuses
+          on real-time processing, high availability, and a seamlessly
+          interconnected ecosystem to support diverse banking operations.
+        </p>
+        <h3 className="mb-4 text-3xl font-extrabold text-black">
+          Core Architecture
+        </h3>
+        <div className=" ml-[4rem] space-y-8 mb-4">
+          {features.map((feature) => (
+            <div key={feature.id}>
+              <h4 className="text-2xl font-bold text-red-900">{feature.title}</h4>
+              <ul className="pl-12 space-y-2 list-disc">
+                {feature.points.map((point, index) => (
+                  <li
+                    key={index}
+                    className="text-lg leading-relaxed text-gray-700"
+                  >
+                    {point}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
       </section>
-
-      {/* Key Features Section */}
-      <section>
-        <h2 className="text-center text-4xl font-extrabold text-red-900 mb-6">
+      <section className="mb-[2rem]">
+        <h2 className="mb-6 text-3xl font-extrabold text-black text4xl">
           Key Features
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            { title: "Real-Time Processing", description: "Handles concurrent transactions with minimal latency." },
-            { title: "Security", description: "Employs advanced encryption, multi-factor authentication, and data integrity checks." },
-            { title: "Scalability", description: "Bigtable architecture ensures effortless expansion as demands grow." },
-          ].map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <h3 className="text-xl font-semibold text-red-800 mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Closing Statement */}
-      <section className="text-center">
-        <p className="mt-8 text-gray-600 text-lg">
-          This system establishes a strong foundation for seamless operations and future growth.
+        <ul className="ml-[4rem] pl-8 space-y-4 list-disc">
+          <li className="text-lg leading-relaxed text-gray-700">
+            <strong className="text-red-900"> Real-Time Processing:</strong>{" "}
+            Handles concurrent transactions with minimal latency.
+          </li>
+          <li className="text-lg leading-relaxed text-gray-700">
+            <strong className="text-red-900">Security:</strong> Employs advanced
+            encryption, multi-factor authentication, and data integrity checks.
+          </li>
+          <li className="text-lg leading-relaxed text-gray-700">
+            <strong className="text-red-900">Scalability:</strong> Bigtable
+            architecture ensures effortless expansion as demands grow.
+          </li>
+        </ul>
+        <p className="mt-4 text-lg leading-relaxed text-justify text-gray-700 mb-[2rem]">
+          This system establishes a strong ecosystem, delivering efficiency,
+          innovation, and exceptional customer experiences.
         </p>
       </section>
     </div>
