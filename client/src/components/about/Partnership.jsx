@@ -12,6 +12,15 @@ const Partnership = () => {
         </p>
       </div>
       <div>
+        <p className="text-justify mt-4 lg:text-lg md:text-md">
+          Jooneli Inc. has strategically partnered with cooperatives, financial institutions, and technology providers to drive innovation and inclusivity in the financial sector. By collaborating with 367 cooperatives across 33 districts in Nepal, Jooneli has empowered local communities with cutting-edge technological tools and streamlined processes, ensuring better financial access and improved livelihoods.
+        </p>
+        <p className="text-justify mt-4 lg:text-lg md:text-md">
+          These partnerships emphasize shared goals of economic empowerment, leveraging Jooneli’s flagship products like the 360 Core Banking System to enhance efficiency and compliance for financial institutions. Furthermore, global partnerships ensure continuous support, seamless adoption, and training for its innovative solutions, making Jooneli a trusted name in digital banking.
+        </p>
+        <p className="text-justify mt-4 lg:text-lg md:text-md">
+          Jooneli’s vision to bridge financial gaps through collaboration and advanced technology has made it a leader in financial empowerment, fostering sustainable growth and economic stability across the regions it serves.
+        </p>
       </div>
     </div>
   );

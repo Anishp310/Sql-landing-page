@@ -3,6 +3,7 @@ import { CiBank } from "react-icons/ci";
 import { GiTrade } from "react-icons/gi";
 import { IoIosPhonePortrait } from "react-icons/io";
 import { mobileBanking, onlineBanking, trader } from "../../Assets/index";
+import { Link } from "react-router-dom";
 
 const Images = [
   {
@@ -11,6 +12,7 @@ const Images = [
     ,
     title: "Corporate Digital Banking",
     text: "",
+    link:"/digital_banking",
     Content: [
       "360 Core Banking System",
       "Mobile Banking",
@@ -24,6 +26,7 @@ const Images = [
     image: <CiBank className="text-4xl" />,
     text: "Request and get 24/7 desired information.",
     title: "Mobile Banking",
+    link:"/mobile_banking",
     Content: [
       "A/C to A/C fund transfer",
       "Mobile Topup (Pinless Recharge and Electronic Recharge Coupon)",
@@ -36,6 +39,7 @@ const Images = [
     image: <GiTrade className="text-4xl" />    ,
     text: "Banking has never been this easy, with the help of 360 Core Banking System.",
     title: "Jooneli in Trading",
+    link:"/trading",
     Content: [
       "Balance inquiry",
       "Deposit/Withdraw message",
@@ -51,7 +55,6 @@ const Container = () => {
   const handleClick = (id) => {
     setSelected(id);
   };
-
   const selectedItem = Images.find((item) => item.id === selected);
 
   return (
@@ -96,15 +99,20 @@ const Container = () => {
           <hr className="border md:w-[80px] w-[50px] border-red-600  md:mb-[0.5rem]" />
           {/* Displaying the Text */}
           <p className="pb-4 text-sm text-slate-600 md:text-base">{selectedItem.text}</p>
-          <ul className="px-4 list-disc list-inside sm:text-sm md:text-base text-slate-600 text-[10px]">
-            {selectedItem.Content.map((line, index) => (
-              <li key={index}>{line}</li>
-            ))}
+          {selectedItem.Content.map((line, index) => (
+
+          <ul key={index} className="px-4 list-disc list-inside sm:text-sm md:text-base text-slate-600 text-[10px]">
+              <li >{line}</li>
           </ul>
+            ))}
+
           <div className="mt-4">
+
+            <Link to={selectedItem.link}>
             <p className="text-lg hover:text-red-700 text-slate-800">
               Read More <span className="text-2xl">+</span>
             </p>
+            </Link>
           </div>
         </div>
       )}

@@ -10,7 +10,6 @@ import Company from "./about/Company";
 import ContactList from "../Admin/Contact/ContactList";
 import CoreBankingSystem from "./business/Pages/CoreBankingSystem";
 import DemoList from "../Admin/demo/DemoList";
-import DigitalBanking from "./business/DigitalBanking";
 import Ecosystem from "./about/Ecosystem";
 import ForgotPassword from "../Admin/ForgotPassword";
 import GetinTouch from "../pages/GetinTouch";
@@ -31,6 +30,8 @@ import Register from "../Admin/Register";
 import ResetPassword from "../Admin/ResetPassword";
 import TableLists from "../Admin/TableLists";
 import { createBrowserRouter } from "react-router-dom";
+import DigitalBanking from "./home/DigitalBanking";
+import Trading from "./home/Trading";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,7 @@ const router = createBrowserRouter([
       { path: "mobile_banking", element: <MobileBanking /> },
       { path: "mobile-teller", element: <MobileTeller /> },
       { path: "atm", element: <Atm /> },
+      { path: "trading", element: <Trading /> },
 
     ],
   },
