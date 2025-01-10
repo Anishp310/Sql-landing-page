@@ -51,7 +51,7 @@ const Footer = () => {
                       { name: "About Us", to: "/about" },
                       { name: "Blog", to: "#" },
                       { name: "For Business", to: "/business" },
-                      { name: "For Partners", to: "/partners" },
+                      { name: "For Partners", to: "/about/partnership" },
                       { name: "Career", to: "/career" },
                       { name: "Media", to: "/media" },
                     ].map((item, index) => (

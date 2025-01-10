@@ -24,10 +24,11 @@ const Trading = () => {
       </div>
       <div>
         <div className="mt-6 mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] ">
-          <h1 className="mb-4 font-bold text-red-900 md:text-2xl lg:text-3xl">
+        <section className="p-4 mt-1 bg-white md:p-8 md:mt-6">
+        <h1 className="mb-4 font-bold text-red-900 md:text-2xl lg:text-3xl">
             Jooneli Trading: A Comprehensive Accounting System for Businesses
           </h1>
-          <p className="mb-4 text-lg text-gray-600">
+          <p className="mb-4 text-sm text-justify md:text-base lg:text-lg">
             Jooneli Trading is a robust accounting system designed to meet the
             diverse financial management needs of retailers, shops, restaurants,
             and general businesses. Tailored to suit a wide range of industries,
@@ -39,7 +40,7 @@ const Trading = () => {
           <h2 className="mt-6 mb-3 font-semibold text-gray-800 md:text-xxl lg:text-2xl">
             For Retailers
           </h2>
-          <p className="mb-4 text-gray-600 lg:text-lg md:text-base">
+          <p className="mb-4 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
             Jooneli Trading offers point-of-sale (POS) integration, enabling
             seamless transactions and real-time inventory tracking. This feature
             simplifies sales, billing, and stock management while automatically
@@ -51,7 +52,7 @@ const Trading = () => {
           <h2 className="mt-6 mb-3 font-semibold text-gray-800 md:text-xxl lg:text-2xl">
             For Restaurants
           </h2>
-          <p className="mb-4 text-gray-600 lg:text-lg md:text-base">
+          <p className="mb-2 text-sm text-justify md:text-base lg:text-lg">
             Jooneli Trading provides specialized features like order management,
             bill splitting, and tip tracking, which are essential for daily
             operations. The system integrates with the kitchen and front-end
@@ -64,7 +65,7 @@ const Trading = () => {
           <h2 className="mt-6 mb-3 font-semibold text-gray-800 md:text-xxl lg:text-2xl">
             For General Businesses
           </h2>
-          <p className="mb-4 text-gray-600 lg:text-lg md:text-base">
+          <p className="mb-2 text-sm text-justify md:text-base lg:text-lg">
             Jooneli Trading offers essential features such as journal entries,
             accounts payable and receivable, balance sheets, and profit-and-loss
             reports. The system supports multi-currency transactions, ideal for
@@ -73,7 +74,7 @@ const Trading = () => {
             ensuring compliance with local regulations.
           </p>
 
-          <p className="mb-4 text-gray-600 lg:text-lg md:text-base">
+          <p className="mb-2 text-sm text-justify md:text-base lg:text-lg">
             Jooneli Trading is designed for ease of use, with an intuitive
             interface that requires minimal training. The system ensures data
             security with encryption and regular backups, safeguarding sensitive
@@ -82,11 +83,14 @@ const Trading = () => {
             anytime, anywhere, ensuring full control over their operations.
           </p>
 
-          <p className="text-gray-600 lg:text-lg md:text-base">
+          <p className="text-sm text-justify md:text-base lg:text-lg">
             Overall, Jooneli Trading provides a comprehensive, scalable solution
             that helps businesses manage their finances efficiently and
             effectively, fostering growth and financial stability.
           </p>
+      
+        
+        </section>
         </div>
       </div>
     </div>
