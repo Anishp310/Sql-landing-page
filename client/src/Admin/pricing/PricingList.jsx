@@ -15,7 +15,6 @@ const PricingList = () => {
     try {
       const response = await fetch('http://localhost:8080/pricing');
       const jsonData = await response.json();
-      console.log(jsonData)
       setPricingList(jsonData);
     } catch (error) {
       toast.error(error.message);
