@@ -1,4 +1,7 @@
 import { IoLogoLinkedin } from "react-icons/io5";
+import { IoLogoFacebook } from "react-icons/io";
+import { IoLogoInstagram } from "react-icons/io";
+
 import { team } from "../../Assets";
 
 const LeadershipData = [
@@ -60,7 +63,13 @@ const Leadership = () => {
             <p className="mt-2 text-sm italic text-gray-600">
               {partner.companyName}
             </p>
+            <div className="flex justify-center items-center gap-2">
             <IoLogoLinkedin className="mt-2 rounded-full size-8 " />
+            <IoLogoFacebook className="mt-2 rounded-full size-8 " />
+            <IoLogoInstagram className="mt-2 rounded-full size-8 " />
+            </div>
+            
+
           </div>
           <div>
           
