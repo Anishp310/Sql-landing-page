@@ -88,23 +88,25 @@ CREATE TABLE images (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Pricing Table
-CREATE TABLE pricing (
+CREATE TABLE bankingPlan (
     pricing_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     price VARCHAR(10) NOT NULL,
     duration VARCHAR(20) NOT NULL,
-    features JSON NOT NULL  -- MySQL supports JSON data type for arrays
+    features JSON NOT NULL,
+    excludedFeature JSON  NULL -- New column added
 );
 
--- Pricing1 Table (Duplicate pricing table as in original)
-CREATE TABLE pricing1 (
+
+CREATE TABLE tradingPlan (
     pricing_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     price VARCHAR(10) NOT NULL,
     duration VARCHAR(20) NOT NULL,
-    features JSON NOT NULL  -- JSON support in MySQL
+    features JSON NOT NULL,
+    excludedFeature JSON  NULL -- New column added
 );
+
 
 -- Example of creating an admin user
 INSERT INTO users (username, email, password, role)

@@ -8,8 +8,8 @@ import { createContact, deleteContact, getAllContacts, getContact, updateContact
 import { createCareer, deleteCareer, getAllCareers, getCareer, updateCareer } from "../controller/careerController.js";
 import { createImage, deleteImage, getAllImages, getImage, updateImage } from "../controller/imageController.js";
 import multer from "multer";
-import { createPricing, deletePricing, getAllPricing, getPricing, updatePricing } from "../controller/pricingContainer.js";
-import { createPricing1, deletePricing1, getAllPricing1, getPricing1, updatePricing1 } from "../controller/pricingContainer1.js";
+import { createBankingPlan, deleteBankingPlan, getAllBankingPlans, getBankingPlan, updateBankingPlan } from "../controller/bankingContainer.js";
+import { createTradingPlan, deleteTradingPlan, getAllTradingPlans, getTradingPlan, updateTradingPlan } from "../controller/tradingContainer.js";
 
 const storage = multer.memoryStorage(); // Store file in memory
 const upload = multer({ storage: storage });
@@ -68,15 +68,15 @@ router.post('/addImages', upload.single('image_data'), createImage);
 router.put('/updateImages/:image_id', upload.single('image_data'), updateImage);
 
 
-router.post("/addpricing", createPricing); 
-router.get("/pricing", getAllPricing); 
-router.get("/pricing/:pricing_id", getPricing); 
-router.put("/updatepricing/:pricing_id", updatePricing); 
-router.delete("/deletepricing/:pricing_id", deletePricing); 
+router.post("/addpricing",createBankingPlan); 
+router.get("/pricing", getAllBankingPlans); 
+router.get("/pricing/:pricing_id",getBankingPlan ); 
+router.put("/updatepricing/:pricing_id",updateBankingPlan ); 
+router.delete("/deletepricing/:pricing_id",deleteBankingPlan ); 
 
-router.post("/addpricing1", createPricing1); 
-router.get("/pricing1", getAllPricing1); 
-router.get("/pricing1/:pricing_id", getPricing1); 
-router.put("/updatepricing1/:pricing_id", updatePricing1); 
-router.delete("/deletepricing1/:pricing_id", deletePricing1); 
+router.post("/addpricing1", createTradingPlan); 
+router.get("/pricing1", getAllTradingPlans); 
+router.get("/pricing1/:pricing_id", getTradingPlan); 
+router.put("/updatepricing1/:pricing_id", updateTradingPlan); 
+router.delete("/deletepricing1/:pricing_id", deleteTradingPlan); 
 export default router

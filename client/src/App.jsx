@@ -1,7 +1,7 @@
-import { Outlet, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
 const App = () => {
   const location = useLocation();
@@ -15,7 +15,7 @@ const App = () => {
   }, [location]);
 
   return (
-    <div className="text-black bg-white font-primary">
+    <div className="text-black bg-white font-primary w-full max-w-[1600px] mx-auto">
       <Header />
       <Outlet />
       <Footer />

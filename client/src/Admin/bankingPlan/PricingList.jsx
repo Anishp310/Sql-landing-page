@@ -41,7 +41,8 @@ const PricingList = () => {
         name: data.name,
         price: data.price,
         duration: data.duration,
-        features: data.features.split(",")  // Split the features string into an array
+        features: data.features.split("."),  // Split the features string into an array
+        excludedfeatures :data.excludedfeatures.split(".")
       };
       
 
@@ -84,6 +85,7 @@ const PricingList = () => {
     });
   };
   const handleDeleteClick = async (pricingId) => {
+    console.log(pricingId)
     try {
       const response = await fetch(`http://localhost:8080/deletepricing/${pricingId}`, {
         method: 'DELETE',
@@ -145,7 +147,7 @@ const PricingList = () => {
                 <td className="border px-4 py-2 border-gray-300">{pricing.duration}</td>
                 <td className="border px-4 py-2 border-gray-300">
           {/* Ensure that features are parsed as an array before displaying */}
-          {Array.isArray(JSON.parse(pricing.features)) ? truncate(JSON.parse(pricing.features).join(", "),50) : truncate(pricing.features,50)}
+          {Array.isArray(JSON.parse(pricing.features)) ? truncate(JSON.parse(pricing.features).join(". "),50) : truncate(pricing.features,50)}
         </td>              
           <td className="border px-4 py-2 border-gray-300">
                   <button
@@ -216,6 +218,15 @@ const PricingList = () => {
                 <textarea
                   {...register('features', { required: 'Features are required' })}
                   id="features"
+                  rows="3"
+                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="excludedfeatures" className="block text-sm font-medium text-gray-700">Excludedfeatures (comma separated)</label>
+                <textarea
+                  {...register('excludedfeatures')}
+                  id="excludedfeatures"
                   rows="3"
                   className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />

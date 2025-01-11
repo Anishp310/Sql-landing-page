@@ -46,7 +46,6 @@ export const createImage = async (req, res) => {
     });
   }
 };
-
 // Get All Images
 export const getAllImages = async (req, res) => {
   try {

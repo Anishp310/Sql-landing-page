@@ -24,14 +24,15 @@ import MobileTeller from "./business/Pages/MobileTeller";
 import NotFoundPage from "../pages/PageNotFound";
 import Partnership from "./about/Partnership";
 import Pricing from "../pages/Pricing";
-import PricingList from "../Admin/pricing/PricingList";
-import PricingList1 from "../Admin/pricing1/PricingList1";
+
 import Register from "../Admin/Register";
 import ResetPassword from "../Admin/ResetPassword";
 import TableLists from "../Admin/TableLists";
 import { createBrowserRouter } from "react-router-dom";
 import DigitalBanking from "./home/DigitalBanking";
 import Trading from "./home/Trading";
+import PricingList1 from "../Admin/tradingPlan/PricingList1";
+import PricingList from "../Admin/bankingPlan/PricingList";
 
 const router = createBrowserRouter([
   {

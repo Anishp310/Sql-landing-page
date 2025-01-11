@@ -10,7 +10,7 @@ const Menu = [
   },
   {
     name: "About",
-    link: "/about",
+    link: "/about/the-company",
   },
   {
     name: "Business",
