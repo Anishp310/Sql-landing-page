@@ -36,9 +36,9 @@ const PricingContent = () => {
   }, [selectedPlan]);
 
   return (
-    <div className="container px-4 py-8 mx-auto">
+    <div className="py-8 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
       <div className="mx-auto text-center max-w-7xl">
-        <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+        <h1 className="text-2xl font-extrabold text-gray-900 md:text-4xl lg:text-5xl">
           Choose Your <span className="text-red-600">Pricing Plan</span>
         </h1>
         <p className="mt-4 text-lg text-gray-600">
@@ -46,7 +46,7 @@ const PricingContent = () => {
         </p>
       </div>
 
-      <div className="flex justify-center gap-4 mt-8">
+      <div className="flex justify-center gap-4 mt-4 md:mt-8">
         <div className="relative">
           <button
             className={`px-4 py-2 relative font-semibold focus:outline-none transition-opacity duration-200 ${
@@ -78,7 +78,7 @@ const PricingContent = () => {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-8 my-12 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
+      <div className="grid grid-cols-1 gap-8 my-6 md:my-12 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
         {data.length > 0 ? (
           data.map((plan, index) => {
             const isPopularPlan = index === 1;
@@ -172,7 +172,7 @@ const PricingContent = () => {
             ) : (
               <div
                 key={index}
-                className="p-6 mt-[4rem] bg-white border rounded-lg "
+                className="p-6 lg:mt-[4rem] bg-white border rounded-lg "
               >
                 {/* Card Content */}
                 <h2 className="my-4 text-2xl font-semibold text-slate-900">
