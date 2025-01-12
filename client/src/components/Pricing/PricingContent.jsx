@@ -9,7 +9,7 @@ const PricingContent = () => {
   useEffect(() => {
     const fetchPricingPlans = async () => {
       try {
-        const response = await fetch("https://fullstack-landing-page-1.onrender.com/pricing"); // Update with your actual API endpoint
+        const response = await fetch("http://localhost:8080/pricing"); // Update with your actual API endpoint
         if (!response.ok) {
           throw new Error("Failed to fetch pricing plans");
         }

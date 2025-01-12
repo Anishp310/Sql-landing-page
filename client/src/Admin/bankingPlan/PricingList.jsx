@@ -20,10 +20,15 @@ const PricingList = () => {
       toast.error(error.message);
     }
   };
-  const truncate = (str, length) => {
-    return str.length > length ? str.slice(0, length) + "..." : str;
-  };
 
+  const truncate = (str, length) => {
+    // Check if str is a valid string before accessing length
+    if (str && str.length > length) {
+      return str.slice(0, length) + "...";
+    }
+    return str || '';  // Return empty string if str is null/undefined
+  };
+  
   useEffect(() => {
     getPricing();
   }, []);
@@ -36,14 +41,13 @@ const PricingList = () => {
 
   const handlePricingSubmit = async (data) => {
     try {
-      const body = { 
-        name: data.name,
-        price: data.price,
-        duration: data.duration,
-        features: data.features.split("."),  // Split the features string into an array
-        excludedfeatures :data.excludedfeatures.split(".")
+      const body = {
+        name: data.name.trim(),
+        price: data.price.trim(),
+        duration: data.duration.trim(),
+        features: data.features.trim().split(","),
+        excludedFeature: data.excludedFeature.trim().split(","),
       };
-      
 
       const url = selectedPricing
         ? `http://localhost:8080/updatepricing/${selectedPricing.pricing_id}`
@@ -75,16 +79,19 @@ const PricingList = () => {
     setSelectedPricing(pricing);
     setIsModalOpen(true);
     reset({
-      name: pricing.name,
+      name: pricing.name, // Ensure the trim method is called
       price: pricing.price,
       duration: pricing.duration,
-      features: Array.isArray(JSON.parse(pricing.features))
-        ? JSON.parse(pricing.features).join(", ")
-        : pricing.features,
+      features: Array.isArray(JSON.parse(pricing.features)) 
+        ? JSON.parse(pricing.features).join(", ") 
+        : pricing.features.trim(),
+      excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature)) 
+        ? JSON.parse(pricing.excludedFeature).join(", ") 
+        : pricing.excludedFeature,
     });
   };
+  
   const handleDeleteClick = async (pricingId) => {
-    console.log(pricingId)
     try {
       const response = await fetch(`http://localhost:8080/deletepricing/${pricingId}`, {
         method: 'DELETE',
@@ -133,6 +140,7 @@ const PricingList = () => {
               <th className="px-4 py-2 text-left border border-gray-300">Price</th>
               <th className="px-4 py-2 text-left border border-gray-300">Duration</th>
               <th className="px-4 py-2 text-left border border-gray-300">Features</th>
+              <th className="px-4 py-2 text-left border border-gray-300">Excluded-Features</th>
               <th className="px-4 py-2 text-left border border-gray-300">Edit</th>
               <th className="px-4 py-2 text-left border border-gray-300">Delete</th>
 
@@ -145,9 +153,15 @@ const PricingList = () => {
                 <td className="border px-4 py-2 border-gray-300">{pricing.price}</td>
                 <td className="border px-4 py-2 border-gray-300">{pricing.duration}</td>
                 <td className="border px-4 py-2 border-gray-300">
-          {/* Ensure that features are parsed as an array before displaying */}
-          {Array.isArray(JSON.parse(pricing.features)) ? truncate(JSON.parse(pricing.features).join(". "),50) : truncate(pricing.features,50)}
-        </td>              
+                  {Array.isArray(JSON.parse(pricing.features)) 
+                    ? truncate(JSON.parse(pricing.features).join(","), 50) 
+                    : truncate(pricing.features, 50)}
+                </td>
+                <td className="border px-4 py-2 border-gray-300">
+                  {Array.isArray(JSON.parse(pricing.excludedFeature)) 
+                    ? truncate(JSON.parse(pricing.excludedFeature).join(","), 50) 
+                    : truncate(pricing.excludedFeature, 50)}
+                </td>           
           <td className="border px-4 py-2 border-gray-300">
                   <button
                     onClick={() => handleUpdateClick(pricing)}
@@ -222,10 +236,10 @@ const PricingList = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="excludedfeatures" className="block text-sm font-medium text-gray-700">Excludedfeatures (comma separated)</label>
+                <label htmlFor="excludedFeature" className="block text-sm font-medium text-gray-700">Excludedfeatures (comma separated)</label>
                 <textarea
-                  {...register('excludedfeatures')}
-                  id="excludedfeatures"
+                  {...register('excludedFeature')}
+                  id="excludedFeature"
                   rows="3"
                   className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />

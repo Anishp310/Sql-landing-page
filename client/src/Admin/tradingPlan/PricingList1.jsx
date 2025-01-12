@@ -11,11 +11,10 @@ const PricingList1 = () => {
   const { register, handleSubmit, reset } = useForm();
 
   // Fetch all pricing data
- const getPricing = async () => {
+  const getPricing = async () => {
     try {
       const response = await fetch('http://localhost:8080/pricing1');
       const jsonData = await response.json();
-
       setPricingList(jsonData);
     } catch (error) {
       toast.error(error.message);
@@ -42,11 +41,10 @@ const PricingList1 = () => {
         name: data.name,
         price: data.price,
         duration: data.duration,
-        features: data.features.split("."), // Split features by comma
-        excludedfeatures :data.excludedfeatures.split(".")
-
+        features: data.features.split(",").map(item => item.trim()), // Split by comma and trim spaces
+        excludedFeature: data.excludedFeature.split(",").map(item => item.trim()) // Split by comma and trim spaces
       };
-      console.log(body)
+      console.log(body);
 
       const url = selectedPricing
         ? `http://localhost:8080/updatepricing1/${selectedPricing.pricing_id}`
@@ -81,8 +79,11 @@ const PricingList1 = () => {
       price: pricing.price,
       duration: pricing.duration,
       features: Array.isArray(JSON.parse(pricing.features))
-        ? JSON.parse(pricing.features).join(", ")
+        ? JSON.parse(pricing.features).join(", ") // Join by comma
         : pricing.features,
+        excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature))
+        ? JSON.parse(pricing.excludedFeature).join(", ")
+        : pricing.excludedFeature,
     });
   };
 
@@ -103,6 +104,22 @@ const PricingList1 = () => {
       toast.success("Pricing deleted successfully!");
     } catch (error) {
       toast.error(error.message || "Failed to delete pricing. Please try again.");
+    }
+  };
+
+  const parseFeatures = (features) => {
+    if (!features) return '';  // Return empty string if features is null or undefined
+    try {
+      const parsedFeatures = JSON.parse(features);
+
+      if (!Array.isArray(parsedFeatures)) {
+        return features;  // If not an array, return the original string
+      }
+
+      return parsedFeatures.join(", "); // Join by commas to display correctly
+    } catch (error) {
+      console.error("Invalid JSON format in features", error);
+      return features;
     }
   };
 
@@ -135,9 +152,9 @@ const PricingList1 = () => {
               <th className="px-4 py-2 text-left border border-gray-300">Price</th>
               <th className="px-4 py-2 text-left border border-gray-300">Duration</th>
               <th className="px-4 py-2 text-left border border-gray-300">Features</th>
+              <th className="px-4 py-2 text-left border border-gray-300">Excluded-Features</th>
               <th className="px-4 py-2 text-left border border-gray-300">Edit</th>
               <th className="px-4 py-2 text-left border border-gray-300">Delete</th>
-
             </tr>
           </thead>
           <tbody>
@@ -147,19 +164,22 @@ const PricingList1 = () => {
                 <td className="px-4 py-2 border border-gray-300">{pricing.price}</td>
                 <td className="px-4 py-2 border border-gray-300">{pricing.duration}</td>
                 <td className="border px-4 py-2 border-gray-300">
-          {/* Ensure that features are parsed as an array before displaying */}
-          {Array.isArray(JSON.parse(pricing.features)) ? truncate(JSON.parse(pricing.features).join(". "),50) : truncate(pricing.features,50)}
-        </td>
-                        <td className="px-4 py-2 border border-gray-300">
+                  {/* Ensure that features are parsed as an array before displaying */}
+                  {truncate(parseFeatures(pricing.features?.replaceAll(",", ",")), 50)}
+                </td>
+                <td className="border px-4 py-2 border-gray-300">
+                  {/* Ensure that features are parsed as an array before displaying */}
+                  {truncate(parseFeatures(pricing.excludedFeature?.replaceAll(",", ",")), 50)}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
                   <button
                     onClick={() => handleUpdateClick(pricing)}
                     className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
                   >
                     Edit
                   </button>
-                  </td>
-                  <td className="px-4 py-2 border border-gray-300">
-
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
                   <button
                     onClick={() => handleDeleteClick(pricing.pricing_id)}
                     className="px-8 py-3 text-white bg-red-500 rounded"
@@ -225,28 +245,28 @@ const PricingList1 = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="excludedfeatures" className="block text-sm font-medium text-gray-700">Excludedfeatures (comma separated)</label>
+                <label htmlFor="excludedFeature" className="block text-sm font-medium text-gray-700">Excluded Features (comma separated)</label>
                 <textarea
-                  {...register('excludedfeatures')}
-                  id="excludedfeatures"
+                  {...register('excludedFeature')}
+                  id="excludedFeature"
                   rows="3"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div className="flex flex-wrap justify-between mt-4 space-x-4">
+              <div className="flex justify-center space-x-4">
+                <button
+                  type="submit"
+                  className="px-5 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                >
+                  {selectedPricing ? "Update" : "Add"} Pricing
+                </button>
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="w-full px-6 py-3 text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 sm:w-auto"
+                  className="px-5 py-2 text-white bg-gray-500 rounded hover:bg-gray-600"
                 >
                   Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="w-full px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:w-auto"
-                >
-                  {selectedPricing ? 'Update Pricing Plan' : 'Add Pricing Plan'}
                 </button>
               </div>
             </form>

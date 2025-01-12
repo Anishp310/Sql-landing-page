@@ -49,7 +49,7 @@ const Footer = () => {
                   <div className="py-2">
                     {[
                       { name: "About Us", to: "/about" },
-                      { name: "Blog", to: "#" },
+                      { name: "Blog", to: "/blog" },
                       { name: "For Business", to: "/business" },
                       { name: "For Partners", to: "/about/partnership" },
                       { name: "Career", to: "/career" },

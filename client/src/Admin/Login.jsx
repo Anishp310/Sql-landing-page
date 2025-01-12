@@ -23,8 +23,7 @@ const Login = ({ setNewToken }) => {
       const textData = await response.text();  // First, get the raw response as text
 
       const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
-      console.log(jsonData)
-      console.log(response)
+    
     
       if (!response.ok) {
         toast.error("Email or Password is not correct"); 

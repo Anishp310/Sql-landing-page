@@ -33,6 +33,7 @@ import DigitalBanking from "./home/DigitalBanking";
 import Trading from "./home/Trading";
 import PricingList1 from "../Admin/tradingPlan/PricingList1";
 import PricingList from "../Admin/bankingPlan/PricingList";
+import Blog from "./home/blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,8 @@ const router = createBrowserRouter([
       { path: "mobile-teller", element: <MobileTeller /> },
       { path: "atm", element: <Atm /> },
       { path: "trading", element: <Trading /> },
+      { path: "blog", element: <Blog /> },
+
 
     ],
   },
