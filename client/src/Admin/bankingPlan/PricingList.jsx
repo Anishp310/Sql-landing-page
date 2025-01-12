@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast, Toaster } from 'react-hot-toast';
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
 
 const PricingList = () => {
@@ -45,8 +45,8 @@ const PricingList = () => {
         name: data.name.trim(),
         price: data.price.trim(),
         duration: data.duration.trim(),
-        features: data.features.trim().split(","),
-        excludedFeature: data.excludedFeature.trim().split(","),
+        features: data.features.trim().split(";"),
+        excludedFeature: data.excludedFeature.trim().split(";"),
       };
 
       const url = selectedPricing
@@ -83,10 +83,10 @@ const PricingList = () => {
       price: pricing.price,
       duration: pricing.duration,
       features: Array.isArray(JSON.parse(pricing.features)) 
-        ? JSON.parse(pricing.features).join(", ") 
+        ? JSON.parse(pricing.features).join("; ") 
         : pricing.features.trim(),
       excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature)) 
-        ? JSON.parse(pricing.excludedFeature).join(", ") 
+        ? JSON.parse(pricing.excludedFeature).join("; ") 
         : pricing.excludedFeature,
     });
   };
@@ -112,9 +112,9 @@ const PricingList = () => {
   };
 
   return (
-    <div className="pricing-list-container max-w-screen-xl mx-auto my-5 p-4 bg-gray-100 rounded shadow-lg overflow-hidden">
+    <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg pricing-list-container">
       <Toaster position="top-left" />
-      <h1 className="text-2xl font-bold mb-5">Pricing List for Corporate Banking Plan</h1>
+      <h1 className="mb-5 text-2xl font-bold">Pricing List for Corporate Banking Plan</h1>
 
       <button
         onClick={() => {
@@ -127,7 +127,7 @@ const PricingList = () => {
           });
           setIsModalOpen(true);
         }}
-        className="bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded mb-4"
+        className="px-5 py-2 mb-4 text-white bg-green-500 rounded hover:bg-green-600"
       >
         Add Pricing Plan
       </button>
@@ -149,32 +149,32 @@ const PricingList = () => {
           <tbody>
             {pricingList.map((pricing) => (
               <tr key={pricing.pricing_id} className="hover:bg-gray-600 hover:text-white">
-                <td className="border px-4 py-2 border-gray-300">{pricing.name}</td>
-                <td className="border px-4 py-2 border-gray-300">{pricing.price}</td>
-                <td className="border px-4 py-2 border-gray-300">{pricing.duration}</td>
-                <td className="border px-4 py-2 border-gray-300">
+                <td className="px-4 py-2 border border-gray-300">{pricing.name}</td>
+                <td className="px-4 py-2 border border-gray-300">{pricing.price}</td>
+                <td className="px-4 py-2 border border-gray-300">{pricing.duration}</td>
+                <td className="px-4 py-2 border border-gray-300">
                   {Array.isArray(JSON.parse(pricing.features)) 
-                    ? truncate(JSON.parse(pricing.features).join(","), 50) 
+                    ? truncate(JSON.parse(pricing.features).join(";"), 50) 
                     : truncate(pricing.features, 50)}
                 </td>
-                <td className="border px-4 py-2 border-gray-300">
+                <td className="px-4 py-2 border border-gray-300">
                   {Array.isArray(JSON.parse(pricing.excludedFeature)) 
-                    ? truncate(JSON.parse(pricing.excludedFeature).join(","), 50) 
+                    ? truncate(JSON.parse(pricing.excludedFeature).join(";"), 50) 
                     : truncate(pricing.excludedFeature, 50)}
                 </td>           
-          <td className="border px-4 py-2 border-gray-300">
+          <td className="px-4 py-2 border border-gray-300">
                   <button
                     onClick={() => handleUpdateClick(pricing)}
-                    className="bg-blue-500 text-white px-8 py-3 rounded mr-2"
+                    className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
                   >
                     Edit
                   </button>
                   </td>
-                  <td className="border px-4 py-2 border-gray-300">
+                  <td className="px-4 py-2 border border-gray-300">
 
                   <button
                     onClick={() => handleDeleteClick(pricing.pricing_id)}
-                    className="bg-red-500 text-white px-8 py-3 rounded"
+                    className="px-8 py-3 text-white bg-red-500 rounded"
                   >
                     Delete
                   </button>
@@ -186,9 +186,9 @@ const PricingList = () => {
       </div>
 
       {isModalOpen && (
-        <div className="modal fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center overflow-auto" open>
+        <div className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal" open>
           <div className="relative modal-content bg-white text-black p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-3xl overflow-y-auto max-h-[90vh]">
-            <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">{selectedPricing ? "Update Pricing Plan" : "Add Pricing Plan"}</h2>
+            <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">{selectedPricing ? "Update Pricing Plan" : "Add Pricing Plan"}</h2>
             <div className="absolute top-3 right-2">
               <FaTimes
                 className="text-2xl cursor-pointer"
@@ -202,7 +202,7 @@ const PricingList = () => {
                   {...register('name', { required: 'Name is required' })}
                   id="name"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -212,7 +212,7 @@ const PricingList = () => {
                   {...register('price', { required: 'Price is required' })}
                   id="price"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -222,40 +222,42 @@ const PricingList = () => {
                   {...register('duration', { required: 'Duration is required' })}
                   id="duration"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div className="mb-4">
-                <label htmlFor="features" className="block text-sm font-medium text-gray-700">Features (comma separated)</label>
+              <div className="mb-4"> 
+                <label htmlFor="features" className="block text-sm font-medium text-gray-700">Features (separated with semi-colon ;)</label>
                 <textarea
                   {...register('features', { required: 'Features are required' })}
                   id="features"
                   rows="3"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter features separated by ; (e.g., Feature1; Feature2; Feature3)"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="excludedFeature" className="block text-sm font-medium text-gray-700">Excludedfeatures (comma separated)</label>
+                <label htmlFor="excludedFeature" className="block text-sm font-medium text-gray-700">Excludedfeatures (separated with semi-colon ;)</label>
                 <textarea
                   {...register('excludedFeature')}
                   id="excludedFeature"
+                  placeholder="Enter excluded features separated by ; (e.g., Excluded1; Excluded2)"
                   rows="3"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div className="flex justify-between flex-wrap space-x-4 mt-4">
+              <div className="flex flex-wrap justify-between mt-4 space-x-4">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 w-full sm:w-auto"
+                  className="w-full px-6 py-3 text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 sm:w-auto"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+                  className="w-full px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:w-auto"
                 >
                   {selectedPricing ? 'Update Pricing Plan' : 'Add Pricing Plan'}
                 </button>

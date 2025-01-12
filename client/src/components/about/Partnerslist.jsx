@@ -1,5 +1,4 @@
-import React from 'react'
-import PartnersCard from './PartnersCard'
+import PartnersCard from "./PartnersCard";
 
 const Partnerslist = () => {
   return (

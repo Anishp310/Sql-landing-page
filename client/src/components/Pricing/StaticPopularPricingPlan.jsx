@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 const StaticPopularPricingPlan = () => {
   const [selectedPlan, setSelectedPlan] = useState("Corporate Banking Plan");
   const [data, setData] = useState([]);
-  
-  const bankingPlanText = [{text: "Best for service-based businesses that require basic accounting"},
-    {text: "Best for service-based businesses that require basic accounting2"},
-    {text: "Best for service-based businesses that require basic accounting3"}
 
-  ]
+  const bankingPlanText = [
+    { text: "Best for service-based businesses that require basic accounting" },
+    {
+      text: "Best for service-based businesses that require basic accounting2",
+    },
+    {
+      text: "Best for service-based businesses that require basic accounting3",
+    },
+  ];
 
   useEffect(() => {
     // Fetch data based on the selected plan
@@ -42,35 +46,35 @@ const StaticPopularPricingPlan = () => {
         </p>
       </div>
 
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center gap-4 mt-8">
         <div className="relative">
           <button
-            className={`px-6 py-3 relative font-semibold focus:outline-none transition-opacity duration-200 ${
+            className={`px-4 py-2 relative font-semibold focus:outline-none transition-opacity duration-200 ${
               selectedPlan === "Corporate Banking Plan"
-                ? "opacity-80 bg-red-200 text-black shadow-lg hover:bg-red-200"
-                : "opacity-30 bg-red-200 text-black hover:opacity-45"
+                ? " text-red-900 border-b-2 bg-slate-50"
+                : ""
             }`}
             onClick={() => setSelectedPlan("Corporate Banking Plan")}
           >
             Corporate Banking Plan
           </button>
           {selectedPlan === "Corporate Banking Plan" && (
-            <hr className="absolute bottom-0 left-0 border-b-2 border-red-500 mt-1 w-full opacity-40" />
+            <hr className="absolute bottom-0 left-0 w-full border-b-2 border-slate-900 " />
           )}
         </div>
         <div className="relative">
           <button
-            className={`px-6 py-3 relative font-semibold focus:outline-none transition-opacity duration-200 ${
+            className={`py-2 relative font-semibold focus:outline-none transition-opacity duration-200 px-4 ${
               selectedPlan === "Trading Plan"
-                ? "opacity-80 bg-red-200 text-black shadow-lg hover:bg-red-200"
-                : "opacity-30 bg-red-200 text-black hover:opacity-45"
+                ? "text-red-900 border-b-2 bg-slate-50 "
+                : ""
             }`}
             onClick={() => setSelectedPlan("Trading Plan")}
           >
             Trading Plan
           </button>
           {selectedPlan === "Trading Plan" && (
-            <hr className="absolute bottom-0 left-0 border-b-2 border-red-500 mt-1 w-full opacity-40" />
+            <hr className="absolute bottom-0 left-0 w-full border-b-2 border-slate-900 " />
           )}
         </div>
       </div>
@@ -106,66 +110,70 @@ const StaticPopularPricingPlan = () => {
                   </span>
                   <span className="text-gray-600"> / {plan.duration}</span>
                 </div>
-                <button className="border-2 border-red-500 p-4 mx-5 mb-2 hover:bg-red-700 hover:text-white">
+                <button className="p-4 mx-5 mb-2 border-2 border-red-500 hover:bg-red-700 hover:text-white">
                   <span>Get Started</span>
                 </button>
                 <ul className="space-y-2 text-gray-600">
-  {plan.features &&
-    JSON.parse(plan.features).map((feature, i) => (
-      <li key={i} className="flex items-start space-x-2 text-sm text-gray-700">
-        <svg
-          className="w-5 h-5 text-red-500 flex-shrink-0"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-        >
-          <path
-            fillRule="evenodd"
-            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-            clipRule="evenodd"
-          />
-        </svg>
-        <span>{feature}</span>
-      </li>
-    ))}
-</ul>
-<ul className="space-y-2 text-gray-600 mt-2">
-  {(() => {
-    try {
-      const features =
-        plan?.excludedFeature && plan.excludedFeature.trim() !== ""
-          ? JSON.parse(plan.excludedFeature)
-          : [];
-      return features.map((feature, i) => (
-        <li
-          key={i}
-          className="flex items-start space-x-2 text-sm text-gray-700"
-        >
-          <svg
-            className="w-5 h-5 text-red-500 flex-shrink-0"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fillRule="evenodd"
-              d="M6.293 4.293a1 1 0 011.414 0L10 7.586l2.293-2.293a1 1 0 111.414 1.414L11.414 9l2.293 2.293a1 1 0 11-1.414 1.414L10 10.414l-2.293 2.293a1 1 0 11-1.414-1.414L8.586 9 6.293 6.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <span>{feature}</span>
-        </li>
-      ));
-    } catch (error) {
-      console.error("Error parsing excludedFeature:", error);
-      return (
-        <p className="text-gray-500 text-sm">
-          Invalid feature data.
-        </p>
-      );
-    }
-  })()}
-</ul>
+                  {plan.features &&
+                    JSON.parse(plan.features).map((feature, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start space-x-2 text-sm text-gray-700"
+                      >
+                        <svg
+                          className="flex-shrink-0 w-5 h-5 text-red-500"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                </ul>
+                <ul className="mt-2 space-y-2 text-gray-600">
+                  {(() => {
+                    try {
+                      const features =
+                        plan?.excludedFeature &&
+                        plan.excludedFeature.trim() !== ""
+                          ? JSON.parse(plan.excludedFeature)
+                          : [];
+                      return features.map((feature, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start space-x-2 text-sm text-gray-700"
+                        >
+                          <svg
+                            className="flex-shrink-0 w-5 h-5 text-red-500"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M6.293 4.293a1 1 0 011.414 0L10 7.586l2.293-2.293a1 1 0 111.414 1.414L11.414 9l2.293 2.293a1 1 0 11-1.414 1.414L10 10.414l-2.293 2.293a1 1 0 11-1.414-1.414L8.586 9 6.293 6.707a1 1 0 010-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span>{feature}</span>
+                        </li>
+                      ));
+                    } catch (error) {
+                      console.error("Error parsing excludedFeature:", error);
+                      return (
+                        <p className="text-sm text-gray-500">
+                          Invalid feature data.
+                        </p>
+                      );
+                    }
+                  })()}
+                </ul>
 
                 <button
                   className={`mt-6 w-full py-2 font-bold transition duration-300 ease-in-out rounded-lg ${

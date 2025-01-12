@@ -10,7 +10,7 @@ const MediaCover = () => {
           <hr className='rotate-90 w-[80px] border-white border-1 ' />
           <div>
             <p className='text-2xl font-semibold md:text-4xl'>Media</p>
-            <p className='mt-2 text-sm md:text-lg'></p>
+            <p className='mt-2 text-sm md:text-lg'>News Coverage of Jooneli </p>
           </div>
         </div>
       </div>

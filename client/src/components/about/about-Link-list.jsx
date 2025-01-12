@@ -19,7 +19,7 @@ const AboutListComponent = ({ onSectionChange }) => {
               to={item.link}
               onClick={() => onSectionChange(item.section)}
               className={({ isActive }) =>
-                `flex items-center rounded-md px-2 py-1 transition-colors ease-out duration-200
+                `flex items-center rounded-md transition-colors ease-out duration-200
                 ${
                   isActive
                     ? "text-orange-400 font-semibold"

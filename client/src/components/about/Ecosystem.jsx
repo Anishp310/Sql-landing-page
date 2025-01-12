@@ -29,7 +29,7 @@ const Ecosystem = () => {
         <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
           The modern banking ecosystem integrates various channels to provide
           seamless and efficient services to customers. At its core is the
-          <strong className="text-red-900"> 360 Core Banking System</strong>,
+          <strong className=""> 360 Core Banking System</strong>,
           enabling real-time operations and a unified customer experience across
           platforms.
         </p>
@@ -39,27 +39,27 @@ const Ecosystem = () => {
           </p>
           <ul className="lg:ml-[4rem] pl-8 space-y-4 list-disc md:ml-[2rem] ml-1 ">
             <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
-              <strong className="text-red-900">SMS Banking </strong> ensures
+              <strong className="">SMS Banking </strong> ensures
               accessibility through instant alerts, balance inquiries, and quick
               transactions using simple text commands.
             </li>
             <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
-              <strong className="text-red-900">Mobile Banking</strong> offers
+              <strong className="">Mobile Banking</strong> offers
               24/7 account management, fund transfers, bill payments, and mobile
               top-ups, delivering unmatched convenience.
             </li>
             <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
-              <strong className="text-red-900">ATM services</strong> extend the
+              <strong className="">ATM services</strong> extend the
               ecosystem's reach, providing cash withdrawals, deposits, and other
               services anytime, anywhere.
             </li>
             <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
-              <strong className="text-red-900">Tab Banking </strong>streamlines
+              <strong className="">Tab Banking </strong>streamlines
               onboarding and service delivery, enabling representatives to
               handle tasks like account openings or KYC processes remotely.
             </li>
             <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
-              <strong className="text-red-900">Mobile Teller </strong>enhances
+              <strong className="">Mobile Teller </strong>enhances
               customer engagement by bringing banking services directly to the
               user’s location, improving efficiency and satisfaction.
             </li>
@@ -91,7 +91,7 @@ const Ecosystem = () => {
         <div className=" lg:ml-[4rem] space-y-8 mb-4 md:ml-[2rem] ml-1">
           {features.map((feature) => (
             <div key={feature.id}>
-              <h4 className="mb-2 text-base font-bold text-red-900 lg:text-xl md:text-lg">
+              <h4 className="mb-2 text-base font-bold text-black lg:text-xl md:text-lg">
                 {feature.title}
               </h4>
               <ul className="pl-12 space-y-2 list-disc">
@@ -114,15 +114,15 @@ const Ecosystem = () => {
         </div>
         <ul className="lg:ml-[4rem] pl-8 space-y-4 list-disc md:ml-[2rem] ml-1">
           <li className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base">
-            <strong className="text-red-900"> Real-Time Processing:</strong>{" "}
+            <strong className=""> Real-Time Processing:</strong>{" "}
             Handles concurrent transactions with minimal latency.
           </li>
           <li className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base">
-            <strong className="text-red-900">Security:</strong> Employs advanced
+            <strong className="">Security:</strong> Employs advanced
             encryption, multi-factor authentication, and data integrity checks.
           </li>
           <li className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base">
-            <strong className="text-red-900">Scalability:</strong> Bigtable
+            <strong className="">Scalability:</strong> Bigtable
             architecture ensures effortless expansion as demands grow.
           </li>
         </ul>

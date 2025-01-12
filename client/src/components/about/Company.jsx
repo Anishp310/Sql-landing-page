@@ -6,7 +6,7 @@ const Company = () => {
           Inspiring Banking Systems with IT Solutions
         </div>
         <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
-          <strong className="text-red-900">Jooneli Inc Pvt. Ltd.</strong> is a leading Nepali software company that has
+          <strong className="">Jooneli Inc Pvt. Ltd.</strong> is a leading Nepali software company that has
           established itself as a prominent player in the global IT solutions
           market, particularly in the financial and business sectors. Leveraging
           cutting-edge technologies, Jooneli Inc develops and delivers a suite
@@ -22,7 +22,7 @@ const Company = () => {
         </p>
 
         <div className="lg:mt-6 ">
-          <h2 className="mb-2 text-lg font-semibold text-red-600 md:mb-4 lg:text-2xl md:text-xl">
+          <h2 className="mb-2 text-lg font-semibold text-black md:mb-4 lg:text-2xl md:text-xl">
             Jooneli Inc.: Empowering Communities through Financial Innovation
           </h2>
 
@@ -62,7 +62,7 @@ const Company = () => {
             businesses, driving economic empowerment and financial inclusion:
           </p>
           <p className="mt-2 text-sm leading-relaxed text-justify text-gray-700 md:mt-4 lg:text-lg md:text-base">
-            <strong className="text-red-900">360 Core Banking System: </strong>A
+            <strong className="">360 Core Banking System: </strong>A
             state-of-the-art platform designed to optimize the operations of
             financial institutions. This system integrates essential banking
             functions like savings, loans, payments, and reporting into a
@@ -70,7 +70,7 @@ const Company = () => {
             errors, and ensuring compliance with regulatory standards.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-justify text-gray-700 md:mt-4 lg:text-lg md:text-base">
-            <strong className="text-red-900">Jooneli Trading: </strong>A
+            <strong className="">Jooneli Trading: </strong>A
             comprehensive accounting and business management system designed to
             streamline financial operations for various industries, including
             retail, restaurants, and general businesses. Jooneli Trading enables

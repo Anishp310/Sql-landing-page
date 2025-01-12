@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
@@ -41,8 +41,8 @@ const PricingList1 = () => {
         name: data.name,
         price: data.price,
         duration: data.duration,
-        features: data.features.split(",").map(item => item.trim()), // Split by comma and trim spaces
-        excludedFeature: data.excludedFeature.split(",").map(item => item.trim()) // Split by comma and trim spaces
+        features: data.features.split(";").map(item => item.trim()), // Split by ; and trim spaces
+        excludedFeature: data.excludedFeature.split(";").map(item => item.trim()) // Split by ;  and trim spaces
       };
       console.log(body);
 
@@ -79,10 +79,10 @@ const PricingList1 = () => {
       price: pricing.price,
       duration: pricing.duration,
       features: Array.isArray(JSON.parse(pricing.features))
-        ? JSON.parse(pricing.features).join(", ") // Join by comma
+        ? JSON.parse(pricing.features).join("; ") // Join by ;
         : pricing.features,
         excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature))
-        ? JSON.parse(pricing.excludedFeature).join(", ")
+        ? JSON.parse(pricing.excludedFeature).join("; ")
         : pricing.excludedFeature,
     });
   };
@@ -163,13 +163,13 @@ const PricingList1 = () => {
                 <td className="px-4 py-2 border border-gray-300">{pricing.name}</td>
                 <td className="px-4 py-2 border border-gray-300">{pricing.price}</td>
                 <td className="px-4 py-2 border border-gray-300">{pricing.duration}</td>
-                <td className="border px-4 py-2 border-gray-300">
+                <td className="px-4 py-2 border border-gray-300">
                   {/* Ensure that features are parsed as an array before displaying */}
-                  {truncate(parseFeatures(pricing.features?.replaceAll(",", ",")), 50)}
+                  {truncate(parseFeatures(pricing.features?.replaceAll(";", ";")), 50)}
                 </td>
-                <td className="border px-4 py-2 border-gray-300">
+                <td className="px-4 py-2 border border-gray-300">
                   {/* Ensure that features are parsed as an array before displaying */}
-                  {truncate(parseFeatures(pricing.excludedFeature?.replaceAll(",", ",")), 50)}
+                  {truncate(parseFeatures(pricing.excludedFeature?.replaceAll(";", ";")), 50)}
                 </td>
                 <td className="px-4 py-2 border border-gray-300">
                   <button
@@ -235,21 +235,23 @@ const PricingList1 = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="features" className="block text-sm font-medium text-gray-700">Features (comma separated)</label>
+                <label htmlFor="features" className="block text-sm font-medium text-gray-700">Features (separated with semi-colon ;)</label>
                 <textarea
                   {...register('features', { required: 'Features are required' })}
                   id="features"
                   rows="3"
+                   placeholder="Enter features separated by ; (e.g., Feature1; Feature2; Feature3)"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div className="mb-4">
-                <label htmlFor="excludedFeature" className="block text-sm font-medium text-gray-700">Excluded Features (comma separated)</label>
+                <label htmlFor="excludedFeature" className="block text-sm font-medium text-gray-700">Excluded Features (separated with semi-colon ;)</label>
                 <textarea
                   {...register('excludedFeature')}
                   id="excludedFeature"
                   rows="3"
+                   placeholder="Enter excluded features separated by ; (e.g., Excluded1; Excluded2)"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>

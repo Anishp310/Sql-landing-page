@@ -1,8 +1,8 @@
 const Partnership = () => {
   return (
     <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] md:mt-[2rem] mt-[1rem]">
-      <div className="mx-1 my-4 lg:mx-6">
-        <section className="p-4 mt-1 bg-white lg:p-8 lg:mt-6">
+      
+        <section className="py-4 mt-1 bg-white lg:py-8 lg:mt-6">
           <p className="mb-4 text-center lg:text-4xl md:text-2xl md:mb-8">
             Why Partner with
             <span className="font-bold text-red-900"> Jooneli?</span>
@@ -31,7 +31,7 @@ const Partnership = () => {
             regions it serves.
           </p>
         </section>
-      </div>
+      
     </div>
   );
 };

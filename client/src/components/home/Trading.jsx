@@ -24,7 +24,7 @@ const Trading = () => {
       </div>
       <div>
         <div className="mt-6 mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] ">
-        <section className="p-4 mt-1 bg-white md:p-8 md:mt-6">
+        <section className="py-4 mt-1 bg-white md:py-8 md:mt-6">
         <h1 className="mb-4 font-bold text-red-900 md:text-2xl lg:text-3xl">
             Jooneli Trading: A Comprehensive Accounting System for Businesses
           </h1>

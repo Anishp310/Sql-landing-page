@@ -1,38 +1,38 @@
-import { IoLogoLinkedin } from "react-icons/io5";
-import { IoLogoFacebook } from "react-icons/io";
 import { IoLogoInstagram } from "react-icons/io";
-
+import { IoLogoFacebook } from "react-icons/io";
+import { IoLogoLinkedin } from "react-icons/io5";
 import { team } from "../../Assets";
 
 const LeadershipData = [
+ 
   {
     id: 1,
-    name: "John Doe",
-    position: "Manager",
-    image: team,
-    companyName: "TechCorp",
-
-  },
-  {
-    id: 2,
     name: "Jane Smith",
     position: "Director",
     image: team,
-    companyName: "CreativeSolutions",
+    companyName: "Jooneli Inc.",
+  },
+  {
+    id: 2,
+    name: "Apar Thebe",
+    position: "CEO",
+    image: team,
+    companyName: "Jooneli Inc.",
   },
   {
     id: 3,
-    name: "Mark Johnson",
-    position: "CEO",
+    name: "John Doe",
+    position: "Manager",
     image: team,
-    companyName: "InnovateTech",
+    companyName: "Jooneli Inc.",
+
   },
   {
     id: 4,
     name: "Alice Williams",
     position: "CTO",
     image: team,
-    companyName: "VisionaryApps",
+    companyName: "Jooneli Inc.",
   },
 ];
 
@@ -63,7 +63,7 @@ const Leadership = () => {
             <p className="mt-2 text-sm italic text-gray-600">
               {partner.companyName}
             </p>
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex items-center justify-center gap-2">
             <IoLogoLinkedin className="mt-2 rounded-full size-8 " />
             <IoLogoFacebook className="mt-2 rounded-full size-8 " />
             <IoLogoInstagram className="mt-2 rounded-full size-8 " />

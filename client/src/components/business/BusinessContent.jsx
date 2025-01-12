@@ -5,7 +5,7 @@ const BusinessContent = () => {
   return (
     <div>
       <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
-        <div className="flex flex-col items-center justify-center px-2 py-6 lg:p-10 md:p-6">
+        <div className="flex flex-col items-center justify-center py-6 lg:py-10 md:py-6">
           <p className="text-xl font-bold lg::text-4xl lg:mb-[3rem] md:text-2xl md:mb-6 mb-4">
             <span className="font-extrabold text-red-900">Corporate</span>{" "}
             Digital Banking
