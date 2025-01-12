@@ -85,12 +85,12 @@ const PricingContent = () => {
             return isPopularPlan ? (
               <div
                 key={index}
-                className="border border-red-900 rounded-lg bg-red-50"
+                className="border border-red-900 rounded-lg "
               >
                 <div className="text-white bg-red-900 rounded-t-lg ">
                   <h1 className="p-4 text-2xl">Most Value</h1>
                 </div>
-                <div className="p-6">
+                <div className="p-6 ">
                   {/* Card Content */}
                   <h2 className="my-4 text-2xl font-semibold text-slate-900">
                     {plan.name}
