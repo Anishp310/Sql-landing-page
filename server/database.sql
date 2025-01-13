@@ -107,12 +107,20 @@ CREATE TABLE tradingPlan (
     excludedFeature JSON  NULL -- New column added
 );
 
+-- CREATE TABLE blog (
+--   blog_id INT AUTO_INCREMENT PRIMARY KEY,
+--   title VARCHAR(255) NOT NULL,
+--   description TEXT NOT NULL,
+--   image_data LONGBLOB,
+--   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
 CREATE TABLE blog (
   blog_id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   image_data LONGBLOB,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  click_count INT DEFAULT 0 -- New column to track the number of clicks
 );
 
 -- Example of creating an admin user

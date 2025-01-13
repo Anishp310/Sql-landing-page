@@ -10,7 +10,10 @@ const BlogList = () => {
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
-
+  const truncate = (str, length) => {
+    return str.length > length ? str.slice(0, length) + "..." : str;
+  };
+ 
   const getToken = () => localStorage.getItem("token");
 
   const validateToken = () => {
@@ -133,9 +136,8 @@ const BlogList = () => {
           <tbody>
             {blogList.map((blog) => (
               <tr key={blog.blog_id} className="hover:bg-gray-600 hover:text-white">
-                <td className="border px-4 py-2 border-gray-300">{blog.title}</td>
-                <td className="border px-4 py-2 border-gray-300">{blog.description}</td>
-                <td className="border px-4 py-2 border-gray-300">
+                <td className="border px-4 py-2 border-gray-300">{truncate(blog.title,50)}</td>
+                <td className="border px-4 py-2 border-gray-300">{truncate(blog.description,50)}</td>
                 <td className="border px-4 py-2 border-gray-300 flex justify-center items-center">
   {blog.image_data && (
     <img
@@ -148,7 +150,6 @@ const BlogList = () => {
 </td>
 
 
-                </td>
                 <td className="border px-4 py-2 border-gray-300">{blog.created_at}</td>
 
                 <td className="border px-4 py-2 border-gray-300">

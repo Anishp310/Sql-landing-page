@@ -35,6 +35,7 @@ import PricingList1 from "../Admin/tradingPlan/PricingList1";
 import PricingList from "../Admin/bankingPlan/PricingList";
 import Blog from "./home/blog/Blog";
 import BlogList from "../Admin/blog/BlogList";
+import BlogDetail from "./home/blog/BlogDetail";
 
 const router = createBrowserRouter([
   {
@@ -79,7 +80,11 @@ const router = createBrowserRouter([
       { path: "mobile-teller", element: <MobileTeller /> },
       { path: "atm", element: <Atm /> },
       { path: "trading", element: <Trading /> },
-      { path: "blog", element: <Blog /> },
+      { path: "blog", element: <Blog />},
+      { path: "blog/:id", element: <BlogDetail /> },
+
+     
+      
 
 
     ],
