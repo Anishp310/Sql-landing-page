@@ -29,6 +29,9 @@ const Sidebar = () => {
         <li>
           <Link to="/admin/pricing-list1" className="block px-4 py-2 rounded hover:bg-gray-600">Trading Plan</Link>
         </li>
+        <li>
+          <Link to="/admin/bloglist" className="block px-4 py-2 rounded hover:bg-gray-600">Blogs</Link>
+        </li>
       </ul>
     </div>
   );

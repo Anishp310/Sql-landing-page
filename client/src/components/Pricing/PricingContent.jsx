@@ -213,44 +213,52 @@ const PricingContent = () => {
                       </li>
                     ))}
                 </ul>
-                <ul className="mt-2 space-y-2 text-gray-600">
-                  {(() => {
-                    try {
-                      const features =
-                        plan?.excludedFeature &&
-                        plan.excludedFeature.trim() !== ""
-                          ? JSON.parse(plan.excludedFeature)
-                          : [];
-                      return features.map((feature, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start space-x-2 text-sm text-slate-900"
-                        >
-                          <svg
-                            className="flex-shrink-0 w-5 h-5 text-red-900"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M6.293 4.293a1 1 0 011.414 0L10 7.586l2.293-2.293a1 1 0 111.414 1.414L11.414 9l2.293 2.293a1 1 0 11-1.414 1.414L10 10.414l-2.293 2.293a1 1 0 11-1.414-1.414L8.586 9 6.293 6.707a1 1 0 010-1.414z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          <span>{feature}</span>
-                        </li>
-                      ));
-                    } catch (error) {
-                      console.error("Error parsing excludedFeature:", error);
-                      return (
-                        <p className="text-sm text-slate-900">
-                          Invalid feature data.
-                        </p>
-                      );
-                    }
-                  })()}
-                </ul>
+                {
+  plan.excludedFeature && plan.excludedFeature.trim() !== "" ? (
+    <ul className="mt-2 space-y-2 text-gray-600">
+      {(() => {
+        try {
+  
+          // Parse the excludedFeature only if it is valid JSON
+          const features = JSON.parse(plan.excludedFeature);
+
+          // Filter out any empty strings in the features array
+          const validFeatures = features.filter(feature => feature.trim() !== "");
+
+          if (validFeatures.length > 0) {
+            return validFeatures.map((feature, i) => (
+              <li key={i} className="flex items-start space-x-2 text-sm text-slate-900">
+                <svg
+                  className="flex-shrink-0 w-5 h-5 text-red-900"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M6.293 4.293a1 1 0 011.414 0L10 7.586l2.293-2.293a1 1 0 111.414 1.414L11.414 9l2.293 2.293a1 1 0 11-1.414 1.414L10 10.414l-2.293 2.293a1 1 0 11-1.414-1.414L8.586 9 6.293 6.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span>{feature}</span>
+              </li>
+            ));
+          } else {
+            // If there are no valid features, return nothing
+            return <></>;
+          }
+        } catch (error) {
+          console.error("Error parsing excludedFeature:", error);
+          return <p className="text-sm text-slate-900">Invalid feature data.</p>;
+        }
+      })()}
+    </ul>
+  ) : null // Return null if excludedFeature is empty or invalid
+}
+
+
+
+                
               </div>
             );
           })

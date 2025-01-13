@@ -38,7 +38,7 @@ router.delete('/deleteBrochure/:brochure_id',authenticateToken,deleteBrochure)
 
 //demo
 router.post('/addDemo',createDemo)
-router.get('/getAllDemo',authenticateToken,getAllDemos)
+router.get('/getAllDemo',getAllDemos)
 router.put('/updateDemo/:Demo_id',authenticateToken,updateDemo)
 router.delete('/deleteDemo/:Demo_id',authenticateToken,deleteDemo)
 
@@ -81,11 +81,11 @@ router.get("/pricing1/:pricing_id", getTradingPlan);
 router.put("/updatepricing1/:pricing_id", updateTradingPlan); 
 router.delete("/deletepricing1/:pricing_id", deleteTradingPlan); 
 
-router.post("/addblog", createBlog); // Create a new blog post
+router.post("/addblog",upload.single('image_data'), createBlog); // Create a new blog post
 router.get("/blogs", getAllBlogs); // Get all blog posts
 router.get("/blog/:blog_id", getBlog); // Get a single blog post by ID
-router.put("/updateblog/:blog_id", updateBlog); // Update a blog post by ID
-router.delete("/deleteblog/:blog_id", deleteBlog); // Delete a blog post by ID
+router.put("/updateblog/:blog_id",upload.single('image_data'),updateBlog); // Update a blog post by ID
+router.delete("/deleteblog/:blog_id" ,deleteBlog); // Delete a blog post by ID
 
 
 export default router

@@ -14,11 +14,7 @@ const DemoList = () => {
 
   const getDemo = async () => {
     try {
-      const response = await fetch('http://localhost:8080/getAllDemo', {
-        headers: {
-          Authorization: `Bearer ${token}`, // Ensure token is passed in request header
-        },
-      });
+      const response = await fetch('http://localhost:8080/getAllDemo');
       const textData = await response.text();  // First, get the raw response as text
       const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
       setDemo(jsonData);

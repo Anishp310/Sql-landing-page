@@ -41,7 +41,7 @@ const Imagelist = () => {
     try {
       const formData = new FormData();
       formData.append("image_data", data.image_data[0]);  // Image file to be uploaded
-      
+      console.log(formData)
       const url = selectedImage
         ? `http://localhost:8080/updateImages/${selectedImage.image_id}`
         : 'http://localhost:8080/addImages';

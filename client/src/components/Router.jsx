@@ -34,6 +34,7 @@ import Trading from "./home/Trading";
 import PricingList1 from "../Admin/tradingPlan/PricingList1";
 import PricingList from "../Admin/bankingPlan/PricingList";
 import Blog from "./home/blog/Blog";
+import BlogList from "../Admin/blog/BlogList";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,8 @@ const router = createBrowserRouter([
       { path: "imagelist", element: <Imagelist /> },
       { path: "pricing-list", element: <PricingList /> },
       { path: "pricing-list1", element: <PricingList1 /> },
+      { path: "bloglist", element: <BlogList /> },
+
 
     ],
   },
