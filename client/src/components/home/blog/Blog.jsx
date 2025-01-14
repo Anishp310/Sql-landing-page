@@ -195,7 +195,7 @@ const Blog = () => {
                       alt=""
                       className="w-8 h-8 mb-2 rounded-full"
                     />
-                    <span className="mb-2">{post.title}</span>
+                    <span className="mb-2 cursor-pointer" onClick={() => handleBlogClick(post)}>{post.title}</span>
                   </li>
                 ))}
               </ul>
