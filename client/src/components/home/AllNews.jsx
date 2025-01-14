@@ -12,7 +12,7 @@ const AllNews = () => {
   const fetchNews = async () => {
     try {
       const response = await fetch(
-        "https://fullstack-landing-page-1.onrender.com/getAllNews"
+        "http://localhost:8080/getAllNews"
       ); // Replace with your API endpoint
       const data = await response.json();
       setNewsList(data);

@@ -177,7 +177,8 @@ const BlogDetail = () => {
         {paragraph}
       </p>
     ));
-  })()}          <div className="mt-4 text-sm text-gray-500">
+  })()}          
+  <div className="mt-4 text-sm text-gray-500">
             <span>
               {new Intl.DateTimeFormat("en-US", {
                 day: "2-digit",
