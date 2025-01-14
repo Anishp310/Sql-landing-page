@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { BsCheck2Circle } from "react-icons/bs";
+import { checkIcon, crossIcon } from "../../Assets";
 
 const PricingContent = () => {
   const [selectedPlan, setSelectedPlan] = useState("Corporate Banking Plan");
@@ -83,10 +85,7 @@ const PricingContent = () => {
           data.map((plan, index) => {
             const isPopularPlan = index === 1;
             return isPopularPlan ? (
-              <div
-                key={index}
-                className="border border-red-900 rounded-lg "
-              >
+              <div key={index} className="border border-red-900 rounded-lg ">
                 <div className="text-white bg-red-900 rounded-t-lg ">
                   <h1 className="p-4 text-2xl">Most Value</h1>
                 </div>
@@ -113,7 +112,7 @@ const PricingContent = () => {
                           key={i}
                           className="flex items-start space-x-2 text-sm text-slate-900"
                         >
-                          <svg
+                          {/* <svg
                             className="flex-shrink-0 w-5 h-5 text-green-900"
                             fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +123,13 @@ const PricingContent = () => {
                               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                               clipRule="evenodd"
                             />
-                          </svg>
+                          </svg> */}
+                          <img
+                            src={checkIcon}
+                            alt={checkIcon}
+                            className="flex-shrink-0 object-cover w-5 h-5 text-green-900"
+                          />
+
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -142,7 +147,7 @@ const PricingContent = () => {
                             key={i}
                             className="flex items-start space-x-2 text-sm text-slate-900"
                           >
-                            <svg
+                            {/* <svg
                               className="flex-shrink-0 w-5 h-5 text-red-900"
                               fill="currentColor"
                               xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +158,13 @@ const PricingContent = () => {
                                 d="M6.293 4.293a1 1 0 011.414 0L10 7.586l2.293-2.293a1 1 0 111.414 1.414L11.414 9l2.293 2.293a1 1 0 11-1.414 1.414L10 10.414l-2.293 2.293a1 1 0 11-1.414-1.414L8.586 9 6.293 6.707a1 1 0 010-1.414z"
                                 clipRule="evenodd"
                               />
-                            </svg>
+                            </svg> */}
+                            
+                            <img
+                            src={crossIcon}
+                            alt={crossIcon}
+                            className="flex-shrink-0 object-cover w-5 h-5 text-red-900"
+                          />
                             <span>{feature}</span>
                           </li>
                         ));
@@ -196,69 +207,64 @@ const PricingContent = () => {
                         key={i}
                         className="flex items-start space-x-2 text-sm text-slate-900"
                       >
-                        <svg
-                          className="flex-shrink-0 w-5 h-5 text-green-900"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
+                        <img
+                            src={checkIcon}
+                            alt={checkIcon}
+                            className="flex-shrink-0 object-cover w-5 h-5 text-green-900"
                           />
-                        </svg>
                         
+                        
+
                         <span>{feature}</span>
                       </li>
                     ))}
                 </ul>
                 {
-  plan.excludedFeature && plan.excludedFeature.trim() !== "" ? (
-    <ul className="mt-2 space-y-2 text-gray-600">
-      {(() => {
-        try {
-  
-          // Parse the excludedFeature only if it is valid JSON
-          const features = JSON.parse(plan.excludedFeature);
+                  plan.excludedFeature && plan.excludedFeature.trim() !== "" ? (
+                    <ul className="mt-2 space-y-2 text-gray-600">
+                      {(() => {
+                        try {
+                          // Parse the excludedFeature only if it is valid JSON
+                          const features = JSON.parse(plan.excludedFeature);
 
-          // Filter out any empty strings in the features array
-          const validFeatures = features.filter(feature => feature.trim() !== "");
+                          // Filter out any empty strings in the features array
+                          const validFeatures = features.filter(
+                            (feature) => feature.trim() !== ""
+                          );
 
-          if (validFeatures.length > 0) {
-            return validFeatures.map((feature, i) => (
-              <li key={i} className="flex items-start space-x-2 text-sm text-slate-900">
-                <svg
-                  className="flex-shrink-0 w-5 h-5 text-red-900"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M6.293 4.293a1 1 0 011.414 0L10 7.586l2.293-2.293a1 1 0 111.414 1.414L11.414 9l2.293 2.293a1 1 0 11-1.414 1.414L10 10.414l-2.293 2.293a1 1 0 11-1.414-1.414L8.586 9 6.293 6.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span>{feature}</span>
-              </li>
-            ));
-          } else {
-            // If there are no valid features, return nothing
-            return <></>;
-          }
-        } catch (error) {
-          console.error("Error parsing excludedFeature:", error);
-          return <p className="text-sm text-slate-900">Invalid feature data.</p>;
-        }
-      })()}
-    </ul>
-  ) : null // Return null if excludedFeature is empty or invalid
-}
-
-
-
-                
+                          if (validFeatures.length > 0) {
+                            return validFeatures.map((feature, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start space-x-2 text-sm text-slate-900"
+                              >
+                               <img
+                            src={crossIcon}
+                            alt={crossIcon}
+                            className="flex-shrink-0 object-cover w-5 h-5 text-red-900"
+                          />
+                                <span>{feature}</span>
+                              </li>
+                            ));
+                          } else {
+                            // If there are no valid features, return nothing
+                            return <></>;
+                          }
+                        } catch (error) {
+                          console.error(
+                            "Error parsing excludedFeature:",
+                            error
+                          );
+                          return (
+                            <p className="text-sm text-slate-900">
+                              Invalid feature data.
+                            </p>
+                          );
+                        }
+                      })()}
+                    </ul>
+                  ) : null // Return null if excludedFeature is empty or invalid
+                }
               </div>
             );
           })

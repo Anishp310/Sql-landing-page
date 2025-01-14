@@ -4,6 +4,8 @@ import abanner from "./banner-image.jpg";
 import about from "./aboutus.png";
 import aboutBanner from "./Aboutbanner.avif";
 import admin from "./admin.png";
+import checkIcon from "./check.png";
+import crossIcon from "./cross.png";
 import digijoon from "./digijoon.png";
 import joonBanner from "./tech_heading.png";
 import joonLogo from "./joonlogo.png";
@@ -32,4 +34,6 @@ export {
   onlineBanking,
   mobileBanking,
   team,
+  checkIcon,
+  crossIcon
 };

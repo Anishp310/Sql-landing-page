@@ -22,7 +22,7 @@ const Footer = () => {
             </h1>
             <div className="grid grid-cols-2 gap-2 ">
               {[
-                joonLogo,
+                joonLogo
               ].map((logo, index) => (
                 <div key={index}>
                   <Link to={"/"} className="w-[20px] h-[40px] ">
