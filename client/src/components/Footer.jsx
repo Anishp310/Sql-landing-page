@@ -2,7 +2,7 @@ import { FaFacebook, FaLinkedin, FaPhone } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { MdEmail, MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { floan, fpay, logiga, swastik } from "../Assets/Logofooter";
+import { joonLogo } from "../Assets/index";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -22,10 +22,7 @@ const Footer = () => {
             </h1>
             <div className="grid grid-cols-2 gap-2 ">
               {[
-                floan,
-                fpay,
-                logiga,
-                swastik,
+                joonLogo,
               ].map((logo, index) => (
                 <div key={index}>
                   <Link to={"/"} className="w-[20px] h-[40px] ">

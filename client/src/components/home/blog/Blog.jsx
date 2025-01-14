@@ -1,20 +1,33 @@
+import Slider from "react-slick";
 import { useEffect, useState } from "react";
+import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { abanner } from "../../../Assets";
 
 const Blog = () => {
   const [blogList, setBlogList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [topPosts, setTopPosts] = useState([]);
   const navigate = useNavigate();
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1, // Show 1 post at a time
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
 
   // Fetch blog data
   const getBlogs = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/blogs');
+      const response = await fetch("http://localhost:8080/blogs");
       const jsonData = await response.json();
-      const sortedData = jsonData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-      console.log(sortedData)
+      const sortedData = jsonData.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
       setBlogList(sortedData);
     } catch (error) {
       console.error("Failed to fetch blogs:", error);
@@ -26,9 +39,8 @@ const Blog = () => {
   // Get the top 5 most clicked blogs from the backend
   const getTopPosts = async () => {
     try {
-      const response = await fetch('http://localhost:8080/blogs/top-clicked');
+      const response = await fetch("http://localhost:8080/blogs/top-clicked");
       const topBlogs = await response.json();
-      console.log(topBlogs)
       setTopPosts(topBlogs);
     } catch (error) {
       console.error("Failed to fetch top blogs:", error);
@@ -39,7 +51,9 @@ const Blog = () => {
   const handleBlogClick = async (post) => {
     try {
       // Update the click count for the blog on the backend
-      await fetch(`http://localhost:8080/blogs/${post.blog_id}/click`, { method: 'PATCH' });
+      await fetch(`http://localhost:8080/blogs/${post.blog_id}/click`, {
+        method: "PATCH",
+      });
 
       // Navigate to the blog detail page
       navigate(`/blog/${post.blog_id}`, { state: post });
@@ -50,74 +64,169 @@ const Blog = () => {
 
   useEffect(() => {
     getBlogs();
-    getTopPosts();  // Fetch the top 5 clicked blogs
+    getTopPosts(); // Fetch the top 5 clicked blogs
   }, []);
 
   return (
-    <div className="container px-4 py-8 mx-auto">
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Blog Posts Section */}
-        <div className="lg:col-span-2">
-          <h2 className="mb-4 text-3xl font-bold">Discover Our Latest Posts</h2>
-          <div className="space-y-8">
-            {blogList.map((post) => (
-              <div
-                key={post.blog_id}
-                className="flex flex-col items-start gap-4 pb-4 border-b md:flex-row"
-              >
-                <img
-                  src={post.image_data}
-                  alt={post.title}
-                  className="object-cover w-full rounded-lg md:w-1/3"
-                />
-                <div>
-                  <h3
-                    className="text-xl font-bold cursor-pointer text-blue-600"
-                    onClick={() => handleBlogClick(post)}
-                  >
-                    {post.title}
-                  </h3>
-                  <p className="my-2 text-gray-600">{post.description}</p>
-                  <div className="flex items-center text-sm text-gray-500">
-                    <span>John Wick</span>
-                    <span className="mx-2">|</span>
-                    <span>{post.created_at.replace("T", " ").split(".")[0]}</span>
+    <div>
+      <div>
+        <div className="relative md:h-[200px] text-white overflow-hidden">
+          <img src={abanner} alt="Banner" className="object-left-top w-full" />
+          <div className="absolute lg:top-[40%] xl:left-[20%] lg:left-[15%] md:top-[30%] left-[0%] top-[25%] md:text-4xl">
+            <div className="flex items-center">
+              <hr className="rotate-90 w-[80px] border-white border-1" />
+              <div>
+                <p className="mt-2 text-sm md:text-lg">
+                  Engaging Content & Brand Growth
+                </p>
+                <p className="text-2xl font-semibold md:text-4xl">Blog</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
+        <div className="block lg:hidden mt-[2rem] md:mx-0 mx-[1rem]">
+          <h3 className="text-lg font-bold md:text-2xl">Top Posts</h3>
+
+          {/* Carousel wrapper */}
+          <Slider {...settings}>
+            {topPosts?.map((post) => (
+              <div key={post.blog_id} className="gap-4 border-b">
+                {" "}
+                {/* Adjust gap here */}
+                <div className="flex items-center gap-4 pt-2 pb-4">
+                  {" "}
+                  {/* Use gap-4 for spacing */}
+                  <div className="w-16 h-16 mb-2 overflow-hidden md:w-[12rem] md:h-[5rem]">
+                    <img
+                      src={post.image_data}
+                      className="object-cover w-full h-full rounded-lg"
+                    />
                   </div>
+                  <div>
+                    <span className="p-2 text-base font-medium text-justify">
+                      {post.title}
+                    </span>
+                    <div className="hidden px-2 md:block">
+                    <p className="my-2 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
+                      {post.description.length > 300
+                        ? `${post.description.substring(0, 150)}...` // Corrected string interpolation
+                        : post.description}
+                    </p>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <span>
+                        {new Intl.DateTimeFormat("en-US", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        }).format(new Date(post.created_at))}
+                      </span>
+                    </div>
+                    </div>
+                  </div>
+                  
                 </div>
               </div>
             ))}
-          </div>
+          </Slider>
         </div>
 
-        {/* Sidebar */}
-        <div className="space-y-8">
-          {/* Top Posts */}
-          <div>
-            <h3 className="mb-4 text-lg font-bold">Top Posts</h3>
-            <ul className="space-y-2">
-              {topPosts?.map((post) => (
-                <li key={post.blog_id} className="flex items-center gap-2">
-                 <img src={post.image_data} alt="" className="rounded-full w-8 h-8 " />
-                  <span>{post.title}</span>
-                  <h2></h2>
-                </li>
+        <div className="grid grid-cols-1 lg:gap-8 lg:grid-cols-3 mt-[2rem] md:mx-0 mx-[1rem]">
+          {/* Blog Posts Section */}
+          <div className="lg:col-span-2">
+            <h2 className="mb-4 text-[1.75rem] font-bold md:mb-8 md:text-3xl lg:text-4xl">
+              Discover Our Latest Posts
+            </h2>
+            <div className="space-y-8">
+              {blogList.map((post) => (
+                <div
+                  key={post.blog_id}
+                  className="flex flex-col items-start gap-4 pb-4 border-b md:flex-row"
+                >
+                  <div className="md:w-[800px] md:h-[200px] w-[350px] h-[200px] sm:text-center">
+                    <img
+                      src={post.image_data}
+                      alt={post.title}
+                      className="object-fill w-full h-full rounded-lg md:object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3
+                      className="text-base font-bold text-black cursor-pointer lg:text-xl md:text-lg"
+                      onClick={() => handleBlogClick(post)}
+                    >
+                      {post.title}
+                    </h3>
+                    <p className="my-2 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
+                      {post.description.length > 300
+                        ? `${post.description.substring(0, 300)}...` // Corrected string interpolation
+                        : post.description}
+                    </p>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <span>
+                        {new Intl.DateTimeFormat("en-US", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        }).format(new Date(post.created_at))}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Social Links */}
-          <div>
-            <h3 className="mb-4 text-lg font-bold">Follow Us</h3>
-            <div className="flex gap-4">
-              <a href="#" className="text-xl text-blue-500">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="text-xl text-blue-700">
-                <i className="fab fa-facebook"></i>
-              </a>
-              <a href="#" className="text-xl text-pink-500">
-                <i className="fab fa-linkedin"></i>
-              </a>
+          {/* Sidebar */}
+          <div className="space-y-8">
+            {/* Top Posts */}
+            <div className="hidden lg:block">
+              <h3 className="mb-4 text-lg font-bold">Top Posts</h3>
+              <ul className="space-y-2">
+                {topPosts?.map((post) => (
+                  <li
+                    key={post.blog_id}
+                    className="flex items-center gap-2 border-b"
+                  >
+                    <img
+                      src={post.image_data}
+                      alt=""
+                      className="w-8 h-8 mb-2 rounded-full"
+                    />
+                    <span className="mb-2">{post.title}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Social Links */}
+            <div>
+              <h3 className="mb-4 text-lg font-bold">Follow Us</h3>
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  className="text-xl text-blue-500"
+                  aria-label="Twitter"
+                >
+                  <FaTwitter />
+                </a>
+                <a
+                  href="#"
+                  className="text-xl text-blue-700"
+                  aria-label="Facebook"
+                >
+                  <FaFacebook />
+                </a>
+                <a
+                  href="#"
+                  className="text-xl text-pink-500"
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedin />
+                </a>
+              </div>
             </div>
           </div>
         </div>

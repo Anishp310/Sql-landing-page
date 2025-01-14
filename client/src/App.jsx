@@ -1,3 +1,5 @@
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { useEffect } from "react";

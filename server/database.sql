@@ -126,3 +126,15 @@ CREATE TABLE blog (
 -- Example of creating an admin user
 INSERT INTO users (username, email, password, role)
 VALUES ('admin', 'admin@example.com', 'hashedpassword', 'admin');
+
+
+drop table blog
+
+CREATE TABLE blog (
+  blog_id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  image_data LONGBLOB,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  click_count INT DEFAULT 0 -- New column to track the number of clicks
+);
