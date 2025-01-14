@@ -8,12 +8,15 @@ const Blog = () => {
   const [blogList, setBlogList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [topPosts, setTopPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 3;
   const navigate = useNavigate();
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1, // Show 1 post at a time
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -36,7 +39,6 @@ const Blog = () => {
     }
   };
 
-  // Get the top 5 most clicked blogs from the backend
   const getTopPosts = async () => {
     try {
       const response = await fetch("http://localhost:8080/blogs/top-clicked");
@@ -47,15 +49,11 @@ const Blog = () => {
     }
   };
 
-  // Handle blog click: increment the click count on the backend
   const handleBlogClick = async (post) => {
     try {
-      // Update the click count for the blog on the backend
       await fetch(`http://localhost:8080/blogs/${post.blog_id}/click`, {
         method: "PATCH",
       });
-
-      // Navigate to the blog detail page
       navigate(`/blog/${post.blog_id}`, { state: post });
     } catch (error) {
       console.error("Failed to update click count:", error);
@@ -64,8 +62,16 @@ const Blog = () => {
 
   useEffect(() => {
     getBlogs();
-    getTopPosts(); // Fetch the top 5 clicked blogs
+    getTopPosts();
   }, []);
+
+  // Pagination logic
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = blogList.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(blogList.length / postsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div>
@@ -89,16 +95,10 @@ const Blog = () => {
       <div className="mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
         <div className="block lg:hidden mt-[2rem] md:mx-0 mx-[1rem]">
           <h3 className="text-lg font-bold md:text-2xl">Top Posts</h3>
-
-          {/* Carousel wrapper */}
           <Slider {...settings}>
             {topPosts?.map((post) => (
               <div key={post.blog_id} className="gap-4 border-b">
-                {" "}
-                {/* Adjust gap here */}
                 <div className="flex items-center gap-4 pt-2 pb-4">
-                  {" "}
-                  {/* Use gap-4 for spacing */}
                   <div className="w-16 h-16 mb-2 overflow-hidden md:w-[12rem] md:h-[5rem]">
                     <img
                       src={post.image_data}
@@ -110,23 +110,22 @@ const Blog = () => {
                       {post.title}
                     </span>
                     <div className="hidden px-2 md:block">
-                    <p className="my-2 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
-                      {post.description.length > 300
-                        ? `${post.description.substring(0, 150)}...` // Corrected string interpolation
-                        : post.description}
-                    </p>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <span>
-                        {new Intl.DateTimeFormat("en-US", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        }).format(new Date(post.created_at))}
-                      </span>
-                    </div>
+                      <p className="my-2 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
+                        {post.description.length > 300
+                          ? `${post.description.substring(0, 150)}...`
+                          : post.description}
+                      </p>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <span>
+                          {new Intl.DateTimeFormat("en-US", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          }).format(new Date(post.created_at))}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             ))}
@@ -134,13 +133,12 @@ const Blog = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:gap-8 lg:grid-cols-3 mt-[2rem] md:mx-0 mx-[1rem]">
-          {/* Blog Posts Section */}
           <div className="lg:col-span-2">
             <h2 className="mb-4 text-[1.75rem] font-bold md:mb-8 md:text-3xl lg:text-4xl">
               Discover Our Latest Posts
             </h2>
             <div className="space-y-8">
-              {blogList.map((post) => (
+              {currentPosts.map((post) => (
                 <div
                   key={post.blog_id}
                   className="flex flex-col items-start gap-4 pb-4 border-b md:flex-row"
@@ -161,7 +159,7 @@ const Blog = () => {
                     </h3>
                     <p className="my-2 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
                       {post.description.length > 300
-                        ? `${post.description.substring(0, 300)}...` // Corrected string interpolation
+                        ? `${post.description.substring(0, 300)}...`
                         : post.description}
                     </p>
                     <div className="flex items-center text-sm text-gray-500">
@@ -177,11 +175,22 @@ const Blog = () => {
                 </div>
               ))}
             </div>
+            <div className="flex justify-center mt-4">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  className={`px-4 py-2 mx-1 border rounded ${
+                    currentPage === index + 1 ? "bg-red-500 text-white" : "bg-gray-200"
+                  }`}
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Sidebar */}
           <div className="space-y-8">
-            {/* Top Posts */}
             <div className="hidden lg:block">
               <h3 className="mb-4 text-lg font-bold">Top Posts</h3>
               <ul className="space-y-2">
@@ -201,7 +210,6 @@ const Blog = () => {
               </ul>
             </div>
 
-            {/* Social Links */}
             <div>
               <h3 className="mb-4 text-lg font-bold">Follow Us</h3>
               <div className="flex gap-4">
