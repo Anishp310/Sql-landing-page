@@ -9,7 +9,7 @@ dotenv.config();
 
 // Middleware setup
 app.use(cors({
-  origin: "http://localhost:5174",  // Allow requests from your frontend's origin
+  origin: "http://localhost:5173",  // Allow requests from your frontend's origin
   methods: "GET,POST,PUT,DELETE,PATCH",
   allowedHeaders: "Content-Type, Authorization",
 }));
