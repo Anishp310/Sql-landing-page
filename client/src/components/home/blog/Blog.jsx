@@ -9,7 +9,7 @@ const Blog = () => {
   const [loading, setLoading] = useState(false);
   const [topPosts, setTopPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 1;
+  const postsPerPage = 3;
   const navigate = useNavigate();
 
   const settings = {
