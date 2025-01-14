@@ -9,7 +9,7 @@ const Blog = () => {
   const [loading, setLoading] = useState(false);
   const [topPosts, setTopPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 3;
+  const postsPerPage = 1;
   const navigate = useNavigate();
 
   const settings = {
@@ -180,7 +180,7 @@ const Blog = () => {
                 <button
                   key={index}
                   className={`px-4 py-2 mx-1 border rounded ${
-                    currentPage === index + 1 ? "bg-red-500 text-white" : "bg-gray-200"
+                    currentPage === index + 1 ? "bg-red-900 text-white" : "bg-gray-200"
                   }`}
                   onClick={() => paginate(index + 1)}
                 >

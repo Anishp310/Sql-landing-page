@@ -12,7 +12,7 @@ const AllNews = () => {
   const fetchNews = async () => {
     try {
       const response = await fetch(
-        "https://fullstack-landing-page-1.onrender.com/getAllNews"
+        "http://localhost:8080/getAllNews"
       ); // Replace with your API endpoint
       const data = await response.json();
       setNewsList(data);
@@ -42,7 +42,7 @@ const AllNews = () => {
         // style={{ backgroundImage: `url(${Digijoon})`, backgroundSize: "cover" }}
       ></div>
 
-      <div className="relative z-10 max-w-6xl mx-auto bg-white rounded-lg md:p-6 bg-opacity-80">
+      <div className="relative z-10 max-w-6xl mx-auto bg-white rounded-lg bg-opacity-80">
         <h1 className="mb-6 text-3xl font-bold text-center text-gray-800 hover:text-red-800">
           Latest News
         </h1>

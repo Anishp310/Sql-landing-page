@@ -1,15 +1,17 @@
-import express from "express";
 import cors from "cors";
-import pool from "./db.js"; // Assuming you're importing a database pool setup
-import router from "./routes/newsRoute.js"; // Assuming you're using a router for the routes
 import dotenv from "dotenv";
+import express from "express";
+import pool from "./db.js"; // Assuming you";
+import router from "./routes/newsRoute.js"; // Assuming you";
+
+// Assuming you";
 
 const app = express();
 dotenv.config();
 
 // Middleware setup
 app.use(cors({
-  origin: "http://localhost:5173",  // Allow requests from your frontend's origin
+  origin: "http://localhost:5174",  // Allow requests from your frontend's origin
   methods: "GET,POST,PUT,DELETE,PATCH",
   allowedHeaders: "Content-Type, Authorization",
 }));
