@@ -147,7 +147,7 @@ const BlogDetail = () => {
           </h1>
 
           <div className="relative">
-            <div className="mr-6 image-wrapper lg:float-left lg:w-1/3">
+          <div className="flex justify-center w-full mb-4 mr-4 image-wrapper md:float-left md:w-1/3 md:mb-0">
               <img
                 src={blog.image_data}
                 alt={blog.title}
@@ -164,7 +164,7 @@ const BlogDetail = () => {
                   .map((paragraph, index) => (
                     <p
                       key={index}
-                      className="mb-4 text-sm text-justify text-gray-800 md:text-base lg:text-lg"
+                      className="mb-2 text-sm text-justify text-gray-800 md:text-base lg:text-lg"
                     >
                       {paragraph.trim()}
                     </p>

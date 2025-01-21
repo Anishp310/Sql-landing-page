@@ -1,5 +1,5 @@
-import pool from "../db.js";
 import multer from "multer";
+import pool from "../db.js";
 
 // Configure multer to store files in memory with file type and size restrictions
 const storage = multer.memoryStorage();
@@ -108,31 +108,30 @@ export const updateImage = async (req, res) => {
     return res.status(400).json({ message: "Image ID is required" });
   }
 
-  if (!req.file) {
-    return res.status(400).json({ message: "Image file is required" });
-  }
-
   try {
-    const imageData = req.file.buffer;  // Image data buffer from multer
+    // Check if a new file is uploaded
+    if (req.file) {
+      const imageData = req.file.buffer; // New image data from multer
 
-    // Update image data in the database
-    const [updatedImage] = await pool.query(
-      "UPDATE images SET image_data = ? WHERE image_id = ?",
-      [imageData, image_id]
-    );
+      // Update the image data
+      const [updatedImage] = await pool.query(
+        "UPDATE images SET image_data = ? WHERE image_id = ?",
+        [imageData, image_id]
+      );
 
-    if (updatedImage.affectedRows === 0) {
-      return res.status(404).json({
-        message: `Image with ID ${image_id} not found`,
-      });
+      if (updatedImage.affectedRows === 0) {
+        return res.status(404).json({
+          message: `Image with ID ${image_id} not found`,
+        });
+      }
     }
 
-    // Fetch the updated image (manually after update)
+    // Fetch the updated (or unchanged) image data
     const [image] = await pool.query("SELECT * FROM images WHERE image_id = ?", [image_id]);
 
     res.status(200).json({
       message: "Image updated successfully",
-      data: image[0],  // Return updated image data
+      data: image[0], // Return the updated or retained image data
     });
   } catch (error) {
     console.error("Error updating image:", error.message);
@@ -142,6 +141,10 @@ export const updateImage = async (req, res) => {
     });
   }
 };
+
+
+
+
 
 // Delete Image
 export const deleteImage = async (req, res) => {

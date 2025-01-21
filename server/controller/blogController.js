@@ -1,5 +1,5 @@
-import pool from "../db.js";
 import multer from "multer";
+import pool from "../db.js";
 
 // Configure multer to store files in memory with file type and size restrictions
 const storage = multer.memoryStorage();
@@ -70,24 +70,34 @@ export const createBlog = async (req, res) => {
 export const updateBlog = async (req, res) => {
   const { blog_id } = req.params;
   const { title, description } = req.body;
-  const image_data = req.file ? req.file.buffer : null; // Image buffer from multer
+  const image_data = req.file ? req.file.buffer : null; // Check if a new image is uploaded
 
-  // Validate input data
-  const error = validateBlogData({ title, description, image_data });
-  if (error) {
-    return res.status(400).json({ message: error });
+  if (!blog_id) {
+    return res.status(400).json({ message: "Blog ID is required" });
   }
 
   try {
+    // Retrieve the current blog post to ensure it exists and retain unchanged fields
+    const [existingBlog] = await pool.query("SELECT * FROM blog WHERE blog_id = ?", [blog_id]);
+    if (existingBlog.length === 0) {
+      return res.status(404).json({ message: `Blog with ID ${blog_id} not found` });
+    }
+
+    const currentBlog = existingBlog[0];
+
+    // Use current values if new data is not provided
+    const updatedTitle = title || currentBlog.title;
+    const updatedDescription = description || currentBlog.description;
+    const updatedImageData = image_data || currentBlog.image_data;
+
+    // Update the blog post in the database
     const [updatedBlog] = await pool.query(
       "UPDATE blog SET title = ?, description = ?, image_data = ? WHERE blog_id = ?",
-      [title, description, image_data, blog_id]
+      [updatedTitle, updatedDescription, updatedImageData, blog_id]
     );
 
     if (updatedBlog.affectedRows === 0) {
-      return res.status(404).json({
-        message: `Blog with ID ${blog_id} not found`,
-      });
+      return res.status(500).json({ message: "Failed to update blog" });
     }
 
     // Fetch the updated blog post
@@ -105,6 +115,7 @@ export const updateBlog = async (req, res) => {
     });
   }
 };
+
 
 
 

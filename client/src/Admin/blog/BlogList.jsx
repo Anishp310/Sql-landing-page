@@ -48,8 +48,13 @@ const BlogList = () => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
-    if (data.image_data) {
-      formData.append("image_data", data.image_data[0]); // File upload
+
+    if (data.image_data && data.image_data.length > 0) {
+      // Add new image only if selected
+      formData.append("image_data", data.image_data[0]);
+    } else if (selectedBlog?.image_data) {
+      // Retain existing image
+      formData.append("existing_image", selectedBlog.image_data);
     }
 
     try {
@@ -63,7 +68,7 @@ const BlogList = () => {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
-        body: formData, // Using FormData for file uploads
+        body: formData,
       });
 
       const responseBody = await response.json();
@@ -158,7 +163,7 @@ const BlogList = () => {
                 key={blog.blog_id}
                 className="hover:bg-gray-600 hover:text-white"
               >
-               <td className="flex items-center justify-center px-4 py-2 border border-gray-300">
+                <td className="flex items-center justify-center px-4 py-2 border border-gray-300">
                   {blog.image_data && (
                     <img
                       src={blog.image_data} // This is the base64 string you get from the backend
@@ -173,7 +178,6 @@ const BlogList = () => {
                 <td className="px-4 py-2 border border-gray-300">
                   {truncate(blog.description, 50)}
                 </td>
-               
 
                 <td className="px-4 py-2 border border-gray-300">
                   {blog.created_at}
@@ -248,13 +252,20 @@ const BlogList = () => {
                 >
                   Image
                 </label>
+                {selectedBlog?.image_data && (
+                  <img
+                    src={selectedBlog.image_data}
+                    alt="Existing"
+                    className="object-cover w-40 h-20 mb-2"
+                  />
+                )}
                 <input
-                  {...register("image_data", { required: "Image is required" })}
+                  {...register("image_data")}
                   type="file"
-                  // defaultValue={selectedBlog?.image_data || ""}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
+
               <div className="flex justify-end space-x-4">
                 <button
                   type="button"
