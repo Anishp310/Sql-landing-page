@@ -251,6 +251,7 @@ const BlogList = () => {
                 <input
                   {...register("image_data", { required: "Image is required" })}
                   type="file"
+                  // defaultValue={selectedBlog?.image_data || ""}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>

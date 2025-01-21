@@ -1,3 +1,4 @@
+import React from "react";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
@@ -140,44 +141,34 @@ const BlogDetail = () => {
         </div>
 
         {/* Blog Details */}
-        <div className="lg:mt-[4rem] md:mt-[3rem] mt-[2rem]">
+        <div className="lg:mt-[4rem] md:mt-[3rem] mt-[2rem] clearfix">
           <h1 className="mb-8 font-bold lg:text-4xl md:text-3xl">
             {blog.title}
           </h1>
-          <div className="flex flex-col gap-8 md:flex-row">
-            <img
-              src={blog.image_data}
-              alt={blog.title}
-              className="object-cover mb-8 rounded-lg w-full md:w-[50%] md:max-h-[400px]"
-            />
-            <div className="w-full">
+
+          <div className="relative">
+            <div className="mr-6 image-wrapper lg:float-left lg:w-1/3">
+              <img
+                src={blog.image_data}
+                alt={blog.title}
+                className="object-cover w-full h-auto rounded-md"
+              />
+            </div>
+
+            <div className="text-content">
               {(() => {
-                const sentences = blog.description.split(". ");
-                const paragraphs = [];
-                let currentParagraph = "";
+                const paragraphs = blog.description.split("\n");
 
-                sentences.forEach((sentence) => {
-                  const updatedParagraph = currentParagraph + sentence + ". ";
-                  if (updatedParagraph.split(" ").length > 100) {
-                    paragraphs.push(currentParagraph.trim());
-                    currentParagraph = sentence + ". ";
-                  } else {
-                    currentParagraph = updatedParagraph;
-                  }
-                });
-
-                if (currentParagraph.trim()) {
-                  paragraphs.push(currentParagraph.trim());
-                }
-
-                return paragraphs.map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className="mb-4 text-sm text-justify text-gray-800 md:text-base lg:text-lg"
-                  >
-                    {paragraph}
-                  </p>
-                ));
+                return paragraphs
+                  .filter((paragraph) => paragraph.trim() !== "") 
+                  .map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className="mb-4 text-sm text-justify text-gray-800 md:text-base lg:text-lg"
+                    >
+                      {paragraph.trim()}
+                    </p>
+                  ));
               })()}
             </div>
           </div>
