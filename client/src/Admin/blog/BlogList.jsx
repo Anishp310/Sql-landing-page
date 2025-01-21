@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast, Toaster } from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
 
 const BlogList = () => {
@@ -13,7 +13,7 @@ const BlogList = () => {
   const truncate = (str, length) => {
     return str.length > length ? str.slice(0, length) + "..." : str;
   };
- 
+
   const getToken = () => localStorage.getItem("token");
 
   const validateToken = () => {
@@ -28,7 +28,7 @@ const BlogList = () => {
   const getBlogs = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/blogs');
+      const response = await fetch("http://localhost:8080/blogs");
       const jsonData = await response.json();
       setBlogList(jsonData);
     } catch (error) {
@@ -44,20 +44,20 @@ const BlogList = () => {
 
   const handleBlogSubmit = async (data) => {
     if (!validateToken()) return;
-  
+
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
     if (data.image_data) {
       formData.append("image_data", data.image_data[0]); // File upload
     }
-  
+
     try {
       setLoading(true);
       const url = selectedBlog
         ? `http://localhost:8080/updateblog/${selectedBlog.blog_id}`
-        : 'http://localhost:8080/addblog';
-  
+        : "http://localhost:8080/addblog";
+
       const response = await fetch(url, {
         method: selectedBlog ? "PUT" : "POST",
         headers: {
@@ -65,13 +65,17 @@ const BlogList = () => {
         },
         body: formData, // Using FormData for file uploads
       });
-  
+
       const responseBody = await response.json();
       if (!response.ok) {
-        throw new Error(responseBody.message || "Failed to process the request.");
+        throw new Error(
+          responseBody.message || "Failed to process the request."
+        );
       }
-  
-      toast.success(selectedBlog ? "Blog updated successfully!" : "Blog added successfully!");
+
+      toast.success(
+        selectedBlog ? "Blog updated successfully!" : "Blog added successfully!"
+      );
       setIsModalOpen(false);
       getBlogs();
       reset();
@@ -81,17 +85,19 @@ const BlogList = () => {
       setLoading(false);
     }
   };
-  
 
   const handleDeleteClick = async (blogId) => {
     if (!validateToken()) return;
 
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:8080/deleteblog/${blogId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
+      const response = await fetch(
+        `http://localhost:8080/deleteblog/${blogId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to delete blog");
 
@@ -105,17 +111,17 @@ const BlogList = () => {
   };
 
   return (
-    <div className="blog-list-container max-w-screen-xl mx-auto my-5 p-4 bg-gray-100 rounded shadow-lg overflow-hidden">
+    <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg blog-list-container">
       <Toaster position="top-right" />
-      <h1 className="text-2xl font-bold mb-5">Blog List</h1>
+      <h1 className="mb-5 text-2xl font-bold">Blog List</h1>
 
       <button
         onClick={() => {
           console.log("Opening modal");
-          reset(); 
+          reset();
           setIsModalOpen(true);
         }}
-        className="bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded mb-4"
+        className="px-5 py-2 mb-4 text-white bg-green-500 rounded hover:bg-green-600"
       >
         Add Blog
       </button>
@@ -124,46 +130,69 @@ const BlogList = () => {
         <table className="w-full border-collapse border-gray-300 shadow-lg">
           <thead>
             <tr className="text-black bg-gray-200">
-              <th className="px-4 py-2 text-left border border-gray-300">Title</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Description</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Image</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Created at</th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Image
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Title
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Description
+              </th>
 
-              <th className="px-4 py-2 text-left border border-gray-300">Edit</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Delete</th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Created at
+              </th>
+
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Edit
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Delete
+              </th>
             </tr>
           </thead>
           <tbody>
             {blogList.map((blog) => (
-              <tr key={blog.blog_id} className="hover:bg-gray-600 hover:text-white">
-                <td className="border px-4 py-2 border-gray-300">{truncate(blog.title,50)}</td>
-                <td className="border px-4 py-2 border-gray-300">{truncate(blog.description,50)}</td>
-                <td className="border px-4 py-2 border-gray-300 flex justify-center items-center">
-  {blog.image_data && (
-    <img
-      src={blog.image_data} // This is the base64 string you get from the backend
-      alt={`Blog ${blog.blog_id}`}
-      className="h-20 w-40 object-cover" 
-      
-    />
-  )}
-</td>
+              <tr
+                key={blog.blog_id}
+                className="hover:bg-gray-600 hover:text-white"
+              >
+               <td className="flex items-center justify-center px-4 py-2 border border-gray-300">
+                  {blog.image_data && (
+                    <img
+                      src={blog.image_data} // This is the base64 string you get from the backend
+                      alt={`Blog ${blog.blog_id}`}
+                      className="object-cover w-40 h-20"
+                    />
+                  )}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {truncate(blog.title, 50)}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {truncate(blog.description, 50)}
+                </td>
+               
 
+                <td className="px-4 py-2 border border-gray-300">
+                  {blog.created_at}
+                </td>
 
-                <td className="border px-4 py-2 border-gray-300">{blog.created_at}</td>
-
-                <td className="border px-4 py-2 border-gray-300">
+                <td className="px-4 py-2 border border-gray-300">
                   <button
-                    onClick={() => setSelectedBlog(blog) || setIsModalOpen(true)}
-                    className="bg-blue-500 text-white px-8 py-3 rounded mr-2"
+                    onClick={() =>
+                      setSelectedBlog(blog) || setIsModalOpen(true)
+                    }
+                    className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
                   >
                     Edit
                   </button>
                 </td>
-                <td className="border px-4 py-2 border-gray-300">
+                <td className="px-4 py-2 border border-gray-300">
                   <button
                     onClick={() => handleDeleteClick(blog.blog_id)}
-                    className="bg-red-500 text-white px-8 py-3 rounded"
+                    className="px-8 py-3 text-white bg-red-500 rounded"
                   >
                     Delete
                   </button>
@@ -175,12 +204,22 @@ const BlogList = () => {
       </div>
 
       {isModalOpen && (
-        <div className="modal fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center" open>
-          <div className="modal-content bg-white text-black p-6 rounded-lg shadow-lg w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-6">{selectedBlog ? "Update Blog" : "Add Blog"}</h2>
-            <form onSubmit={handleSubmit(handleBlogSubmit)} className="space-y-4">
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 modal"
+          open
+        >
+          <div className="w-full max-w-lg p-6 text-black bg-white rounded-lg shadow-lg modal-content">
+            <h2 className="mb-6 text-2xl font-bold">
+              {selectedBlog ? "Update Blog" : "Add Blog"}
+            </h2>
+            <form
+              onSubmit={handleSubmit(handleBlogSubmit)}
+              className="space-y-4"
+            >
               <div>
-                <label htmlFor="title" className="block text-sm font-medium">Title</label>
+                <label htmlFor="title" className="block text-sm font-medium">
+                  Title
+                </label>
                 <input
                   {...register("title", { required: "Title is required" })}
                   defaultValue={selectedBlog?.title || ""}
@@ -188,15 +227,27 @@ const BlogList = () => {
                 />
               </div>
               <div>
-                <label htmlFor="description" className="block text-sm font-medium">Description</label>
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium"
+                >
+                  Description
+                </label>
                 <textarea
-                  {...register("description", { required: "Description is required" })}
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
                   defaultValue={selectedBlog?.description || ""}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div>
-                <label htmlFor="image_data" className="block text-sm font-medium">Image</label>
+                <label
+                  htmlFor="image_data"
+                  className="block text-sm font-medium"
+                >
+                  Image
+                </label>
                 <input
                   {...register("image_data", { required: "Image is required" })}
                   type="file"
@@ -210,13 +261,13 @@ const BlogList = () => {
                     setIsModalOpen(false);
                     setSelectedBlog(null); // Reset selected blog
                   }}
-                  className="bg-gray-500 text-white px-4 py-2 rounded"
+                  className="px-4 py-2 text-white bg-gray-500 rounded"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                  className="px-4 py-2 text-white bg-blue-500 rounded"
                 >
                   {selectedBlog ? "Update Blog" : "Add Blog"}
                 </button>

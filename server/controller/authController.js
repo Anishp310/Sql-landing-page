@@ -1,8 +1,8 @@
-import pool from "../db.js";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import crypto from "crypto";
+import pool from "../db.js";
 
 // Helper function to validate user data
 const validateUserData = (data) => {
@@ -97,7 +97,7 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign(
       { user_id: user.user_id, role: user.role },
       secretKey,
-      { expiresIn: "8h" }
+      { expiresIn: "24h" }
     );
 
     res.status(200).json({

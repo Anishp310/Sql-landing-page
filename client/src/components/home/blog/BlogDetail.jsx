@@ -12,7 +12,6 @@ const BlogDetail = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-
   const settings = {
     dots: false,
     infinite: true,
@@ -54,15 +53,12 @@ const BlogDetail = () => {
     }
   };
 
-   // Handle blog click: increment the click count on the backend
-   const handleBlogClick = async (post) => {
+  const handleBlogClick = async (post) => {
     try {
-      // Update the click count for the blog on the backend
       await fetch(`http://localhost:8080/blogs/${post.blog_id}/click`, {
         method: "PATCH",
       });
 
-      // Navigate to the blog detail page
       navigate(`/blog/${post.blog_id}`, { state: post });
     } catch (error) {
       console.error("Failed to update click count:", error);
@@ -119,7 +115,10 @@ const BlogDetail = () => {
                       />
                     </div>
                     <div className="flex-col">
-                      <span className="text-base font-medium text-justify cursor-pointer" onClick={() => handleBlogClick(post)}>
+                      <span
+                        className="text-base font-medium text-justify cursor-pointer"
+                        onClick={() => handleBlogClick(post)}
+                      >
                         {post.title.length > 30
                           ? `${post.title.substring(0, 40)}...`
                           : post.title}
@@ -142,42 +141,48 @@ const BlogDetail = () => {
 
         {/* Blog Details */}
         <div className="lg:mt-[4rem] md:mt-[3rem] mt-[2rem]">
-          <h1 className="mb-8 font-bold lg:text-4xl md:text-3xl">{blog.title}</h1>
-          <img
-            src={blog.image_data}
-            alt={blog.title}
-            className="object-fill lg:w-[50%] md:mb-8 rounded-lg md:h-[400px] md:w-full h-[300px] mb-4 w-full"
-          />
- {(() => {
-    const sentences = blog.description.split(". "); // Split description into sentences
-    const paragraphs = [];
-    let currentParagraph = "";
+          <h1 className="mb-8 font-bold lg:text-4xl md:text-3xl">
+            {blog.title}
+          </h1>
+          <div className="flex flex-col gap-8 md:flex-row">
+            <img
+              src={blog.image_data}
+              alt={blog.title}
+              className="object-cover mb-8 rounded-lg w-full md:w-[50%] md:max-h-[400px]"
+            />
+            <div className="w-full">
+              {(() => {
+                const sentences = blog.description.split(". ");
+                const paragraphs = [];
+                let currentParagraph = "";
 
-    sentences.forEach((sentence) => {
-      const updatedParagraph = currentParagraph + sentence + ". ";
-      if (updatedParagraph.split(" ").length > 100) {
-        paragraphs.push(currentParagraph.trim());
-        currentParagraph = sentence + ". ";
-      } else {
-        currentParagraph = updatedParagraph;
-      }
-    });
+                sentences.forEach((sentence) => {
+                  const updatedParagraph = currentParagraph + sentence + ". ";
+                  if (updatedParagraph.split(" ").length > 100) {
+                    paragraphs.push(currentParagraph.trim());
+                    currentParagraph = sentence + ". ";
+                  } else {
+                    currentParagraph = updatedParagraph;
+                  }
+                });
 
-    // Push any remaining content as the last paragraph
-    if (currentParagraph.trim()) {
-      paragraphs.push(currentParagraph.trim());
-    }
+                if (currentParagraph.trim()) {
+                  paragraphs.push(currentParagraph.trim());
+                }
 
-    // Render paragraphs dynamically
-    return paragraphs.map((paragraph, index) => (
-      <p
-        key={index}
-        className="text-sm text-justify text-gray-800 md:text-base lg:text-lg mb-4"
-      >
-        {paragraph}
-      </p>
-    ));
-  })()}          <div className="mt-4 text-sm text-gray-500">
+                return paragraphs.map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="mb-4 text-sm text-justify text-gray-800 md:text-base lg:text-lg"
+                  >
+                    {paragraph}
+                  </p>
+                ));
+              })()}
+            </div>
+          </div>
+
+          <div className="mt-4 text-sm text-gray-500">
             <span>
               {new Intl.DateTimeFormat("en-US", {
                 day: "2-digit",

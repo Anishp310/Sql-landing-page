@@ -1,6 +1,8 @@
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { GrPrevious } from "react-icons/gr";
+import { GrNext } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { abanner } from "../../../Assets";
 
@@ -143,7 +145,7 @@ const Blog = () => {
                   key={post.blog_id}
                   className="flex flex-col items-start gap-4 pb-4 border-b md:flex-row"
                 >
-                  <div className="md:w-[800px] md:h-[200px] w-[350px] h-[200px] sm:text-center">
+                  <div className="md:w-[800px] md:h-[200px] w-[300px] h-[200px] ">
                     <img
                       src={post.image_data}
                       alt={post.title}
@@ -175,19 +177,41 @@ const Blog = () => {
                 </div>
               ))}
             </div>
-            <div className="flex justify-center mt-4">
-              {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index}
-                  className={`px-4 py-2 mx-1 border rounded ${
-                    currentPage === index + 1 ? "bg-red-900 text-white" : "bg-gray-200"
-                  }`}
-                  onClick={() => paginate(index + 1)}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
+            {totalPages > 1 && (
+              <div className="flex justify-center mt-4">
+                {currentPage > 1 && (
+                  <button
+                    className="px-4 py-2 mx-1 bg-gray-200 border rounded"
+                    onClick={() => paginate(currentPage - 1)}
+                  >
+                   <GrPrevious />
+
+
+                  </button>
+                )}
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index}
+                    className={`px-4 py-2 mx-1 border rounded ${
+                      currentPage === index + 1
+                        ? "bg-red-500 text-white"
+                        : "bg-gray-200"
+                    }`}
+                    onClick={() => paginate(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+                {currentPage < totalPages && (
+                  <button
+                    className="px-4 py-2 mx-1 bg-gray-200 border rounded"
+                    onClick={() => paginate(currentPage + 1)}
+                  >
+                    <GrNext/>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="space-y-8">
@@ -204,12 +228,17 @@ const Blog = () => {
                       alt=""
                       className="w-8 h-8 mb-2 rounded-full"
                     />
-                    <span className="mb-2 cursor-pointer" onClick={() => handleBlogClick(post)}>{post.title}</span>
+                    <span
+                      className="mb-2 cursor-pointer"
+                      onClick={() => handleBlogClick(post)}
+                    >
+                      {post.title}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
-
+            
             <div>
               <h3 className="mb-4 text-lg font-bold">Follow Us</h3>
               <div className="flex gap-4">

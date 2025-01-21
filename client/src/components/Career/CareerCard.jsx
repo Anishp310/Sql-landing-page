@@ -49,7 +49,7 @@ const CareerCard = () => {
             className="p-6 text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-red-500 to-pink-600 rounded-xl hover:scale-105"
           >
             <h2 className="mb-2 text-2xl font-semibold">{career.title}</h2>
-            <p className="mb-4 text-sm italic">{career.category} | {career.jobtype}</p>
+            <p className="mb-4 text-sm italic">{career.category} | {career.job_type}</p>
 
             <div className="flex items-center justify-between mb-4">
               <div>
