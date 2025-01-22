@@ -9,7 +9,8 @@ const BlogList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
+
   const truncate = (str, length) => {
     return str.length > length ? str.slice(0, length) + "..." : str;
   };
@@ -41,6 +42,19 @@ const BlogList = () => {
   useEffect(() => {
     if (validateToken()) getBlogs();
   }, []);
+
+  const openModal = (blog = null) => {
+    setSelectedBlog(blog);
+    if (blog) {
+      // Prefill form values for editing
+      setValue("title", blog.title);
+      setValue("description", blog.description);
+      setValue("image_data", null); // Reset the file input
+    } else {
+      reset(); // Reset the form for adding a new blog
+    }
+    setIsModalOpen(true);
+  };
 
   const handleBlogSubmit = async (data) => {
     if (!validateToken()) return;
@@ -121,11 +135,7 @@ const BlogList = () => {
       <h1 className="mb-5 text-2xl font-bold">Blog List</h1>
 
       <button
-        onClick={() => {
-          console.log("Opening modal");
-          reset();
-          setIsModalOpen(true);
-        }}
+        onClick={() => openModal()}
         className="px-5 py-2 mb-4 text-white bg-green-500 rounded hover:bg-green-600"
       >
         Add Blog
@@ -144,11 +154,9 @@ const BlogList = () => {
               <th className="px-4 py-2 text-left border border-gray-300">
                 Description
               </th>
-
               <th className="px-4 py-2 text-left border border-gray-300">
                 Created at
               </th>
-
               <th className="px-4 py-2 text-left border border-gray-300">
                 Edit
               </th>
@@ -166,7 +174,7 @@ const BlogList = () => {
                 <td className="flex items-center justify-center px-4 py-2 border border-gray-300">
                   {blog.image_data && (
                     <img
-                      src={blog.image_data} // This is the base64 string you get from the backend
+                      src={blog.image_data}
                       alt={`Blog ${blog.blog_id}`}
                       className="object-cover w-40 h-20"
                     />
@@ -178,16 +186,12 @@ const BlogList = () => {
                 <td className="px-4 py-2 border border-gray-300">
                   {truncate(blog.description, 50)}
                 </td>
-
                 <td className="px-4 py-2 border border-gray-300">
                   {blog.created_at}
                 </td>
-
                 <td className="px-4 py-2 border border-gray-300">
                   <button
-                    onClick={() =>
-                      setSelectedBlog(blog) || setIsModalOpen(true)
-                    }
+                    onClick={() => openModal(blog)}
                     className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
                   >
                     Edit
@@ -226,7 +230,6 @@ const BlogList = () => {
                 </label>
                 <input
                   {...register("title", { required: "Title is required" })}
-                  defaultValue={selectedBlog?.title || ""}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
@@ -241,7 +244,6 @@ const BlogList = () => {
                   {...register("description", {
                     required: "Description is required",
                   })}
-                  defaultValue={selectedBlog?.description || ""}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
@@ -271,7 +273,7 @@ const BlogList = () => {
                   type="button"
                   onClick={() => {
                     setIsModalOpen(false);
-                    setSelectedBlog(null); // Reset selected blog
+                    setSelectedBlog(null);
                   }}
                   className="px-4 py-2 text-white bg-gray-500 rounded"
                 >
