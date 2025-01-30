@@ -61,7 +61,7 @@ const Header = () => {
       {/* lower */}
       <div className="max-w-[1600px] mx-auto">
         <div
-          className={`flex items-center  z-[100] lg:pt-2  md:pt-1  xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]  ${
+          className={`flex items-center  z-[100] lg:py-2  md:py-1  xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]  ${
             openBar ? "justify-center" : "justify-between"
           } `}
         >

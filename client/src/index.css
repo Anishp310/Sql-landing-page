@@ -8,8 +8,8 @@
     clear: both;
   }
 
-  @media (min-width: 2600px) {
-    .custom-4k-left {
-      left: 30% !important;
+  @media (max-width: 2000px) {
+    #custom-4k-left {
+      left: 28% !important;
     }
   }

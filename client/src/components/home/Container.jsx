@@ -93,7 +93,7 @@ const Container = () => {
 
       {/* Selected Content Section */}
       {selected && (
-        <div className="w-full mt-4 text-white border-b-2 rounded-b-lg shadow-lg bg-gray-200 sm:px-[3rem] sm:py-[2rem] px-[1rem] py-[1rem]">
+        <div className="w-full mt-4 text-white border-b-2 rounded-b-lg shadow-lg bg-gray-50 sm:px-[3rem] sm:py-[2rem] px-[1rem] py-[1rem]">
           <h3 className="font-semibold sm:text-md text-slate-900 md:text-xl">
             {selectedItem.title}
           </h3>

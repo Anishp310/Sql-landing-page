@@ -61,7 +61,7 @@ const PricingContent = () => {
         <div className="flex justify-center gap-4 mt-4 md:mt-8">
           <div className="relative">
             <button
-              className={`px-4 py-2 relative font-semibold focus:outline-none transition-opacity duration-200 ${
+              className={`px-4 py-2 relative  focus:outline-none transition-opacity duration-200 ${
                 selectedPlan === "Corporate Banking Plan"
                   ? " text-red-900 border-b-2 bg-slate-50"
                   : ""
@@ -71,12 +71,12 @@ const PricingContent = () => {
               Corporate Banking Plan
             </button>
             {selectedPlan === "Corporate Banking Plan" && (
-              <hr className="absolute bottom-0 left-0 w-full border-b-2 border-slate-900 " />
+              <hr className="absolute bottom-0 left-0 w-full border-red-900 border-b-1 " />
             )}
           </div>
           <div className="relative">
             <button
-              className={`py-2 relative font-semibold focus:outline-none transition-opacity duration-200 px-4 ${
+              className={`py-2 relative  focus:outline-none transition-opacity duration-200 px-4 ${
                 selectedPlan === "Trading Plan"
                   ? "text-red-900 border-b-2 bg-slate-50 "
                   : ""
@@ -86,7 +86,7 @@ const PricingContent = () => {
               Trading Plan
             </button>
             {selectedPlan === "Trading Plan" && (
-              <hr className="absolute bottom-0 left-0 w-full border-b-2 border-slate-900 " />
+              <hr className="absolute bottom-0 left-0 w-full border-red-900 border-b-1 " />
             )}
           </div>
         </div>
@@ -202,9 +202,8 @@ const PricingContent = () => {
                     {plan.name}
                   </h2>
                   <p className="mb-2 text-slate-900">
-                    Best for service-based businesses that require basic
-                    accounting
-                  </p>
+                      {currentPlanText[index]?.text || "Default description"}
+                    </p>
                   <div className="my-6 text-4xl font-semibold text-gray-800">
                     {plan.price} / {plan.duration}
                   </div>

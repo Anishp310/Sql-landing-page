@@ -74,14 +74,14 @@ const News = () => {
               <img
                 src={imageList[0].image_data} // Assuming image_data is a valid URL or base64 string
                 alt="Corporate News"
-                className="w-full rounded-lg object-cover h-[250px] sm:h-[300px] lg:h-[1000px] xl:h-[900px] md:h-[900px]"
+                className="w-full rounded-lg object-cover h-[250px] sm:h-[300px] lg:h-[1000px] xl:h-[900px] md:h-[900px] "
               />
             </div>
           )}
         </div>
 
         {/* News Section */}
-        <div className="max-w-full lg:h-[1000px] xl:h-[900px] md:h-[900px] overflow-hidden px-2">
+        <div className="max-w-full lg:h-[950px] xl:h-[865px] md:h-[820px] overflow-hidden px-2">
           <p className="mb-2 text-xl font-bold text-red-900 lg:mb-5 md:text-2xl">
             Corporate News
           </p>
@@ -94,7 +94,7 @@ const News = () => {
                 href={ensureProtocol(news.site)} // Ensure the URL has the protocol
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm font-bold text-justify text-black underline lg:text-base xl:text-lg hover:text-rose-700"
+                className="block text-sm font-bold text-black underline decoration-1 lg:text-base xl:text-lg hover:text-rose-700"
               >
               {news.title.length > 100
                   ? `${news.title.substring(0, 100)}...` // Truncate to 100 characters

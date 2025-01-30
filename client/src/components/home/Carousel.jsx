@@ -143,7 +143,7 @@ const Carousel = () => {
           className="object-left-top w-full h-full"
         />
         <div className="max-w-[1600px] mx-auto absolute">
-          <div className="flex flex-col items-center mx-5 text-sm text-center text-white lg:mx-40 md:mx-5 md:text-xl ">
+          <div className="flex flex-col items-center text-sm text-center text-white lg:mx-40 md:mx-5 md:text-xl ">
             <p className="xl:text-4xl lg:text-4xl md:text-3xl font-bold xl:w-[600px] lg:w-[600px] md:w-[450px]  w-[300px] text-xl ">
               Modernize your data landscape to monetize Data
             </p>
