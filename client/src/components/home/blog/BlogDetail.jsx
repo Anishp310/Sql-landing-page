@@ -88,10 +88,10 @@ const BlogDetail = () => {
           <div className="flex items-center">
             <hr className="rotate-90 w-[80px] border-white border-1" />
             <div>
-              <p className="mt-2 text-sm md:text-lg">
+              <p className="text-[16px] md:text-xl lg:text-2xl ">
                 Engaging Content & Brand Growth
               </p>
-              <p className="text-2xl font-semibold md:text-4xl">Blog</p>
+              <p className="xl:text-4xl lg:text-4xl md:text-3xl font-bold text-xl mt-2">Blog</p>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ const BlogDetail = () => {
         <div className="mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
           {/* Top Posts Carousel */}
           <div className="mt-[2rem] md:mx-0 mx-[1rem]">
-            <h3 className="mb-2 text-lg font-bold md:text-2xl">Top Posts</h3>
+            <h3 className="text-base font-semibold  md:text-xl ">Top Posts</h3>
             {loading && <p>Loading top posts...</p>}
             {error && <p>{error}</p>}
             {!loading && !error && (
@@ -118,7 +118,7 @@ const BlogDetail = () => {
                       </div>
                       <div className="flex-col">
                         <span
-                          className="text-base font-medium text-justify cursor-pointer"
+                          className="md:text-base sm:text-[12px] text-[13px] font-medium text-justify cursor-pointer"
                           onClick={() => handleBlogClick(post)}
                         >
                           {post.title.length > 30
@@ -126,7 +126,7 @@ const BlogDetail = () => {
                             : post.title}
                         </span>
                         <br />
-                        <span>
+                        <span className="md:text-base sm:text-[12px] text-[13px]"> 
                           {new Intl.DateTimeFormat("en-US", {
                             day: "2-digit",
                             month: "short",
@@ -143,7 +143,7 @@ const BlogDetail = () => {
 
           {/* Blog Details */}
           <div className="lg:mt-[4rem] md:mt-[3rem] mt-[2rem] clearfix">
-            <h1 className="mb-8 font-bold lg:text-4xl md:text-3xl">
+            <h1 className="mb-8 text-[16px] md:text-xl lg:text-2xl font-bold">
               {blog.title}
             </h1>
 
@@ -165,7 +165,7 @@ const BlogDetail = () => {
                     .map((paragraph, index) => (
                       <p
                         key={index}
-                        className="mb-2 text-sm text-justify text-gray-800 md:text-base lg:text-lg"
+                        className="mb-2 md:text-base sm:text-[12px] text-[13px] text-justify text-gray-800 "
                       >
                         {paragraph.trim()}
                       </p>

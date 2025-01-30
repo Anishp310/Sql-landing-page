@@ -15,7 +15,7 @@ const BusinessListComponent = ({ onSectionChange }) => (
       {AboutList.map((item) => (
         <li
           key={item.id}
-          className="items-center justify-around px-0 py-0 m-1 ease-out rounded-md cursor-pointer md:text-black md:flex md:py-1 md:px-1 hover:text-orange-400 text-rose-800"
+          className="items-center justify-around px-0  m-1 ease-out rounded-md cursor-pointer md:text-black md:flex  md:px-1 hover:text-orange-400 text-rose-800"
         >
           <NavLink
             to={item.link}

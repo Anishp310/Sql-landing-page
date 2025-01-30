@@ -65,7 +65,7 @@ const News = () => {
   };
 
   return (
-    <div className="max-w-[1600px] mx-auto">
+    <div className="max-w-[1600px] mx-auto ">
       <div className="relative grid grid-cols-1 md:gap-2 lg:gap-4 md:grid-cols-2 py-5 text-black xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
         {/* Image Section */}
         <div className="">
@@ -94,17 +94,17 @@ const News = () => {
                 href={ensureProtocol(news.site)} // Ensure the URL has the protocol
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm font-bold text-justify text-black underline lg:text-base xl:text-lg hover:text-rose-700"
+                className="block underline decoration-1 text-sm font-bold  text-black  lg:text-base xl:text-lg hover:text-rose-900"
               >
               {news.title.length > 100
                   ? `${news.title.substring(0, 100)}...` // Truncate to 100 characters
                   : news.title}
                 
               </a>
-              <p className="mt-1 text-sm text-gray-600 lg:mt-2 xl:mt-1 lg:text-lg ">
+              <p className="mt-1 md:text-base sm:text-[12px] text-[13px]  text-gray-600 lg:mt-2 ">
                 {news.source}
               </p>
-              <p className="mt-1 text-xs leading-relaxed text-justify text-gray-700 lg:mt-3 xl:mt-3 lg:text-sm">
+              <p className="mt-1 md:text-base sm:text-[12px] text-[13px]  leading-relaxed text-justify text-gray-700 ">
                 {news.description.length > 300
                   ? `${news.description.substring(0, 300)}...` // Truncate to 350 characters
                   : news.description}

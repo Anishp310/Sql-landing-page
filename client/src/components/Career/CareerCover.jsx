@@ -9,8 +9,8 @@ const CareerCover = () => {
         <div className='flex items-center'>
           <hr className='rotate-90 w-[80px] border-white border-1 ' />
           <div>
-            <p className='text-2xl font-semibold md:text-4xl'>Career</p>
-            <p className='mt-2 text-sm md:text-lg'>With Jooneli Inc.</p>
+            <p className='xl:text-4xl lg:text-4xl md:text-3xl font-bold  text-xl'>Career</p>
+            <p className='mt-2 text-[16px] md:text-xl lg:text-2xl'>With Jooneli Inc.</p>
           </div>
         </div>
       </div>

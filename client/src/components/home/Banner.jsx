@@ -12,7 +12,7 @@ const Banner = () => {
         <div className="absolute top-3 max-w-[1600px] mx-auto
 ">
           <div className="my-[2rem]  lg:text-3xl text-xl lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] xl:mx-[10rem] ">
-            <p className="font-bold lg:text-3xl">360 Quantum Cloud Banking</p>
+            <p className="xl:text-4xl lg:text-4xl md:text-3xl font-bold xl:w-[600px] lg:w-[600px] md:w-[450px]  w-[300px] text-xl">360 Quantum Cloud Banking</p>
             <hr className="border-2 md:w-[40px] w-[30px] border-red-600 lg:mb-[2rem] md:mb-[1rem] mb-[1.5rem]" />
             <p className="md:mt-5 mt-3 text-[16px] md:text-xl lg:text-2xl leading-5">
               Cloud computing is the future of banking technology

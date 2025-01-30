@@ -113,7 +113,7 @@ const Blog = () => {
                         {post.title}
                       </span>
                       <div className="hidden px-2 md:block">
-                        <p className="my-2 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
+                        <p className="my-2 md:text-base sm:text-[12px] text-[13px] text-justify text-gray-600 ">
                           {post.description.length > 300
                             ? `${post.description.substring(0, 150)}...`
                             : post.description}
@@ -137,7 +137,7 @@ const Blog = () => {
 
           <div className="grid grid-cols-1 lg:gap-8 lg:grid-cols-3 mt-[2rem] md:mx-0 mx-[1rem]">
             <div className="lg:col-span-2">
-              <h2 className="mb-4 text-[1.75rem] font-bold md:mb-8 md:text-3xl lg:text-4xl">
+              <h2 className="mb-4 text-[16px] md:text-xl lg:text-2xl font-bold md:mb-8 ">
                 Discover Our Latest Posts
               </h2>
               <div className="space-y-8">
@@ -155,17 +155,17 @@ const Blog = () => {
                     </div>
                     <div>
                       <h3
-                        className="text-base font-bold text-black cursor-pointer lg:text-xl md:text-lg"
+                        className="text-base font-semibold  md:text-xl  text-black cursor-pointer"
                         onClick={() => handleBlogClick(post)}
                       >
                         {post.title}
                       </h3>
-                      <p className="my-2 text-sm text-justify text-gray-600 lg:text-lg md:text-base">
+                      <p className="my-2  text-justify text-gray-600 ">
                         {post.description.length > 300
                           ? `${post.description.substring(0, 300)}...`
                           : post.description}
                       </p>
-                      <div className="flex items-center text-sm text-gray-500">
+                      <div className="flex items-center text-sm text-gray-500 md:text-base sm:text-[12px] text-[13px]">
                         <span>
                           {new Intl.DateTimeFormat("en-US", {
                             day: "2-digit",

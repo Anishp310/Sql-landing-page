@@ -9,8 +9,8 @@ const PricingCoverPage = () => {
         <div className='flex items-center'>
           <hr className='rotate-90 w-[80px] border-white border-1 ' />
           <div>
-            <p className='text-2xl font-semibold md:text-4xl'>For Pricing</p>
-            <p className='mt-2 text-sm md:text-lg'></p>
+            <p className='xl:text-4xl lg:text-4xl md:text-3xl font-bold  text-xl'>For Pricing</p>
+            <p className='text-[16px] md:text-xl lg:text-2xl'></p>
           </div>
         </div>
       </div>

@@ -76,7 +76,7 @@ const Header = () => {
               <img
                 src={joonLogo}
                 alt="logo"
-                className="h-[50px] w-full object-cover"
+                className="h-[40px] w-full object-cover"
               />
             </Link>
           </div>
