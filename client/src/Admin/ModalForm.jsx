@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import SummaryApi from "../common";
 import { useEffect, useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 const ModalForm = ({ setOpenModal, refreshNews }) => {
   const [title, setTitle] = useState("");
@@ -20,7 +21,7 @@ const ModalForm = ({ setOpenModal, refreshNews }) => {
         return;
       }
 
-      const response = await fetch("http://localhost:8080/addNews", {
+      const response = await fetch(SummaryApi.addNews.url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +103,7 @@ const ModalForm = ({ setOpenModal, refreshNews }) => {
           />
           <button
             type="submit"
-            className="text-xl font-bold bg-green-500 hover:bg-green-700 btn text-white"
+            className="text-xl font-bold text-white bg-green-500 hover:bg-green-700 btn"
           >
             Add News
           </button>

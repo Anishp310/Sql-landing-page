@@ -1,18 +1,18 @@
-import express from "express"
-import { createNews, DeleteNews, getAllNews, getNews, UpdateNews } from "../controller/newsController.js";
-import { forgotPassword, getResetPasswordPage, loginUser, registerUser, resetPassword} from "../controller/authController.js";
 import authenticateToken from "../middleware/authentication.js";
-import { createBrochure, deleteBrochure, getAllBrochures, getBrochure, updateBrochure } from "../controller/brochureController.js";
-import { createDemo, deleteDemo, getAllDemos, updateDemo } from "../controller/demoController.js";
-import { createContact, deleteContact, getAllContacts, getContact, updateContact } from "../controller/contactController.js";
-import { createCareer, deleteCareer, getAllCareers, getCareer, updateCareer } from "../controller/careerController.js";
-import { createImage, deleteImage, getAllImages, getImage, updateImage } from "../controller/imageController.js";
+import express from "express";
 import multer from "multer";
+import { forgotPassword, getResetPasswordPage, loginUser, registerUser, resetPassword } from "../controller/authController.js";
 import { createBankingPlan, deleteBankingPlan, getAllBankingPlans, getBankingPlan, updateBankingPlan } from "../controller/bankingContainer.js";
-import { createTradingPlan, deleteTradingPlan, getAllTradingPlans, getTradingPlan, updateTradingPlan } from "../controller/tradingContainer.js";
 import { createBlog, deleteBlog, getAllBlogs, getBlog, updateBlog } from "../controller/blogController.js";
+import { createBrochure, deleteBrochure, getAllBrochures, getBrochure, updateBrochure } from "../controller/brochureController.js";
+import { createCareer, deleteCareer, getAllCareers, getCareer, updateCareer } from "../controller/careerController.js";
+import { createContact, deleteContact, getAllContacts, getContact, updateContact } from "../controller/contactController.js";
+import { createDemo, deleteDemo, getAllDemos, updateDemo } from "../controller/demoController.js";
+import { createImage, deleteImage, getAllImages, getImage, updateImage } from "../controller/imageController.js";
+import { DeleteNews, UpdateNews, createNews, getAllNews, getNews } from "../controller/newsController.js";
+import { createTradingPlan, deleteTradingPlan, getAllTradingPlans, getTradingPlan, updateTradingPlan } from "../controller/tradingContainer.js";
 
-const storage = multer.memoryStorage(); // Store file in memory
+const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage });
 const router = express.Router();
 

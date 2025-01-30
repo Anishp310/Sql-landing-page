@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import SummaryApi from "../common";
 import { useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 const EditNews = ({ news, closeModal, refreshNews }) => {
   const [title, setTitle] = useState(news.title);
@@ -18,7 +19,7 @@ const EditNews = ({ news, closeModal, refreshNews }) => {
     try {
       const body = { title, site, description, source }; // Include source
 
-      const response = await fetch(`http://localhost:8080/updateNews/${news.news_id}`, {
+      const response = await fetch(`${SummaryApi.updateNews.url}/${news.news_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

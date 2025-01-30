@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { toast, Toaster } from "react-hot-toast";
 import * as XLSX from "xlsx";
+import React, { useEffect, useState } from "react";
+import SummaryApi from "../../common";
+import { Toaster, toast } from "react-hot-toast";
 
 const BrochureList = () => {
   const [brochure, setBrochure] = useState([]);
@@ -9,21 +10,34 @@ const BrochureList = () => {
   if (!token) {
     toast.error("No token found. Please log in again.");
   }
+
   const truncate = (str, length) => {
     return str.length > length ? str.slice(0, length) + "..." : str;
   };
- 
+
   const getNews = async () => {
     try {
-      const response = await fetch('http://localhost:8080/getAllBrochures', {
+      const response = await fetch(SummaryApi.getAllBrochure.url, {
         headers: {
-          Authorization: `Bearer ${token}`, // Ensure token is passed in request header
+          Authorization: `Bearer ${token}`,
         },
       });
-      const textData = await response.text();  // First, get the raw response as text
-      const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
-      console.log(jsonData)
-      setBrochure(jsonData);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch brochures.");
+      }
+
+      const textData = await response.text();
+      let jsonData = [];
+
+      try {
+        jsonData = textData ? JSON.parse(textData) : [];
+      } catch (error) {
+        toast.error("Failed to parse API response. Please check the data format.");
+        console.error("JSON Parse Error:", error);
+      }
+
+      setBrochure(Array.isArray(jsonData) ? jsonData : []);
     } catch (error) {
       toast.error(error.message);
     }
@@ -35,12 +49,17 @@ const BrochureList = () => {
 
   const handleDeleteClick = async (item) => {
     try {
-      await fetch(`http://localhost:8080/deleteBrochure/${item}`, {
+      const response = await fetch(`${SummaryApi.deleteAllBrochure.url}/${item}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Add token to Authorization header
+          Authorization: `Bearer ${token}`,
         },
-        method: 'DELETE',
+        method: "DELETE",
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete brochure.");
+      }
+
       setBrochure(brochure.filter((brochure) => brochure.brochure_id !== item));
       toast.success("Deleted Successfully");
     } catch (error) {
@@ -69,9 +88,9 @@ const BrochureList = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto my-5 p-4 bg-gray-100 rounded shadow-lg ">
+    <div className="max-w-screen-xl p-4 mx-auto my-5 bg-gray-100 rounded shadow-lg ">
       <Toaster position="top-right" />
-      <h1 className="text-2xl font-bold mb-5">Brochure List</h1>
+      <h1 className="mb-5 text-2xl font-bold">Brochure List</h1>
 
       <div className="flex justify-start mb-4">
         <button
@@ -95,13 +114,13 @@ const BrochureList = () => {
           </tr>
         </thead>
         <tbody className="hover">
-          {brochure?.map((item, index) => (
+          {Array.isArray(brochure) && brochure.map((item, index) => (
             <tr key={item.brochure_id || index} className="hover:bg-gray-600 hover:text-white">
               <td className="px-4 py-2 border border-gray-300">{item.username}</td>
               <td className="px-4 py-2 border border-gray-300">{item.email}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(item.designation,50)}</td>
+              <td className="px-4 py-2 border border-gray-300">{truncate(item.designation, 50)}</td>
               <td className="px-4 py-2 border border-gray-300">{item.phone}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(item.description,50)}</td>
+              <td className="px-4 py-2 border border-gray-300">{truncate(item.description, 50)}</td>
               <td className="px-4 py-2 border border-gray-300">{item.meeting ? "Yes" : "No"}</td>
               <td className="px-4 py-2 border border-gray-300">
                 {item.created_at.replace("T", " ").split(".")[0]}

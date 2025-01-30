@@ -20,10 +20,11 @@ const Ecosystem = () => {
   ];
 
   return (
-    <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] md:mt-[2rem] mt-[1rem] space-y-12">
+    <div className="max-w-[1600px] mx-auto">
+      <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] md:mt-[2rem] mt-[1rem] space-y-12">
       {/* Unified Digital Banking Ecosystem Section */}
       <section>
-        <div className="mb-2 text-xl font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-2xl lg:text-3xl">
+        <div className="mb-2 text-lg font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-xl lg:text-2xl">
           Unified Digital Banking Ecosystem
         </div>
         <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
@@ -37,7 +38,7 @@ const Ecosystem = () => {
           <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
             The Ecosystem seamlessly integrates:
           </p>
-          <ul className="lg:ml-[4rem] pl-8 space-y-4 list-disc md:ml-[2rem] ml-1 ">
+          <ul className="space-y-4 list-none ">
             <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
               <strong className="">SMS Banking </strong> ensures
               accessibility through instant alerts, balance inquiries, and quick
@@ -73,7 +74,7 @@ const Ecosystem = () => {
 
       {/* Core Architecture Section */}
       <section>
-        <div className="mb-2 text-xl font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-2xl lg:text-3xl">
+        <div className="mb-2 text-lg font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-xl lg:text-2xl">
           Designing a 360 Core Banking System with C# and CubeProcess Bigtable
           Data
         </div>
@@ -85,16 +86,16 @@ const Ecosystem = () => {
           on real-time processing, high availability, and a seamlessly
           interconnected ecosystem to support diverse banking operations.
         </p>
-        <h3 className="mb-4 text-lg font-semibold text-black lg:text-2xl md:text-xl">
+        <h3 className="mb-4 font-semibold text-black text-md lg:text-xl md:text-lg">
           Core Architecture
         </h3>
-        <div className=" lg:ml-[4rem] space-y-8 mb-4 md:ml-[2rem] ml-1">
+        <div className="mb-2 space-y-8 ">
           {features.map((feature) => (
             <div key={feature.id}>
               <h4 className="mb-2 text-base font-bold text-black lg:text-xl md:text-lg">
                 {feature.title}
               </h4>
-              <ul className="pl-12 space-y-2 list-disc">
+              <ul className="space-y-2 list-none">
                 {feature.points.map((point, index) => (
                   <li
                     key={index}
@@ -109,10 +110,10 @@ const Ecosystem = () => {
         </div>
       </section>
       <section className="mb-[2rem]">
-        <div className="mb-2 text-xl font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-2xl lg:text-3xl">
+        <div className="mb-2 text-lg font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-xl lg:text-2xl">
         Key Features
         </div>
-        <ul className="lg:ml-[4rem] pl-8 space-y-4 list-disc md:ml-[2rem] ml-1">
+        <ul className="list-none lg:space-y-4">
           <li className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base">
             <strong className=""> Real-Time Processing:</strong>{" "}
             Handles concurrent transactions with minimal latency.
@@ -132,6 +133,8 @@ const Ecosystem = () => {
         </p>
       </section>
     </div>
+    </div>
+    
   );
 };
 

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import SummaryApi from "../common";
+import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { toast, Toaster } from "react-hot-toast";
 
 const Register = () => {
   const {
@@ -22,7 +23,7 @@ const onSubmit = async (data) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/register", {
+    const response = await fetch(SummaryApi.Register.url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -52,14 +53,14 @@ const onSubmit = async (data) => {
     <div className="h-[calc(100vh-120px)] flex justify-center items-center">
             <Toaster position="top-right" />
 
-      <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8">
-        <h2 className="text-xl font-semibold mb-4">Please Register</h2>
+      <div className="w-full max-w-sm px-8 pt-6 pb-8 mx-auto bg-white rounded shadow-md">
+        <h2 className="mb-4 text-xl font-semibold">Please Register</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Username Field */}
           <div className="mb-4">
             <label
               htmlFor="name"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block mb-2 text-sm font-bold text-gray-700"
             >
               Username
             </label>
@@ -68,10 +69,10 @@ const onSubmit = async (data) => {
               type="text"
               id="name"
               placeholder="Username"
-              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+              className="w-full px-3 py-2 leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow"
             />
             {errors.name && (
-              <p className="text-red-500 text-xs italic mb-3">
+              <p className="mb-3 text-xs italic text-red-500">
                 {errors.name.message}
               </p>
             )}
@@ -81,7 +82,7 @@ const onSubmit = async (data) => {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block mb-2 text-sm font-bold text-gray-700"
             >
               Email
             </label>
@@ -90,10 +91,10 @@ const onSubmit = async (data) => {
               type="email"
               id="email"
               placeholder="Email Address"
-              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+              className="w-full px-3 py-2 leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow"
             />
             {errors.email && (
-              <p className="text-red-500 text-xs italic mb-3">
+              <p className="mb-3 text-xs italic text-red-500">
                 {errors.email.message}
               </p>
             )}
@@ -103,7 +104,7 @@ const onSubmit = async (data) => {
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block mb-2 text-sm font-bold text-gray-700"
             >
               Password
             </label>
@@ -118,10 +119,10 @@ const onSubmit = async (data) => {
               type="password"
               id="password"
               placeholder="Password"
-              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+              className="w-full px-3 py-2 leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow"
             />
             {errors.password && (
-              <p className="text-red-500 text-xs italic mb-3">
+              <p className="mb-3 text-xs italic text-red-500">
                 {errors.password.message}
               </p>
             )}
@@ -132,7 +133,7 @@ const onSubmit = async (data) => {
           <div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white px-8 py-2 rounded font-bold focus:outline-none"
+              className="px-8 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none"
             >
               Register
             </button>
@@ -140,7 +141,7 @@ const onSubmit = async (data) => {
         </form>
 
         {/* Login Link */}
-        <p className="align-baseline font-medium mt-4 mb-4 text-sm">
+        <p className="mt-4 mb-4 text-sm font-medium align-baseline">
           Already have an account? Please
           <Link to="/admin" className="text-blue-500 hover:text-blue-700">
             {" "}
@@ -152,7 +153,7 @@ const onSubmit = async (data) => {
         {/* <div>
           <button
             onClick={handleGoogleSignIn}
-            className="flex w-full justify-center bg-blue-500 hover:bg-blue-700 text-white items-center font-bold py-2 px-4 rounded focus:outline-none"
+            className="flex items-center justify-center w-full px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none"
           >
             <FaGoogle className="mr-2" />
             Sign in with Google
@@ -160,7 +161,7 @@ const onSubmit = async (data) => {
         </div> */}
 
         {/* Footer */}
-        <p className="mt-5 text-center text-gray-500 text-xs">
+        <p className="mt-5 text-xs text-center text-gray-500">
           @2025 Book Store. All rights reserved.
         </p>
       </div>

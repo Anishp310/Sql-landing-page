@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast, Toaster } from 'react-hot-toast';
-import { FaTimes } from "react-icons/fa";
 import * as XLSX from "xlsx";
+import React, { useEffect, useState } from "react";
+import SummaryApi from "../../common";
+import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast";
+import { FaTimes } from "react-icons/fa";
 
 const Careerlist = () => {
   const [careerList, setCareerList] = useState([]);
@@ -17,7 +18,7 @@ const Careerlist = () => {
 
   const getCareer = async () => {
     try {
-      const response = await fetch('http://localhost:8080/career');
+      const response = await fetch(SummaryApi.getCareer.url);
       if (!response.ok) {
         throw new Error('Failed to fetch career data');
       }
@@ -61,8 +62,8 @@ const Careerlist = () => {
   const handleCareerSubmit = async (data) => {
     try {
       const url = selectedCareer
-        ? `http://localhost:8080/updatecareer/${selectedCareer.career_id}`
-        : 'http://localhost:8080/addcareers';
+        ? `${SummaryApi.updateCareer.url}/${selectedCareer.career_id}`
+        : SummaryApi.addCareer.url;
       const method = selectedCareer ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -131,7 +132,7 @@ const Careerlist = () => {
 
   const handleDeleteClick = async (careerId) => {
     try {
-      const response = await fetch(`http://localhost:8080/deletecareer/${careerId}`, {
+      const response = await fetch(`${SummaryApi.deleteCareer.url}/${careerId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -150,14 +151,14 @@ const Careerlist = () => {
   };
 
   return (
-    <div className="career-list-container max-w-6xl mx-auto my-5 p-4 bg-gray-100 rounded shadow-lg overflow-hidden">
+    <div className="max-w-6xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg career-list-container">
       <Toaster position="top-right" />
-      <h1 className="text-2xl font-bold mb-5">Career List</h1>
+      <h1 className="mb-5 text-2xl font-bold">Career List</h1>
       <div className="overflow-x-auto h-100">
       <div className="flex justify-start mb-4">
     
         <button
-          className="px-4 py-2 text-white bg-green-500 rounded-lg  hover:bg-green-600 focus:outline-none"
+          className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none"
           onClick={exportToExcel}
         >
           Export to Excel
@@ -169,60 +170,60 @@ const Careerlist = () => {
           setIsModalOpen(true);
           handleAddCareerClick()
         }}
-        className="px-4 py-2 text-white bg-green-500 rounded-lg  hover:bg-green-600 focus:outline-none ml-4"
+        className="px-4 py-2 ml-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none"
 
       >
         Add Career
       </button>
       </div>
-        <table className="w-full  border-collapse border-gray-300 shadow-lg">
+        <table className="w-full border-collapse border-gray-300 shadow-lg">
           <thead className=''>
-            <tr className="text-black  bg-gray-200">
-            <th className=" px-4 py-2 text-left border border-gray-300 ">Title</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Job Type</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Experience</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Qualification</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Salary</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Category</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">location</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">ApplyBefore</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Description</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Salary</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">SkillsRequired</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Created_at</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Edit</th>
-            <th className=" px-4 py-2 text-left border border-gray-300">Delete</th>
+            <tr className="text-black bg-gray-200">
+            <th className="px-4 py-2 text-left border border-gray-300 ">Title</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Job Type</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Experience</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Qualification</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Salary</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Category</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">location</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">ApplyBefore</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Description</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Salary</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">SkillsRequired</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Created_at</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Edit</th>
+            <th className="px-4 py-2 text-left border border-gray-300 ">Delete</th>
 
             </tr>
           </thead>
           <tbody className=''>
             {careerList.map((career) => (
-              <tr key={career.career_id} className="hover:bg-gray-600  hover:text-white">
-                <td className="border px-4 py-2  border-gray-300 h-8 w-8 overflow-hidden">{career.title}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.job_type}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.experience}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.qualification}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.salary}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.category}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.location}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.apply_before.replace("T", " ").split(".")[0]}</td>
-              <td className="border px-4 py-2  border-gray-300 ">{truncate(career.description,50)}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.salary}</td>
-              <td className="border px-4 py-2  border-gray-300">{truncate(career.skills_required,50)}</td>
-              <td className="border px-4 py-2  border-gray-300">{career.created_at.replace("T", " ").split(".")[0]}</td>
-              <td className="border px-4 py-2  border-gray-300 ">
+              <tr key={career.career_id} className="hover:bg-gray-600 hover:text-white">
+                <td className="w-8 h-8 px-4 py-2 overflow-hidden border border-gray-300">{career.title}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.job_type}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.experience}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.qualification}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.salary}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.category}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.location}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.apply_before.replace("T", " ").split(".")[0]}</td>
+              <td className="px-4 py-2 border border-gray-300 ">{truncate(career.description,50)}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.salary}</td>
+              <td className="px-4 py-2 border border-gray-300">{truncate(career.skills_required,50)}</td>
+              <td className="px-4 py-2 border border-gray-300">{career.created_at.replace("T", " ").split(".")[0]}</td>
+              <td className="px-4 py-2 border border-gray-300 ">
                 <button
                   onClick={() => handleUpdateClick(career)}
-                  className="bg-blue-500 text-white px-8 py-3 rounded mr-2"
+                  className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
                 >
                   Edit
                 </button>
                
               </td>
-              <td className="border-b px- py-2 ">
+              <td className="py-2 border-b px- ">
               <button
                   onClick={() => handleDeleteClick(career.career_id)}
-                  className="bg-red-500 text-white px-8 py-3 rounded"
+                  className="px-8 py-3 text-white bg-red-500 rounded"
                 >
                   Delete
                 </button>
@@ -235,9 +236,9 @@ const Careerlist = () => {
       </div>
 
       {isModalOpen && (
-        <div className="modal fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center overflow-auto" open>
+        <div className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal" open>
           <div className="relative modal-content bg-white text-black p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-3xl overflow-y-auto max-h-[90vh]">
-            <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">{selectedCareer ? "Update Career" : "Add Career"}</h2>
+            <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">{selectedCareer ? "Update Career" : "Add Career"}</h2>
             <div className='absolute top-3 right-2'>
         <FaTimes className='text-2xl cursor-pointer'
         onClick={()=>{setIsModalOpen(false)}} />
@@ -250,7 +251,7 @@ const Careerlist = () => {
                   {...register('Title', { required: 'Job title is required' })}
                   id="Title"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Job Title"
                 />
               </div>
@@ -261,7 +262,7 @@ const Careerlist = () => {
                   {...register('JobType', { required: 'JobType is required' })}
                   id="JobType"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Job Type"
                 />
               </div>
@@ -272,7 +273,7 @@ const Careerlist = () => {
                   {...register('Experience', { required: 'Experience is required' })}
                   id="Experience"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Experience (e.g., 2-3 years)"
                 />
               </div>
@@ -283,7 +284,7 @@ const Careerlist = () => {
                   {...register('Qualification', { required: 'Qualification is required' })}
                   id="Qualification"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Qualification (e.g., Bachelor's)"
                 />
               </div>
@@ -294,7 +295,7 @@ const Careerlist = () => {
                   {...register('Category', { required: 'Category is required' })}
                   id="Category"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Category (e.g., IT, Marketing)"
                 />
               </div>
@@ -305,7 +306,7 @@ const Careerlist = () => {
                   {...register('Location', { required: 'Location is required' })}
                   id="Location"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Location (e.g., New York, Remote)"
                 />
               </div>
@@ -316,7 +317,7 @@ const Careerlist = () => {
                   {...register('ApplyBefore', { required: 'Application deadline is required' })}
                   id="ApplyBefore"
                   type="date"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -326,7 +327,7 @@ const Careerlist = () => {
                   {...register('Description', { required: 'Description is required' })}
                   id="Description"
                   rows="4"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Job Description"
                 />
               </div>
@@ -337,7 +338,7 @@ const Careerlist = () => {
                   {...register('Salary', { required: 'Salary is required' })}
                   id="Salary"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Salary (e.g., 50,000 USD)"
                 />
               </div>
@@ -348,22 +349,22 @@ const Careerlist = () => {
                   {...register('SkillsRequired', { required: 'Skills is required' })}
                   id="SkillsRequired"
                   type="text"
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Skills Required (e.g., Java, React)"
                 />
               </div>
 
-              <div className="flex justify-between flex-wrap space-x-4 mt-4">
+              <div className="flex flex-wrap justify-between mt-4 space-x-4">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 w-full sm:w-auto"
+                  className="w-full px-6 py-3 text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 sm:w-auto"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+                  className="w-full px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:w-auto"
                 >
                   {selectedCareer ? 'Update Career' : 'Add Career'}
                 </button>

@@ -1,7 +1,7 @@
 const OperationSection = () => {
   return (
-    
-    <div className="relative xl:w-[30%] lg:w-[50%]  xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] ">
+    <div className="max-w-[1600px] mx-auto">
+       <div className="relative xl:w-[30%] lg:w-[50%]  xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] ">
       <div className="xl:my-[3rem] lg:my-[2rem] my-[1rem] font thin">
         <h1 className="text-xl font-thin md:text-2xl">Need help setting up your operation?</h1>
       </div>
@@ -24,6 +24,8 @@ const OperationSection = () => {
         </div>
       </div> 
     </div>
+    </div>
+   
   );
 };
 

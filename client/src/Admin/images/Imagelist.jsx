@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
@@ -13,7 +14,7 @@ const Imagelist = () => {
   // Fetch images
   const getImages = async () => {
     try {
-      const response = await fetch('http://localhost:8080/getAllImages');
+      const response = await fetch( SummaryApi.getAllImages.url);
       const textData = await response.text(); // Get raw response as text
       const jsonData = textData ? JSON.parse(textData) : []; // Parse only if data exists
       setImageList(jsonData);
@@ -47,8 +48,8 @@ const Imagelist = () => {
       }
   
       const url = selectedImage
-        ? `http://localhost:8080/updateImages/${selectedImage.image_id}`
-        : 'http://localhost:8080/addImages';
+        ? `${SummaryApi.updateImages.url}/${selectedImage.image_id}`
+        : SummaryApi.addImages.url;
   
       const response = await fetch(url, {
         method: selectedImage ? "PUT" : "POST",
@@ -87,7 +88,7 @@ const Imagelist = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/deleteImages/${imageId}`, {
+      const response = await fetch(`${SummaryApi.deleteImages.url}/${imageId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

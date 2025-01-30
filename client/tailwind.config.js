@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xxl': '2600px', // Custom breakpoint for 2600px and above
+      },
       keyframes: {
         fadeInUp: {
           '0%': { opacity: 0, transform: 'translateY(50px)' },

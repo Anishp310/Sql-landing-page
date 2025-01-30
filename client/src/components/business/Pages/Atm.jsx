@@ -22,23 +22,26 @@ const Atm = () => {
           </div>
         </div>
       </div>
-      <div className="mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
-        <section className="py-4 mt-1 bg-white md:py-8 md:mt-6">
-          <h2 className="mb-2 text-xl font-semibold text-red-900 md:mb-6 lg:text-3xl md:text-2xl">
-            ATM: Convenient Self-Service Banking
-          </h2>
-          <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
-            <p className="mb-2">
-              ATMs provide 24/7 access to essential banking services, including
-              cash withdrawals, deposits, fund transfers, and balance inquiries.
-              These self-service terminals eliminate the need for branch visits,
-              ensuring convenience and efficiency. With secure authentication,
-              ATMs offer a reliable way to manage finances anytime, anywhere.ATM
-              services extend the ecosystem's reach, providing cash withdrawals,
-              deposits, and other services anytime, anywhere.
-            </p>
-          </div>
-        </section>
+      <div className="max-w-[1600px] mx-auto">
+        <div className="mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
+          <section className="py-4 mt-1 bg-white md:py-8 md:mt-6">
+            <h2 className="mb-2 text-lg font-semibold text-red-900 md:mb-6 lg:text-2xl md:text-xl">
+              ATM: Convenient Self-Service Banking
+            </h2>
+            <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <p className="mb-2">
+                ATMs provide 24/7 access to essential banking services,
+                including cash withdrawals, deposits, fund transfers, and
+                balance inquiries. These self-service terminals eliminate the
+                need for branch visits, ensuring convenience and efficiency.
+                With secure authentication, ATMs offer a reliable way to manage
+                finances anytime, anywhere.ATM services extend the ecosystem's
+                reach, providing cash withdrawals, deposits, and other services
+                anytime, anywhere.
+              </p>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

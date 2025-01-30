@@ -23,9 +23,10 @@ const MobileBanking = () => {
           </div>
         </div>
       </div>
+      <div className="max-w-[1600px] mx-auto">
       <div className="mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
         <section className="py-4 mt-1 bg-white md:py-8 md:mt-6">
-          <h2 className="mb-2 text-xl font-semibold text-red-900 md:mb-6 lg:text-3xl md:text-2xl">
+          <h2 className="mb-2 text-lg font-semibold text-red-900 md:mb-6 lg:text-2xl md:text-xl">
             Mobile Banking - Banking on the Go
           </h2>
           <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
@@ -48,6 +49,8 @@ const MobileBanking = () => {
           </div>
         </section>
       </div>
+      </div>
+     
     </div>
   );
 };

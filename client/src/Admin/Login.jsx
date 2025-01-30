@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import SummaryApi from "../common";
+import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { toast, Toaster } from "react-hot-toast";
 
 const Login = ({ setNewToken }) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Login = ({ setNewToken }) => {
       password: data.password,
     };
     try {
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch(SummaryApi.Login.url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -46,20 +47,19 @@ const Login = ({ setNewToken }) => {
   };
   
   
-  
 
   return (
     <div className="h-[calc(100vh-120px)] flex justify-center items-center ">
-      <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8">
+      <div className="w-full max-w-sm px-8 pt-6 pb-8 mx-auto bg-white rounded shadow-md">
       <Toaster position="top-right" />
 
-        <h2 className="text-xl font-semibold mb-4">Please Login</h2>
+        <h2 className="mb-4 text-xl font-semibold">Please Login</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Email Field */}
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block mb-2 text-sm font-bold text-gray-700"
             >
               Email
             </label>
@@ -68,10 +68,10 @@ const Login = ({ setNewToken }) => {
               type="email"
               id="email"
               placeholder="Email Address"
-              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+              className="w-full px-3 py-2 leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow"
             />
             {errors.email && (
-              <p className="text-red-500 text-xs italic">{errors.email.message}</p>
+              <p className="text-xs italic text-red-500">{errors.email.message}</p>
             )}
           </div>
 
@@ -79,7 +79,7 @@ const Login = ({ setNewToken }) => {
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block mb-2 text-sm font-bold text-gray-700"
             >
               Password
             </label>
@@ -94,10 +94,10 @@ const Login = ({ setNewToken }) => {
               type="password"
               id="password"
               placeholder="Password"
-              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow"
+              className="w-full px-3 py-2 leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow"
             />
             {errors.password && (
-              <p className="text-red-500 text-xs italic">{errors.password.message}</p>
+              <p className="text-xs italic text-red-500">{errors.password.message}</p>
             )}
           </div>
 
@@ -106,7 +106,7 @@ const Login = ({ setNewToken }) => {
           <div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white px-8 py-2 rounded font-bold focus:outline-none"
+              className="px-8 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none"
             >
               Login
             </button>
@@ -114,22 +114,22 @@ const Login = ({ setNewToken }) => {
         </form>
 
         {/* Register Link */}
-        <p className="align-baseline font-medium mt-4 mb-4 text-sm">
+        <p className="mt-4 mb-4 text-sm font-medium align-baseline">
           Haven't an account? Please
           <Link to="/register" className="text-blue-500 hover:text-blue-700">
             {" "}
             Register{" "}
           </Link>
         </p>
-        <p className="align-baseline font-medium mt-4 mb-4 text-sm">
+        <p className="mt-4 mb-4 text-sm font-medium align-baseline">
          
           <Link to="/forgot-password" className="text-blue-500 hover:text-blue-700">
-          Forgot passowrd ?
+          Forgot password ?
           </Link>
         </p>
 
         {/* Footer */}
-        <p className="mt-5 text-center text-gray-500 text-xs">
+        <p className="mt-5 text-xs text-center text-gray-500">
           @2025 Jooneli. All rights reserved.
         </p>
       </div>

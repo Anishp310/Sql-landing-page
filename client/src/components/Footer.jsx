@@ -10,11 +10,11 @@ const Footer = () => {
   return (
     <div className="bg-slate-200">
 
-    <div className=" text-slate-700 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
-      <div className="md:mt-0 ">
+    <div className=" text-slate-700  mx-auto w-full max-w-[1600px] ">
+      <div className="md:mt-0 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
         {/* Main Grid Layout for Equal Width */}
 
-        <div className="md:flex xl:gap-[6rem] lg:gap-[5rem] md:gap-[3rem]">
+        <div className="md:flex xl:gap-[5rem] lg:gap-[5rem] md:gap-[3rem]">
           {/* Our Clients */}
           <div className="items-center lg:w-[30%] pt-6 md:w-[25%] ">
             <h1 className="pt-6 pb-2 text-sm font-bold md:text-xl ">
@@ -45,7 +45,7 @@ const Footer = () => {
                   <h1 className="mt-6 text-sm font-bold md:text-xl">Company</h1>
                   <div className="py-2">
                     {[
-                      { name: "About Us", to: "/about" },
+                      { name: "About Us", to: "/about/the-company" },
                       { name: "Blog", to: "/blog" },
                       { name: "For Business", to: "/business" },
                       { name: "For Partners", to: "/about/partnership" },

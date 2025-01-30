@@ -1,7 +1,8 @@
-import { useOutletContext } from "react-router-dom";
 import EditNews from "./EditNews";
+import SummaryApi from "../common";
 import { useEffect, useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
+import { useOutletContext } from "react-router-dom";
 
 const TableLists = () => {
   const { setOpenModal, refreshNews } = useOutletContext();
@@ -19,7 +20,7 @@ const TableLists = () => {
 
   const getNews = async () => {
     try {
-      const response = await fetch('http://localhost:8080/getAllNews');
+      const response = await fetch(SummaryApi.GetAllNews.url);
 
       const textData = await response.text();  // First, get the raw response as text
       const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
@@ -31,7 +32,7 @@ const TableLists = () => {
 
   const deleteNews = async (news_id) => {
     try {
-      await fetch(`http://localhost:8080/deleteNews/${news_id}`, {
+      await fetch(`${SummaryApi.deleteNews.url}/${news_id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },
@@ -54,13 +55,13 @@ const TableLists = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto my-5 p-4 bg-gray-100 rounded shadow-lg overflow-hidden">
+    <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg">
             <Toaster position="top-right" />
-            <h1 className="text-2xl font-bold mb-5">News List</h1>
+            <h1 className="mb-5 text-2xl font-bold">News List</h1>
 
-      <div className="mb-5 float-left"> 
+      <div className="float-left mb-5"> 
          <button
-            className="text-white btn  bg-green-500  hover:bg-green-600"
+            className="text-white bg-green-500 btn hover:bg-green-600"
             onClick={() => setOpenModal(true)}
             aria-label="Open Add News Modal"
           >

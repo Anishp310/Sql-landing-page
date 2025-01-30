@@ -1,3 +1,4 @@
+import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
 
 const News = () => {
@@ -7,7 +8,7 @@ const News = () => {
 
   const getNews = async () => { 
     try {
-      const response = await fetch("http://localhost:8080/getAllNews");
+      const response = await fetch(SummaryApi.GetAllNews.url);
       const textData = await response.text();  // First, get the raw response as text
       const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
       const sortedData = jsonData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -18,7 +19,7 @@ const News = () => {
   };
   const getImages = async () => {
     try {
-      const response = await fetch("http://localhost:8080/getAllImages");
+      const response = await fetch(SummaryApi.HomeNewsImage.url);
       const textData = await response.text();  // First, get the raw response as text
       const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
       setImageList(jsonData);
@@ -64,8 +65,8 @@ const News = () => {
   };
 
   return (
-    <div className=" py-5 text-black xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
-      <div className="relative grid grid-cols-1 md:gap-2 lg:gap-4 md:grid-cols-2">
+    <div className="max-w-[1600px] mx-auto">
+      <div className="relative grid grid-cols-1 md:gap-2 lg:gap-4 md:grid-cols-2 py-5 text-black xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
         {/* Image Section */}
         <div className="">
           {imageList[0] && (

@@ -1,5 +1,4 @@
 import Bg_Img from "./bg-img.jpg";
-import HeaderVideo from "./nepal.mp4";
 import abanner from "./banner-image.jpg";
 import about from "./aboutus.png";
 import aboutBanner from "./Aboutbanner.avif";
@@ -25,7 +24,6 @@ export {
   joonBanner,
   joonwork,
   milestone,
-  HeaderVideo,
   user,
   aboutBanner,
   abanner,

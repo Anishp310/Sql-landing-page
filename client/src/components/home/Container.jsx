@@ -2,8 +2,9 @@ import { useState } from "react";
 import { CiBank } from "react-icons/ci";
 import { GiTrade } from "react-icons/gi";
 import { IoIosPhonePortrait } from "react-icons/io";
-import { mobileBanking, onlineBanking, trader } from "../../Assets/index";
 import { Link } from "react-router-dom";
+
+// import { mobileBanking, onlineBanking, trader } from "../../Assets/index";
 
 const Images = [
   {
@@ -58,7 +59,7 @@ const Container = () => {
   const selectedItem = Images.find((item) => item.id === selected);
 
   return (
-    <>
+    <div className="max-w-[1600px] mx-auto">
      <div className="flex flex-col justify-center items-center  py-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
       {/* Header */}
       <div className="flex items-center justify-center text-center">
@@ -83,7 +84,7 @@ const Container = () => {
             <div className="flex items-center justify-center object-cover w-12 h-12 bg-gray-200 rounded-full hover:opacity-60 ">
             {item.image}
             </div>
-            <p className="mt-4 text-[10px] sm:text-sm font-medium text-center md:text-base h-[40px] flex items-center justify-center hover:underline ">
+            <p className="mt-4 text-[10px] sm:text-sm font-medium text-center md:text-base h-[40px] flex justify-center hover:underline item-baseline ">
               {item.title}
             </p>
           </div>
@@ -117,7 +118,7 @@ const Container = () => {
         </div>
       )}
     </div>
-    </>
+    </div>
    
   );
 };

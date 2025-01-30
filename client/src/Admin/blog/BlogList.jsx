@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
@@ -29,7 +30,7 @@ const BlogList = () => {
   const getBlogs = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:8080/blogs");
+      const response = await fetch(SummaryApi.Blog.url);
       const jsonData = await response.json();
       setBlogList(jsonData);
     } catch (error) {
@@ -74,8 +75,8 @@ const BlogList = () => {
     try {
       setLoading(true);
       const url = selectedBlog
-        ? `http://localhost:8080/updateblog/${selectedBlog.blog_id}`
-        : "http://localhost:8080/addblog";
+        ? `${SummaryApi.updateBlog.url}/${selectedBlog.blog_id}`
+        : SummaryApi.addBlog.url;
 
       const response = await fetch(url, {
         method: selectedBlog ? "PUT" : "POST",
@@ -111,7 +112,7 @@ const BlogList = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:8080/deleteblog/${blogId}`,
+        `${SummaryApi.deleteBlog.url}/${blogId}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${getToken()}` },

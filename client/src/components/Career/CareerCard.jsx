@@ -1,3 +1,4 @@
+import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -9,7 +10,7 @@ const CareerCard = () => {
 
   const getCareer = async () => {
     try {
-      const response = await fetch("http://localhost:8080/career");
+      const response = await fetch(SummaryApi.getCareer.url);
       const textData = await response.text();  // First, get the raw response as text
       const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
       console.log(jsonData)
@@ -39,7 +40,8 @@ const CareerCard = () => {
   };
 
   return (
-    <div className="p-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
+    <div className="max-w-[1600px] mx-auto">
+      <div className="p-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
       <Toaster position="top-right" />
       <h1 className="mb-6 text-3xl font-bold text-gray-800">Career Opportunities</h1>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -103,6 +105,8 @@ const CareerCard = () => {
         </div>
       )}
     </div>
+    </div>
+    
   );
 };
 

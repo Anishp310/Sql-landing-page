@@ -1,3 +1,4 @@
+import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
 
 // import Digijoon from "../../Assets/digijoon.png";
@@ -11,9 +12,7 @@ const AllNews = () => {
   // Fetch news data from the API
   const fetchNews = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8080/getAllNews"
-      ); // Replace with your API endpoint
+      const response = await fetch(SummaryApi.GetAllNews.url); // Replace with your API endpoint
       const data = await response.json();
       setNewsList(data);
     } catch (error) {
@@ -36,7 +35,7 @@ const AllNews = () => {
     /^https?:\/\//i.test(url) ? url : `http://${url}`;
 
   return (
-    <div className="relative min-h-screen px-3 py-10 bg-center bg-cover md:px-6">
+    <div className="relative px-3 py-10 bg-center bg-cover md:px-6">
       <div
         className="absolute inset-0 bg-opacity-50"
         // style={{ backgroundImage: `url(${Digijoon})`, backgroundSize: "cover" }}
@@ -65,11 +64,10 @@ const AllNews = () => {
                     className="block text-lg font-bold text-red-900 underline hover:text-red-600"
                   >
                     {hoveredCard === news.news_id
-                    ? news.title
-                    : news.title.length > 100
-                    ? `${news.title.substring(0, 100)}...`
-                    : news.title}
-                  
+                      ? news.title
+                      : news.title.length > 100
+                      ? `${news.title.substring(0, 100)}...`
+                      : news.title}
                   </a>
                 </h2>
                 <p className="mb-1 text-sm text-gray-500">{news.source}</p>

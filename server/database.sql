@@ -1,6 +1,6 @@
-CREATE DATABASE newsdb;
+CREATE DATABASE joonelidb;
 
-USE newsdb;
+USE joonelidb;
 
 -- News Table
 CREATE TABLE news (
@@ -26,7 +26,7 @@ CREATE TABLE users (
 
 
 -- Brochure Table
-CREATE TABLE brochure (
+CREATE TABLE Brochure (
     brochure_id INT AUTO_INCREMENT PRIMARY KEY,
     username TEXT NOT NULL,
     company TEXT NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE brochure (
 );
 
 -- Demo Table
-CREATE TABLE demo (
+CREATE TABLE Demo (
     demo_id INT AUTO_INCREMENT PRIMARY KEY,
     username TEXT NOT NULL,
     company TEXT NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE bankingPlan (
 );
 
 
-CREATE TABLE tradingPlan (
+CREATE TABLE tradingplan (
     pricing_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     price VARCHAR(10) NOT NULL,
@@ -107,13 +107,7 @@ CREATE TABLE tradingPlan (
     excludedFeature JSON  NULL -- New column added
 );
 
--- CREATE TABLE blog (
---   blog_id INT AUTO_INCREMENT PRIMARY KEY,
---   title VARCHAR(255) NOT NULL,
---   description TEXT NOT NULL,
---   image_data LONGBLOB,
---   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
+
 CREATE TABLE blog (
   blog_id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
@@ -128,13 +122,3 @@ INSERT INTO users (username, email, password, role)
 VALUES ('admin', 'admin@example.com', 'hashedpassword', 'admin');
 
 
-drop table blog
-
-CREATE TABLE blog (
-  blog_id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  description TEXT NOT NULL,
-  image_data LONGBLOB,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  click_count INT DEFAULT 0 -- New column to track the number of clicks
-);

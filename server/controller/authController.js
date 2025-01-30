@@ -79,6 +79,7 @@ export const loginUser = async (req, res) => {
 
     // Check password
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(isPasswordValid)
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -90,6 +91,7 @@ export const loginUser = async (req, res) => {
 
     // Generate JWT
     const secretKey = process.env.SECRET_KEY;
+    console.log(secretKey)
     if (!secretKey) {
       throw new Error("SECRET_KEY is not defined in environment variables");
     }
@@ -100,6 +102,8 @@ export const loginUser = async (req, res) => {
       { expiresIn: "24h" }
     );
 
+    console.log(user.user_id,user.username,user.role)
+    
     res.status(200).json({
       message: "Login successful",
       token,
@@ -193,11 +197,38 @@ export const getResetPasswordPage = async (req, res) => {
           <div class="form-container">
             <h2>Reset Your Password</h2>
             <p>Please enter your new password:</p>
-            <form action="/resetPassword/${token}" method="POST">
+            <form id="resetForm" action="/resetPassword/${token}" method="POST">
               <input type="password" name="newPassword" placeholder="New Password" required />
               <button type="submit">Reset Password</button>
             </form>
           </div>
+          <script>
+            // Intercept form submission
+            document.getElementById('resetForm').addEventListener('submit', async function(event) {
+              event.preventDefault(); // Prevent default form submission
+    
+              const form = event.target;
+              const formData = new FormData(form);
+    
+              // Send the form data using Fetch API
+              const response = await fetch(form.action, {
+                method: form.method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  newPassword: formData.get('newPassword'),
+                }),
+              });
+    
+              if (response.ok) {
+                // Redirect to /login on success
+                window.location.href = 'http://localhost:5173/admin';
+              } else {
+                // Handle errors (optional)
+                const error = await response.json();
+                alert(error.message || 'An error occurred. Please try again.');
+              }
+            });
+          </script>
         </body>
       </html>
     `);

@@ -7,4 +7,9 @@
     display: table;
     clear: both;
   }
-  
+
+  @media (min-width: 2600px) {
+    .custom-4k-left {
+      left: 30% !important;
+    }
+  }

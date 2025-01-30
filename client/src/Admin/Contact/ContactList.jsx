@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { toast, Toaster } from "react-hot-toast";
-import * as XLSX from 'xlsx';
+import * as XLSX from "xlsx";
+import React, { useEffect, useState } from "react";
+import SummaryApi from "../../common";
+import { Toaster, toast } from "react-hot-toast";
 
 const ContactList = () => {
   const [contact, setContact] = useState([]);
@@ -16,7 +17,7 @@ const ContactList = () => {
   
   const getNews = async () => {
     try {
-      const response = await fetch('http://localhost:8080/contacts', {
+      const response = await fetch(SummaryApi.Contact.url, {
         headers: {
           Authorization: `Bearer ${token}`, // Ensure token is passed in request header
         },
@@ -36,7 +37,7 @@ const ContactList = () => {
   const handleDeleteClick = async (item) => {
     console.log('Update clicked for:', item);
     try {
-      await fetch(`http://localhost:8080/deleteContacts/${item}`, {
+      await fetch(`${SummaryApi.deleteContact.url}/${item}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },
@@ -71,9 +72,9 @@ const ContactList = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto my-5 p-4 bg-gray-100 rounded shadow-lg overflow-hidden">
+    <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg">
       <Toaster position="top-left" />
-      <h1 className="text-2xl font-bold mb-5">Contact List</h1>
+      <h1 className="mb-5 text-2xl font-bold">Contact List</h1>
 
       <button
         onClick={exportToExcel}

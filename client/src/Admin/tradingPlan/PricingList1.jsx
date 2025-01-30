@@ -1,3 +1,4 @@
+import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
@@ -13,7 +14,7 @@ const PricingList1 = () => {
   // Fetch all pricing data
   const getPricing = async () => {
     try {
-      const response = await fetch('http://localhost:8080/pricing1');
+      const response = await fetch(SummaryApi.tradingPricing_List.url);
       const jsonData = await response.json();
       setPricingList(jsonData);
     } catch (error) {
@@ -47,8 +48,8 @@ const PricingList1 = () => {
       console.log(body);
 
       const url = selectedPricing
-        ? `http://localhost:8080/updatepricing1/${selectedPricing.pricing_id}`
-        : 'http://localhost:8080/addpricing1';
+        ? `${SummaryApi.tradingUpdatePricing.url}/${selectedPricing.pricing_id}`
+        : SummaryApi.tradingAddPricing.url;
       const response = await fetch(url, {
         method: selectedPricing ? "PUT" : "POST",
         headers: {
@@ -89,7 +90,7 @@ const PricingList1 = () => {
 
   const handleDeleteClick = async (pricingId) => {
     try {
-      const response = await fetch(`http://localhost:8080/deletepricing1/${pricingId}`, {
+      const response = await fetch(`${SummaryApi.tradingDeletePricing.url}/${pricingId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -158,7 +159,7 @@ const PricingList1 = () => {
             </tr>
           </thead>
           <tbody>
-            {pricingList.map((pricing) => (
+            {Array.isArray(pricingList) && pricingList.map((pricing)=> (
               <tr key={pricing.pricing_id} className="hover:bg-gray-600 hover:text-white">
                 <td className="px-4 py-2 border border-gray-300">{pricing.name}</td>
                 <td className="px-4 py-2 border border-gray-300">{pricing.price}</td>

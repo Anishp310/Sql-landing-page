@@ -1,6 +1,5 @@
 import Abanner from "../components/about/Abanner";
 import AboutListComponent from "../components/about/about-Link-list";
-import Acontainer from "../components/about/Acontainer";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
@@ -19,10 +18,10 @@ const About = () => {
     }
   }, [location]);
 
-  // Handle section change with programmatic redirect
+
   const handleSectionChange = (section) => {
     setSelectedSection(section);
-    navigate(`/about/${section}`); // Navigate to the section URL
+    navigate(`/about/${section}`); 
   };
 
   return (
@@ -30,10 +29,9 @@ const About = () => {
       <Abanner onClick={() => setSelectedSection(null)} />
       <AboutListComponent onSectionChange={handleSectionChange} />
 
-      {/* Default content (Acontainer) */}
-      {!selectedSection && <Acontainer />}
+     
+      {!selectedSection && <AboutListComponent onSectionChange={handleSectionChange} />}
 
-      {/* Render child routes using Outlet */}
       <Outlet />
     </div>
   );

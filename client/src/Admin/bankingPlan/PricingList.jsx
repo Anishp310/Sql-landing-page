@@ -1,3 +1,4 @@
+import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
@@ -13,7 +14,7 @@ const PricingList = () => {
   // Fetch all pricing data
   const getPricing = async () => {
     try {
-      const response = await fetch('http://localhost:8080/pricing');
+      const response = await fetch(SummaryApi.Pricing_List.url);
       const jsonData = await response.json();
       setPricingList(jsonData);
     } catch (error) {
@@ -26,9 +27,9 @@ const PricingList = () => {
     if (str && str.length > length) {
       return str.slice(0, length) + "...";
     }
-    return str || '';  // Return empty string if str is null/undefined
+    return str || ""; // Return empty string if str is null/undefined
   };
-  
+
   useEffect(() => {
     getPricing();
   }, []);
@@ -50,24 +51,30 @@ const PricingList = () => {
       };
 
       const url = selectedPricing
-        ? `http://localhost:8080/updatepricing/${selectedPricing.pricing_id}`
-        : 'http://localhost:8080/addpricing';
+        ? `${SummaryApi.UpdatePricing.url}/${selectedPricing.pricing_id}`
+        : SummaryApi.addPricing.url;
 
       const response = await fetch(url, {
         method: selectedPricing ? "PUT" : "POST",
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
       });
 
       if (!response.ok) {
-        toast.error(selectedPricing ? "Failed to update pricing" : "Failed to add pricing");
+        toast.error(
+          selectedPricing ? "Failed to update pricing" : "Failed to add pricing"
+        );
         return;
       }
 
-      toast.success(selectedPricing ? "Pricing updated successfully!" : "Pricing added successfully!");
+      toast.success(
+        selectedPricing
+          ? "Pricing updated successfully!"
+          : "Pricing added successfully!"
+      );
       setIsModalOpen(false);
       getPricing();
     } catch (error) {
@@ -82,48 +89,58 @@ const PricingList = () => {
       name: pricing.name, // Ensure the trim method is called
       price: pricing.price,
       duration: pricing.duration,
-      features: Array.isArray(JSON.parse(pricing.features)) 
-        ? JSON.parse(pricing.features).join("; ") 
+      features: Array.isArray(JSON.parse(pricing.features))
+        ? JSON.parse(pricing.features).join("; ")
         : pricing.features.trim(),
-      excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature)) 
-        ? JSON.parse(pricing.excludedFeature).join("; ") 
+      excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature))
+        ? JSON.parse(pricing.excludedFeature).join("; ")
         : pricing.excludedFeature,
     });
   };
-  
+
   const handleDeleteClick = async (pricingId) => {
     try {
-      const response = await fetch(`http://localhost:8080/deletepricing/${pricingId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${SummaryApi.deletePricing.url}/${pricingId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to delete pricing');
+        throw new Error("Failed to delete pricing");
       }
 
-      setPricingList(pricingList.filter((pricing) => pricing.pricing_id !== pricingId));
+      setPricingList(
+        pricingList.filter((pricing) => pricing.pricing_id !== pricingId)
+      );
       toast.success("Pricing deleted successfully!");
     } catch (error) {
-      toast.error(error.message || "Failed to delete pricing. Please try again.");
+      toast.error(
+        error.message || "Failed to delete pricing. Please try again."
+      );
     }
   };
 
   return (
     <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg pricing-list-container">
       <Toaster position="top-left" />
-      <h1 className="mb-5 text-2xl font-bold">Pricing List for Corporate Banking Plan</h1>
+      <h1 className="mb-5 text-2xl font-bold">
+        Pricing List for Corporate Banking Plan
+      </h1>
 
       <button
         onClick={() => {
           setSelectedPricing(null);
-          reset({ // Reset the form fields to be empty
-            name: '',
-            price: '',
-            duration: '',
-            features: '',
+          reset({
+            // Reset the form fields to be empty
+            name: "",
+            price: "",
+            duration: "",
+            features: "",
           });
           setIsModalOpen(true);
         }}
@@ -136,42 +153,66 @@ const PricingList = () => {
         <table className="w-full border-collapse border-gray-300 shadow-lg">
           <thead>
             <tr className="text-black bg-gray-200">
-              <th className="px-4 py-2 text-left border border-gray-300">Name</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Price</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Duration</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Features</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Excluded-Features</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Edit</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Delete</th>
-
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Name
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Price
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Duration
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Features
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Excluded-Features
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Edit
+              </th>
+              <th className="px-4 py-2 text-left border border-gray-300">
+                Delete
+              </th>
             </tr>
           </thead>
           <tbody>
             {pricingList.map((pricing) => (
-              <tr key={pricing.pricing_id} className="hover:bg-gray-600 hover:text-white">
-                <td className="px-4 py-2 border border-gray-300">{pricing.name}</td>
-                <td className="px-4 py-2 border border-gray-300">{pricing.price}</td>
-                <td className="px-4 py-2 border border-gray-300">{pricing.duration}</td>
+              <tr
+                key={pricing.pricing_id}
+                className="hover:bg-gray-600 hover:text-white"
+              >
                 <td className="px-4 py-2 border border-gray-300">
-                  {Array.isArray(JSON.parse(pricing.features)) 
-                    ? truncate(JSON.parse(pricing.features).join(";"), 50) 
+                  {pricing.name}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {pricing.price}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {pricing.duration}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {Array.isArray(JSON.parse(pricing.features))
+                    ? truncate(JSON.parse(pricing.features).join(";"), 50)
                     : truncate(pricing.features, 50)}
                 </td>
                 <td className="px-4 py-2 border border-gray-300">
-                  {Array.isArray(JSON.parse(pricing.excludedFeature)) 
-                    ? truncate(JSON.parse(pricing.excludedFeature).join(";"), 50) 
+                  {Array.isArray(JSON.parse(pricing.excludedFeature))
+                    ? truncate(
+                        JSON.parse(pricing.excludedFeature).join(";"),
+                        50
+                      )
                     : truncate(pricing.excludedFeature, 50)}
-                </td>           
-          <td className="px-4 py-2 border border-gray-300">
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
                   <button
                     onClick={() => handleUpdateClick(pricing)}
                     className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
                   >
                     Edit
                   </button>
-                  </td>
-                  <td className="px-4 py-2 border border-gray-300">
-
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
                   <button
                     onClick={() => handleDeleteClick(pricing.pricing_id)}
                     className="px-8 py-3 text-white bg-red-500 rounded"
@@ -186,20 +227,35 @@ const PricingList = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal" open>
+        <div
+          className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal"
+          open
+        >
           <div className="relative modal-content bg-white text-black p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-3xl overflow-y-auto max-h-[90vh]">
-            <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">{selectedPricing ? "Update Pricing Plan" : "Add Pricing Plan"}</h2>
+            <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
+              {selectedPricing ? "Update Pricing Plan" : "Add Pricing Plan"}
+            </h2>
             <div className="absolute top-3 right-2">
               <FaTimes
                 className="text-2xl cursor-pointer"
-                onClick={() => { setIsModalOpen(false); }}
+                onClick={() => {
+                  setIsModalOpen(false);
+                }}
               />
             </div>
-            <form onSubmit={handleSubmit(handlePricingSubmit)} className="space-y-6">
+            <form
+              onSubmit={handleSubmit(handlePricingSubmit)}
+              className="space-y-6"
+            >
               <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Name
+                </label>
                 <input
-                  {...register('name', { required: 'Name is required' })}
+                  {...register("name", { required: "Name is required" })}
                   id="name"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -207,9 +263,14 @@ const PricingList = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
+                <label
+                  htmlFor="price"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Price
+                </label>
                 <input
-                  {...register('price', { required: 'Price is required' })}
+                  {...register("price", { required: "Price is required" })}
                   id="price"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -217,19 +278,33 @@ const PricingList = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Duration</label>
+                <label
+                  htmlFor="duration"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Duration
+                </label>
                 <input
-                  {...register('duration', { required: 'Duration is required' })}
+                  {...register("duration", {
+                    required: "Duration is required",
+                  })}
                   id="duration"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div className="mb-4"> 
-                <label htmlFor="features" className="block text-sm font-medium text-gray-700">Features (separated with semi-colon ;)</label>
+              <div className="mb-4">
+                <label
+                  htmlFor="features"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Features (separated with semi-colon ;)
+                </label>
                 <textarea
-                  {...register('features', { required: 'Features are required' })}
+                  {...register("features", {
+                    required: "Features are required",
+                  })}
                   id="features"
                   rows="3"
                   placeholder="Enter features separated by ; (e.g., Feature1; Feature2; Feature3)"
@@ -237,9 +312,14 @@ const PricingList = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="excludedFeature" className="block text-sm font-medium text-gray-700">Excludedfeatures (separated with semi-colon ;)</label>
+                <label
+                  htmlFor="excludedFeature"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Excludedfeatures (separated with semi-colon ;)
+                </label>
                 <textarea
-                  {...register('excludedFeature')}
+                  {...register("excludedFeature")}
                   id="excludedFeature"
                   placeholder="Enter excluded features separated by ; (e.g., Excluded1; Excluded2)"
                   rows="3"
@@ -259,7 +339,7 @@ const PricingList = () => {
                   type="submit"
                   className="w-full px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:w-auto"
                 >
-                  {selectedPricing ? 'Update Pricing Plan' : 'Add Pricing Plan'}
+                  {selectedPricing ? "Update Pricing Plan" : "Add Pricing Plan"}
                 </button>
               </div>
             </form>

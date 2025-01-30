@@ -1,3 +1,4 @@
+import SummaryApi from "../../common";
 import pdffile from "../../Assets/contactforpdf.pdf";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -30,7 +31,7 @@ const Carousel = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/addBrochure", {
+      const response = await fetch(SummaryApi.AddBrochure.url, {
         method: "POST",
         body: JSON.stringify(NewData),
         headers: {
@@ -86,7 +87,7 @@ const Carousel = () => {
 
     try {
       console.log(NewData);
-      const response = await fetch("http://localhost:8080/addDemo", {
+      const response = await fetch(SummaryApi.AddDemo.url, {
         method: "POST",
         body: JSON.stringify(NewData),
         headers: {
@@ -132,20 +133,21 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative ">
       {/* Banner Section */}
       <Toaster position="top-right" />
-      <div className="relative flex items-center justify-center overflow-hidden lg:h-[550px] md:h-[400px] h-[250px]">
+      <div className="relative flex items-center justify-center lg:h-[550px] md:h-[400px] h-[250px]  ">
         <img
           src={abanner}
           alt="Banner"
           className="object-left-top w-full h-full"
         />
-        <div className="absolute flex flex-col items-center mx-5 text-sm text-center text-white lg:mx-40 md:mx-5 md:text-xl">
-          <p className="xl:text-4xl lg:text-4xl md:text-3xl font-bold xl:w-[600px] lg:w-[600px] md:w-[450px]  w-[300px] text-xl ">
-            Modernize your data landscape to monetize Data
-          </p>
-          {/* <p className="md:mt-4 mt-1 md:text-sm sm:text-[11px] text-[11px] lg:w-[700px] md:w-[550px] w-full leading-3 sm:leading-4">
+        <div className="max-w-[1600px] mx-auto absolute">
+          <div className="flex flex-col items-center mx-5 text-sm text-center text-white lg:mx-40 md:mx-5 md:text-xl ">
+            <p className="xl:text-4xl lg:text-4xl md:text-3xl font-bold xl:w-[600px] lg:w-[600px] md:w-[450px]  w-[300px] text-xl ">
+              Modernize your data landscape to monetize Data
+            </p>
+            {/* <p className="md:mt-4 mt-1 md:text-sm sm:text-[11px] text-[11px] lg:w-[700px] md:w-[550px] w-full leading-3 sm:leading-4">
             Banking has never been this easy, with the help of 360 Core Banking
             System one can record transactions with some clicks and for the
             calculating part, It automatically do that for you. 360 also have
@@ -154,19 +156,20 @@ const Carousel = () => {
             anything anytime which drastically help you to save your valuable
             time.
           </p> */}
-          <div className="flex gap-3 md:mt-[4rem] md:gap-5 mt-[2rem]">
-            <button
-              onClick={() => setPopUpClicked(true)}
-              className="flex items-center justify-center px-3 py-2 text-xs bg-green-600 rounded-full md:text-base lg:py-3 lg:px-8 whitespace-nowrap hover:bg-red-600 md:px-4 sm:px-4 md:py-2 lg:text-xl"
-            >
-              Request Brochure
-            </button>
-            <button
-              onClick={() => setDemoClicked(true)}
-              className="flex items-center justify-center px-3 py-2 text-xs bg-green-600 rounded-full md:text-base lg:py-3 sm:px-4 lg:px-8 whitespace-nowrap hover:bg-red-600 md:px-4 md:py-2 lg:text-xl"
-            >
-              Request Demo
-            </button>
+            <div className="flex gap-3 md:mt-[4rem] md:gap-5 mt-[2rem]">
+              <button
+                onClick={() => setPopUpClicked(true)}
+                className="flex items-center justify-center px-3 py-2 text-xs bg-green-600 rounded-full md:text-base lg:py-2 lg:px-6 whitespace-nowrap hover:bg-red-600 md:px-4 sm:px-4 md:py-2 lg:text-lg"
+              >
+                Request Brochure
+              </button>
+              <button
+                onClick={() => setDemoClicked(true)}
+                className="flex items-center justify-center px-3 py-2 text-xs bg-green-600 rounded-full md:text-base lg:py-2 sm:px-4 lg:px-6 whitespace-nowrap hover:bg-red-600 md:px-4 md:py-2 lg:text-lg"
+              >
+                Request Demo
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -9,18 +9,21 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Check if the user navigates out of the /admin route
     if (!location.pathname.startsWith("/admin")) {
-      localStorage.removeItem("token"); // Clear the token
-      localStorage.removeItem("user");  // Clear user data
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     }
   }, [location]);
 
   return (
-    <div className="text-black bg-white font-primary w-full max-w-[1600px] mx-auto">
-      <Header />
-      <Outlet />
-      <Footer />
+    <div className="w-full min-h-screen bg-white">
+      <div className="flex justify-center bg-gray-100">
+        <div className="w-full text-black bg-white font-primary ">
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 };
