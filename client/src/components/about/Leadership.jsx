@@ -39,7 +39,7 @@ const LeadershipData = [
 const Leadership = () => {
   return (
     <>
-      <h1 className="mt-4 text-4xl text-center text-red-900">Board of Directors</h1>
+      <h1 className="mt-4 text-[16px] md:text-xl lg:text-2xl text-center text-red-900">Board of Directors</h1>
 
        <div className="flex flex-wrap justify-center max-w-screen-xl gap-8 p-8 mx-auto">
       {LeadershipData.map((partner) => (

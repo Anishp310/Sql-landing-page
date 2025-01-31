@@ -24,10 +24,10 @@ const Ecosystem = () => {
       <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] md:mt-[2rem] mt-[1rem] space-y-12">
       {/* Unified Digital Banking Ecosystem Section */}
       <section>
-        <div className="mb-2 text-lg font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-xl lg:text-2xl">
+        <div className="mb-2 text-[16px] md:text-xl lg:text-2xl font-semibold xl:mb-6 lg:mb-4 md:mb-4 ">
           Unified Digital Banking Ecosystem
         </div>
-        <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+        <p className="mb-4 md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 ">
           The modern banking ecosystem integrates various channels to provide
           seamless and efficient services to customers. At its core is the
           <strong className=""> 360 Core Banking System</strong>,
@@ -35,38 +35,38 @@ const Ecosystem = () => {
           platforms.
         </p>
         <div className="">
-          <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+          <p className="mb-4  leading-relaxed text-justify text-gray-700 md:text-base sm:text-[12px] text-[13px]">
             The Ecosystem seamlessly integrates:
           </p>
           <ul className="space-y-4 list-none ">
-            <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+            <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 ">
               <strong className="">SMS Banking </strong> ensures
               accessibility through instant alerts, balance inquiries, and quick
               transactions using simple text commands.
             </li>
-            <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+            <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 ">
               <strong className="">Mobile Banking</strong> offers
               24/7 account management, fund transfers, bill payments, and mobile
               top-ups, delivering unmatched convenience.
             </li>
-            <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+            <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 ">
               <strong className="">ATM services</strong> extend the
               ecosystem's reach, providing cash withdrawals, deposits, and other
               services anytime, anywhere.
             </li>
-            <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+            <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 ">
               <strong className="">Tab Banking </strong>streamlines
               onboarding and service delivery, enabling representatives to
               handle tasks like account openings or KYC processes remotely.
             </li>
-            <li className="text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+            <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 ">
               <strong className="">Mobile Teller </strong>enhances
               customer engagement by bringing banking services directly to the
               user’s location, improving efficiency and satisfaction.
             </li>
           </ul>
         </div>
-        <p className="mt-2 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+        <p className="mt-2 md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 ">
           Together, these components form a robust digital banking ecosystem,
           driving efficiency, customer convenience, and financial inclusion.
         </p>
@@ -74,12 +74,12 @@ const Ecosystem = () => {
 
       {/* Core Architecture Section */}
       <section>
-        <div className="mb-2 text-lg font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-xl lg:text-2xl">
+        <div className="mb-2 text-[16px] md:text-xl lg:text-2xl font-semibold xl:mb-6 lg:mb-4 md:mb-4 ">
           Designing a 360 Core Banking System with C# and CubeProcess Bigtable
           Data
         </div>
 
-        <p className="mb-4 text-sm leading-relaxed text-justify text-gray-700 lg:text-lg md:text-base">
+        <p className="mb-4  leading-relaxed text-justify text-gray-700 md:text-base sm:text-[12px] text-[13px]">
           The 360 Core Banking System designed with C# and powered by
           CubeProcess Bigtable Data offers a robust, scalable, and secure
           platform tailored to meet modern banking demands. This design focuses
@@ -92,14 +92,14 @@ const Ecosystem = () => {
         <div className="mb-2 space-y-8 ">
           {features.map((feature) => (
             <div key={feature.id}>
-              <h4 className="mb-2 text-base font-bold text-black lg:text-xl md:text-lg">
+              <h4 className="mb-2  text-black text-base font-semibold  md:text-xl">
                 {feature.title}
               </h4>
               <ul className="space-y-2 list-none">
                 {feature.points.map((point, index) => (
                   <li
                     key={index}
-                    className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base"
+                    className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-gray-700 "
                   >
                     {point}
                   </li>
@@ -110,24 +110,24 @@ const Ecosystem = () => {
         </div>
       </section>
       <section className="mb-[2rem]">
-        <div className="mb-2 text-lg font-semibold xl:mb-6 lg:mb-4 md:mb-4 md:text-xl lg:text-2xl">
+        <div className="mb-2 text-[16px] md:text-xl lg:text-2xl  font-semibold xl:mb-6 lg:mb-4 md:mb-4 ">
         Key Features
         </div>
         <ul className="list-none lg:space-y-4">
-          <li className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base">
+          <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-gray-700 ">
             <strong className=""> Real-Time Processing:</strong>{" "}
             Handles concurrent transactions with minimal latency.
           </li>
-          <li className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base">
+          <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-gray-700">
             <strong className="">Security:</strong> Employs advanced
             encryption, multi-factor authentication, and data integrity checks.
           </li>
-          <li className="text-sm leading-relaxed text-gray-700 lg:text-lg md:text-base">
+          <li className="md:text-base sm:text-[12px] text-[13px] leading-relaxed text-gray-700 ">
             <strong className="">Scalability:</strong> Bigtable
             architecture ensures effortless expansion as demands grow.
           </li>
         </ul>
-        <p className="mt-4 text-sm leading-relaxed text-justify text-gray-700 mb-[2rem] lg:text-lg md:text-base">
+        <p className="mt-4 md:text-base sm:text-[12px] text-[13px] leading-relaxed text-justify text-gray-700 mb-[2rem] ">
           This system establishes a strong ecosystem, delivering efficiency,
           innovation, and exceptional customer experiences.
         </p>

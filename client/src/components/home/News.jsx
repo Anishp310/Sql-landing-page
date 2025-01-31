@@ -6,22 +6,24 @@ const News = () => {
   const [imageList, setImageList] = useState([]);
   const [visibleNewsCount, setVisibleNewsCount] = useState(3);
 
-  const getNews = async () => { 
+  const getNews = async () => {
     try {
       const response = await fetch(SummaryApi.GetAllNews.url);
-      const textData = await response.text();  // First, get the raw response as text
-      const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
-      const sortedData = jsonData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      const textData = await response.text(); // First, get the raw response as text
+      const jsonData = textData ? JSON.parse(textData) : []; // Parse only if data is not empty
+      const sortedData = jsonData.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
       setAllNews(sortedData);
     } catch (error) {
-      console.log(error.message);         
+      console.log(error.message);
     }
   };
   const getImages = async () => {
     try {
       const response = await fetch(SummaryApi.HomeNewsImage.url);
-      const textData = await response.text();  // First, get the raw response as text
-      const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
+      const textData = await response.text(); // First, get the raw response as text
+      const jsonData = textData ? JSON.parse(textData) : []; // Parse only if data is not empty
       setImageList(jsonData);
       // console.log(jsonData);
     } catch (error) {
@@ -66,56 +68,55 @@ const News = () => {
 
   return (
     <div className="max-w-[1600px] mx-auto">
-      <div className="relative grid grid-cols-1 md:gap-2 lg:gap-4 md:grid-cols-2 py-5 text-black xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
+      <div className="relative grid grid-cols-1 md:gap-2 lg:gap-6 lg:grid-cols-2 py-5 text-black xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] items-stretch">
         {/* Image Section */}
-        <div className="">
+        <div className="flex items-stretch h-full">
           {imageList[0] && (
-            <div key={imageList[0].image_id} className="">
+            <div key={imageList[0].image_id} className="flex-grow">
               <img
-                src={imageList[0].image_data} // Assuming image_data is a valid URL or base64 string
+                src={imageList[0].image_data}
                 alt="Corporate News"
-                className="w-full rounded-lg object-cover h-[250px] sm:h-[300px] lg:h-[1000px] xl:h-[900px] md:h-[900px] "
+                className="object-cover w-full h-full rounded-lg"
               />
             </div>
           )}
         </div>
 
         {/* News Section */}
-        <div className="max-w-full lg:h-[950px] xl:h-[865px] md:h-[820px] overflow-hidden px-2">
-          <p className="mb-2 text-xl font-bold text-red-900 lg:mb-5 md:text-2xl">
+        <div className="flex flex-col justify-between h-full max-w-full gap-0 px-2">
+          <p className="text-xl font-bold text-red-900 md:text-2xl">
             Corporate News
           </p>
 
-          {/* Articles Section - Only Display 3 News */}
+          {/* News Articles */}
           {allNews.slice(0, visibleNewsCount).map((news, index) => (
-            <div className="mt-2 lg:mt-6 xl:mt-3" key={index}>
-              {/* External link using <a> */}
+            <div key={index} className="py-1 ">
               <a
-                href={ensureProtocol(news.site)} // Ensure the URL has the protocol
+                href={ensureProtocol(news.site)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm font-bold text-black underline decoration-1 lg:text-base xl:text-lg hover:text-rose-700"
+                className="block text-sm font-bold text-black underline md:text-base xl:text-lg hover:text-rose-900"
               >
-              {news.title.length > 100
-                  ? `${news.title.substring(0, 100)}...` // Truncate to 100 characters
+                {news.title.length > 100
+                  ? `${news.title.substring(0, 100)}...`
                   : news.title}
-                
               </a>
-              <p className="mt-1 text-sm text-gray-600 lg:mt-2 xl:mt-1 lg:text-lg ">
+              <p className="text-xs text-gray-600 md:text-base">
                 {news.source}
               </p>
-              <p className="mt-1 text-xs leading-relaxed text-justify text-gray-700 lg:mt-3 xl:mt-3 lg:text-sm">
+              <p className="text-sm text-gray-700 lg:text-base">
                 {news.description.length > 300
-                  ? `${news.description.substring(0, 300)}...` // Truncate to 350 characters
+                  ? `${news.description.substring(0, 300)}...`
                   : news.description}
               </p>
             </div>
           ))}
 
-          <div className="xl:mt-[2rem] lg:mt-[1.5rem] md:mt-3 mt-[1rem] ">
+          <div className="mt-2">
             <a href="/media">
-              <button className="px-4 py-2 text-base text-center text-white transition duration-200 bg-green-500 rounded-full md:py-1 lg:px-6 lg:text-lg hover:bg-red-700 md:px-4 md:text-base lg:py-2">
-                Read More <span className="text-base md:text-xl lg:text-2xl">+</span>   
+              <button className="px-4 py-2 text-white bg-green-500 rounded-full hover:bg-red-700">
+                Read More{" "}
+                <span className="text-base md:text-xl lg:text-2xl">+</span>
               </button>
             </a>
           </div>

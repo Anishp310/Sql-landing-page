@@ -43,7 +43,7 @@ const CareerCard = () => {
     <div className="max-w-[1600px] mx-auto">
       <div className="p-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
       <Toaster position="top-right" />
-      <h1 className="mb-6 text-3xl font-bold text-gray-800">Career Opportunities</h1>
+      <h1 className="mb-6 text-[16px] md:text-xl lg:text-2xl  font-bold text-gray-800">Career Opportunities</h1>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {currentItems.map((career) => (
           <div

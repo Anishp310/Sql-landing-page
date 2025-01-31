@@ -81,7 +81,7 @@ const Container = () => {
               alt={item.title}
               className="object-cover w-12 h-12 bg-gray-200 rounded-full hover:opacity-60 "
             /> */}
-            <div className="flex items-center justify-center object-cover w-12 h-12 bg-gray-200 rounded-full hover:opacity-60 ">
+            <div className="flex items-center justify-center object-cover w-12 h-12 rounded-full bg-gray-50 hover:opacity-60 ">
             {item.image}
             </div>
             <p className="mt-4 text-[10px] sm:text-sm font-medium text-center md:text-base h-[40px] flex justify-center hover:underline item-baseline ">
@@ -93,7 +93,7 @@ const Container = () => {
 
       {/* Selected Content Section */}
       {selected && (
-        <div className="w-full mt-4 text-white border-b-2 rounded-b-lg shadow-lg bg-gray-50 sm:px-[3rem] sm:py-[2rem] px-[1rem] py-[1rem]">
+        <div className="w-full  md:mt-[4rem]  mt-[2rem] text-white border-b-2 rounded-b-lg shadow-lg bg-gray-50  sm:px-[3rem] sm:py-[2rem] px-[1rem] py-[1rem]">
           <h3 className="font-semibold sm:text-md text-slate-900 md:text-xl">
             {selectedItem.title}
           </h3>

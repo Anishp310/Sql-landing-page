@@ -42,7 +42,7 @@ const AllNews = () => {
       ></div>
 
       <div className="relative z-10 max-w-6xl mx-auto bg-white rounded-lg bg-opacity-80">
-        <h1 className="mb-6 text-3xl font-bold text-center text-gray-800 hover:text-red-800">
+        <h1 className="mb-6 text-[16px] md:text-xl lg:text-2xl font-bold text-center text-gray-800 hover:text-red-800">
           Latest News
         </h1>
 
@@ -61,7 +61,7 @@ const AllNews = () => {
                     href={ensureProtocol(news.site)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-lg font-bold text-red-900 underline hover:text-red-600"
+                    className="block text-base font-semibold  md:text-xl  text-black underline decoration-1 hover:text-rose-900"
                   >
                     {hoveredCard === news.news_id
                       ? news.title
@@ -70,8 +70,8 @@ const AllNews = () => {
                       : news.title}
                   </a>
                 </h2>
-                <p className="mb-1 text-sm text-gray-500">{news.source}</p>
-                <p className="text-gray-700">
+                <p className="mb-1  text-gray-500 md:text-base sm:text-[12px] text-[13px] ">{news.source}</p>
+                <p className="text-gray-700 md:text-base sm:text-[12px] text-[13px] ">
                   {hoveredCard === news.news_id
                     ? news.description
                     : news.description.length > 250
@@ -81,7 +81,7 @@ const AllNews = () => {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500 col-span-full">
+            <p className="md:text-base sm:text-[12px] text-[13px]  text-center text-gray-500 col-span-full">
               No news available at the moment.
             </p>
           )}

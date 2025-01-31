@@ -1,6 +1,8 @@
-import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
+
 import { checkIcon, crossIcon } from "../../Assets";
+import SummaryApi from "../../common";
+
 
 // import { BsCheck2Circle } from "react-icons/bs";
 
@@ -50,10 +52,10 @@ const PricingContent = () => {
     <div className="max-w-[1600px] mx-auto">
       <div className="py-8 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
         <div className="mx-auto text-center max-w-7xl">
-          <h1 className="text-2xl font-extrabold text-gray-900 md:text-4xl lg:text-5xl">
+          <h1 className="text-[16px] md:text-xl lg:text-2xl font-extrabold text-gray-900 ">
             Choose Your <span className="text-red-600">Pricing Plan</span>
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-4 md:text-base sm:text-[12px] text-[13px] text-gray-600">
             Select a plan that suits your business needs.
           </p>
         </div>
@@ -61,9 +63,9 @@ const PricingContent = () => {
         <div className="flex justify-center gap-4 mt-4 md:mt-8">
           <div className="relative">
             <button
-              className={`px-4 py-2 relative  focus:outline-none transition-opacity duration-200 ${
+              className={`px-4 py-2 relative md:text-base sm:text-[12px] text-[13px] focus:outline-none transition-opacity duration-200 ${
                 selectedPlan === "Corporate Banking Plan"
-                  ? " text-red-900 border-b-2 bg-slate-50"
+                  ? " text-red-900 border-b bg-slate-50 "
                   : ""
               }`}
               onClick={() => setSelectedPlan("Corporate Banking Plan")}
@@ -76,9 +78,9 @@ const PricingContent = () => {
           </div>
           <div className="relative">
             <button
-              className={`py-2 relative  focus:outline-none transition-opacity duration-200 px-4 ${
+              className={`py-2 relative md:text-base sm:text-[12px] text-[13px] focus:outline-none transition-opacity duration-200 px-4 ${
                 selectedPlan === "Trading Plan"
-                  ? "text-red-900 border-b-2 bg-slate-50 "
+                  ? "text-red-900 border-b bg-slate-50 "
                   : ""
               }`}
               onClick={() => setSelectedPlan("Trading Plan")}
