@@ -72,7 +72,7 @@ const SummaryApi = {
     method: "delete",
   },
   Blogs_top_clicked: {
-    url: `${backendDomain}/blogs/top-clicked`,
+    url: `${backendDomain}/blog/top-clicked`,
     method: "get",
   },
   BlogDetailBySlug: {

@@ -53,26 +53,28 @@ app.patch("/blogs/:id/click", async (req, res) => {
   }
 });
 
-app.get("/blogs/top-clicked", async (req, res) => {
+app.get("/blog/top-clicked", async (req, res) => {
   try {
-    // Query to get the top 5 most clicked blogs, sorted by click_count in descending order
     const [result] = await pool.query(
       "SELECT * FROM blog ORDER BY click_count DESC LIMIT 5"
     );
 
-    // Convert the image data from binary to base64 string
+    console.log("Fetched Blogs:", result); // Debugging log
+
+    if (!Array.isArray(result) || result.length === 0) {
+      return res.status(404).json({ message: "No top blogs found." });
+    }
+
+    // Convert image_data to base64
     result.forEach((blog) => {
       if (blog.image_data) {
-        blog.image_data = `data:image/jpeg;base64,${blog.image_data.toString(
-          "base64"
-        )}`;
+        blog.image_data = `data:image/jpeg;base64,${Buffer.from(blog.image_data).toString("base64")}`;
       }
     });
 
-    // Send the top 5 blogs with the highest click counts
     res.json(result);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching top-clicked blogs:", error);
     res.status(500).send("Error fetching top clicked blogs.");
   }
 });

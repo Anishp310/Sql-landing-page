@@ -52,12 +52,13 @@ const Blog = () => {
   };
 
 
-  const getTopPosts = async () => {
+  const fetchTopPosts = async () => {
     try {
-      const response = await fetch(SummaryApi.Blogs_top_clicked.url);
+      const response = await fetch("http://localhost:8080/blog/top-clicked");
       if (!response.ok) throw new Error("Failed to fetch top blogs");
-      const topBlogs = await response.json();
-      setTopPosts(topBlogs);
+      const data = await response.json();
+      console.log("Top Posts Data:", data); 
+      setTopPosts(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching top posts:", err);
     }
@@ -76,7 +77,7 @@ const Blog = () => {
   };
   useEffect(() => {
     getBlogs();
-    getTopPosts();
+    fetchTopPosts();
   }, [slug]);
 
   // Pagination logic
