@@ -148,7 +148,6 @@ export const updateDemo = async (req, res) => {
   }
 };
 
-// Delete Demo
 export const deleteDemo = async (req, res) => {
   const { Demo_id } = req.params;
 

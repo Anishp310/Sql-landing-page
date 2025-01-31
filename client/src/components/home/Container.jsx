@@ -42,10 +42,11 @@ const Images = [
     title: "Jooneli in Trading",
     link:"/trading",
     Content: [
-      "Balance inquiry",
-      "Deposit/Withdraw message",
-      "Loan due date message",
-      "Bulk message etc.",
+      "Effortlessly record all your accounting transactions",
+      "Track your inventory's position at different locations, transfer between warehouses and manage your product/ services.",
+      "Upload pictures of documents and link them with transactions.",
+      "Track your finance and taxes with accurate accounting and tax reports in real-time.",
+      "Simplify productivity with digital tools right inside the application",
     ],
   },
 ];
