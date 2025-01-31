@@ -68,11 +68,11 @@ const ContactUsForm = () => {
 
   return (
     <div className="max-w-[1600px] mx-auto">
-      <div className="lg:my-[3rem] xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] ">
+      <div className=" xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] ">
         <Toaster position="top-right" />
 
         <div className="grid lg:grid-cols-2">
-          <div className="px-4 xl:mt-[5rem] lg:mb-0 mb-[2rem] mt-[3rem]">
+          <div className="px-4 mt-4 lg:flex lg:flex-col lg:justify-center lg:items-center ">
             <div className="mb-4 text-sm md:text-md">
               Fill out the form below and we will get back to you shortly
             </div>
@@ -235,7 +235,7 @@ const ContactUsForm = () => {
             </form>
           </div>
 
-          <div className="relative px-4 lg:mt-8 mb-[3rem]">
+          <div className="relative px-4 mt-4 lg:mt-0  ">
             <div
               className="bg-center bg-no-repeat bg-cover shadow-md"
               style={{
