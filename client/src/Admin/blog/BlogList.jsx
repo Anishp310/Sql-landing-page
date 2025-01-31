@@ -74,12 +74,17 @@ const BlogList = () => {
     } else if (selectedBlog?.image_data) {
       formData.append("existing_image", selectedBlog.image_data);
     }
+    console.log(formData)
 
     try {
       setLoading(true);
+      // const url = selectedBlog
+      //   ? `${SummaryApi.updateBlog.url}/${selectedBlog.blog_id}`
+      //   : SummaryApi.addBlog.url;
+
       const url = selectedBlog
-        ? `${SummaryApi.updateBlog.url}/${selectedBlog.blog_id}`
-        : SummaryApi.addBlog.url;
+      ? `${SummaryApi.updateBlog.url}/${selectedBlog.blog_id}`
+      : SummaryApi.addBlog.url;
 
       const response = await fetch(url, {
         method: selectedBlog ? "PUT" : "POST",
@@ -88,7 +93,6 @@ const BlogList = () => {
         },
         body: formData,
       });
-
       const responseBody = await response.json();
       if (!response.ok) {
         throw new Error(responseBody.message || "Failed to process the request.");
