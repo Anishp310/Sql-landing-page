@@ -73,7 +73,7 @@ const ContactUsForm = () => {
 
         <div className="grid lg:grid-cols-2">
           <div className="px-4 mt-4 lg:flex lg:flex-col lg:justify-center lg:items-center ">
-            <div className="mb-4 text-sm md:text-md">
+            <div className="mb-4 mt-2 text-sm md:text-lg">
               Fill out the form below and we will get back to you shortly
             </div>
 

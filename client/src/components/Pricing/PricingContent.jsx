@@ -153,10 +153,10 @@ const PricingContent = () => {
                             plan.excludedFeature.trim() !== ""
                               ? JSON.parse(plan.excludedFeature)
                               : [];
-                          return features.map((feature, i) => (
+                          return features?.map((feature, i) => (
                             <li
                               key={i}
-                              className="flex items-start space-x-2 text-sm text-slate-900"
+                              className="flex items-start space-x-2 text-sm text-slate-900 "
                             >
                               {/* <svg
                               className="flex-shrink-0 w-5 h-5 text-red-900"
@@ -170,12 +170,12 @@ const PricingContent = () => {
                                 clipRule="evenodd"
                               />
                             </svg> */}
-
-                              <img
+                                {feature &&  <img
                                 src={crossIcon}
                                 alt={crossIcon}
                                 className="flex-shrink-0 object-cover w-5 h-5 text-red-900"
-                              />
+                              />}
+                             
                               <span>{feature}</span>
                             </li>
                           ));
