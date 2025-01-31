@@ -159,11 +159,10 @@ export const deleteDemo = async (req, res) => {
   try {
     // Fetch the demo before deleting
     const [demo] = await pool.query("SELECT * FROM Demo WHERE demo_id = ?", [Demo_id]);
-console.log(Demo_id)
-console.log(demo)
+
     if (demo.length === 0) {
       return res.status(404).json({
-        message: `Demo with ID ${demo_id} not found`,
+        message: `Demo with ID ${Demo_id} not found`,
       });
     }
 
