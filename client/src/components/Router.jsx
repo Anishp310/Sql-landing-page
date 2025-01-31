@@ -81,11 +81,7 @@ const router = createBrowserRouter([
       { path: "atm", element: <Atm /> },
       { path: "trading", element: <Trading /> },
       { path: "blog", element: <Blog />},
-      { path: "blog/:id", element: <BlogDetail /> },
-
-     
-      
-
+      { path: "blog/:slug", element: <BlogDetail /> },
 
     ],
   },

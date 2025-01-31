@@ -13,6 +13,8 @@ const Blog = () => {
   const [topPosts, setTopPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 3;
+  const [blogs, setBlogs] = useState([]);
+
   const navigate = useNavigate();
 
   const settings = {
@@ -51,18 +53,23 @@ const Blog = () => {
       console.error("Failed to fetch top blogs:", error);
     }
   };
-
   const handleBlogClick = async (post) => {
     try {
       await fetch(`${SummaryApi.Blog.url}/${post.blog_id}/click`, {
         method: "PATCH",
       });
-      navigate(`/blog/${post.blog_id}`, { state: post });
+
+      // Generate SEO-friendly slug
+      const formattedTitle = post.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-") // Replace special characters with dashes
+        .replace(/^-+|-+$/g, ""); // Remove leading or trailing dashes
+
+      navigate(`/blog/${formattedTitle}`, { state: post });
     } catch (error) {
       console.error("Failed to update click count:", error);
     }
   };
-
   useEffect(() => {
     getBlogs();
     getTopPosts();

@@ -12,6 +12,7 @@ const BlogDetail = () => {
   const [topPosts, setTopPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
   const settings = {
@@ -66,6 +67,8 @@ const BlogDetail = () => {
       console.error("Failed to update click count:", error);
     }
   };
+
+
 
   useEffect(() => {
     getTopPosts();
