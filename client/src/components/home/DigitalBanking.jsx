@@ -29,7 +29,7 @@ const DigitalBanking = () => {
             <h2 className="mb-2 text-lg font-semibold text-red-900 md:mb-6 lg:text-2xl md:text-xl">
               Corporate Digital Banking: Enhancing Business Financial Management{" "}
             </h2>
-            <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+            <div className=" text-justify text-gray-700 md:text-base text-[13px]  ">
               <p className="mb-2">
                 Corporate Digital Banking integrates advanced digital solutions
                 to streamline and enhance the financial operations of
@@ -55,7 +55,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 The 360 Core Banking System: A Unified Backbone
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   At the heart of Corporate Digital Banking lies the 360 Core
                   Banking System, which serves as a comprehensive, unified
@@ -84,7 +84,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 Mobile Banking: Access Anytime, Anywhere{" "}
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   Mobile Banking extends the reach of financial services by
                   allowing business leaders and finance teams to access their
@@ -111,7 +111,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 Tab Banking: Simplifying Client Onboarding
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   Tab Banking brings innovation to the client onboarding process
                   by enabling instant, paperless solutions often conducted at
@@ -138,7 +138,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 ATM Services: Uninterrupted Cash and Transactions
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   ATM services remain a vital component of corporate banking,
                   offering businesses uninterrupted access to cash and basic
@@ -163,7 +163,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 Internet Banking: Empowering Comprehensive Financial Management
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   Internet Banking plays a pivotal role in corporate financial
                   management by offering an array of tools for businesses to
@@ -190,7 +190,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 Unified Ecosystem for Strategic Advantage
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   Together, these services create a unified ecosystem that
                   seamlessly integrates routine banking tasks with strategic
@@ -217,7 +217,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 Enhanced Security for Peace of Mind
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   In an era where cybersecurity is paramount, Corporate Digital
                   Banking solutions prioritize the safety of financial data.
@@ -242,7 +242,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 Value-Added Features: Beyond Banking
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   Corporate Digital Banking goes beyond traditional banking
                   services to offer additional value-added features such as
@@ -269,7 +269,7 @@ const DigitalBanking = () => {
               <h2 className="mb-2 text-lg font-semibold text-black md:mb-6 lg:text-2xl md:text-xl">
                 Driving Innovation and Growth
               </h2>
-              <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+              <div className=" text-justify text-gray-700 md:text-base text-[13px]">
                 <p className="mb-2">
                   By embracing Corporate Digital Banking, businesses can focus
                   on their core activities without being encumbered by financial

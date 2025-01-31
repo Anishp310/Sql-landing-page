@@ -150,16 +150,17 @@ export const updateDemo = async (req, res) => {
 
 // Delete Demo
 export const deleteDemo = async (req, res) => {
-  const { demo_id } = req.params;
+  const { Demo_id } = req.params;
 
-  if (!demo_id) {
+  if (!Demo_id) {
     return res.status(400).json({ message: "Demo ID is required" });
   }
 
   try {
     // Fetch the demo before deleting
-    const [demo] = await pool.query("SELECT * FROM Demo WHERE demo_id = ?", [demo_id]);
-
+    const [demo] = await pool.query("SELECT * FROM Demo WHERE demo_id = ?", [Demo_id]);
+console.log(Demo_id)
+console.log(demo)
     if (demo.length === 0) {
       return res.status(404).json({
         message: `Demo with ID ${demo_id} not found`,
@@ -167,7 +168,7 @@ export const deleteDemo = async (req, res) => {
     }
 
     // Delete the demo
-    await pool.query("DELETE FROM Demo WHERE demo_id = ?", [demo_id]);
+    await pool.query("DELETE FROM Demo WHERE demo_id = ?", [Demo_id]);
 
     res.status(200).json({
       message: "Demo deleted successfully",

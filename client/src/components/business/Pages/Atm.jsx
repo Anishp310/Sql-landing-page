@@ -28,7 +28,7 @@ const Atm = () => {
             <h2 className="mb-2 text-lg font-semibold text-red-900 md:mb-6 lg:text-2xl md:text-xl">
               ATM: Convenient Self-Service Banking
             </h2>
-            <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+            <div className=" text-justify text-gray-700 md:text-base text-[13px]">
               <p className="mb-2">
                 ATMs provide 24/7 access to essential banking services,
                 including cash withdrawals, deposits, fund transfers, and

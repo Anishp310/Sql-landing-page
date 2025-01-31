@@ -29,7 +29,7 @@ const MobileBanking = () => {
           <h2 className="mb-2 text-lg font-semibold text-red-900 md:mb-6 lg:text-2xl md:text-xl">
             Mobile Banking - Banking on the Go
           </h2>
-          <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">
+          <div className=" text-justify text-gray-700 md:text-base text-[13px]">
             <p className="mb-2">
               Mobile banking offers users the convenience of managing their
               finances anytime, anywhere, through a secure mobile app. It

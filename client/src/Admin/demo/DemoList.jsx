@@ -36,11 +36,13 @@ const DemoList = () => {
   const handleDeleteClick = async (itemId) => {
     try {
       await fetch(`${SummaryApi.deleteAllDemo.url}/${itemId}`, {
+        method: 'DELETE',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        method: 'DELETE',
       });
+      
       setDemo(demo.filter((item) => item.demo_id !== itemId));
       toast.success("Deleted Successfully");
     } catch (error) {

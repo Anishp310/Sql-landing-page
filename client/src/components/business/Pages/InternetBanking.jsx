@@ -28,7 +28,7 @@ const InternetBanking = () => {
           <h2 className="mb-2 text-lg font-semibold text-red-900 md:mb-6 lg:text-2xl md:text-xl">
           Internet Banking - Banking at Your Fingertips
           </h2>
-          <div className="text-sm text-justify text-gray-700 md:text-base lg:text-lg">           
+          <div className=" text-justify text-gray-700 md:text-base text-[13px]">           
               <p className="mb-2">
                 Internet banking enables users to manage their finances
                 conveniently through a secure online platform. It offers 24/7

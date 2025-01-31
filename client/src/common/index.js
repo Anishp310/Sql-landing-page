@@ -53,7 +53,7 @@ const SummaryApi = {
   deleteAllDemo: {
     url: `${backendDomain}/deleteDemo`,
     method: "delete",
-  },
+  },  
 
   //blog
   Blog: {

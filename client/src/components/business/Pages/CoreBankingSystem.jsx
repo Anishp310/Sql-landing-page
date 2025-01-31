@@ -28,7 +28,7 @@ const CoreBankingSystem = () => {
           <h2 className="mb-2 text-lg font-semibold text-red-900 md:mb-6 lg:text-2xl md:text-xl">
             360 Core Banking Software : Empowering Financial Institutions
           </h2>
-          <div className="text-sm text-justify md:text-base lg:text-lg">
+          <div className="md:text-base text-[13px] text-justify">
             <p className="mb-2">
               {" "}
               The 360 Core Banking Software is Jooneli Inc’s flagship product,
