@@ -15,8 +15,15 @@ const BlogDetail = () => {
 
   const fetchBlogDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/blogs/${slug}`);
-      if (!response.ok) throw new Error("Failed to fetch blog details");
+      const response = await fetch(`https://server.jooneli.com/blogs/${slug}`);
+      // const response = await fetch(`https://localhost:8080/blogs/${slug}`);
+
+      if (!response.ok) {
+        // Log the response to debug further
+        const errorText = await response.text(); 
+        console.error('Error fetching blog details:', errorText);
+        throw new Error('Failed to fetch blog details');
+      }
       const data = await response.json();
       setBlog(data);
     } catch (error) {
@@ -45,7 +52,7 @@ const BlogDetail = () => {
       await fetch(`${SummaryApi.Blog.url}/${post.blog_id}/click`, {
         method: "PATCH",
       });
-      navigate(`/blog/${post.blog_id}`);
+      navigate(`/blog/${post.slug}`);
     } catch (err) {
       console.error("Error updating click count:", err);
     }

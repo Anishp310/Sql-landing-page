@@ -121,7 +121,12 @@ CREATE TABLE blog (
 INSERT INTO users (username, email, password, role)
 VALUES ('admin', 'admin@example.com', 'hashedpassword', 'admin');
 
-ALTER TABLE blog ADD COLUMN slug VARCHAR(255) NOT NULL UNIQUE;
+ALTER TABLE blog ADD COLUMN slug VARCHAR(255);
 
+UPDATE blog
+SET slug = CONCAT('slug-', blog_id)
+WHERE slug IS NULL OR slug = '';
+
+ALTER TABLE blog MODIFY COLUMN slug VARCHAR(255) NOT NULL UNIQUE;
 
 

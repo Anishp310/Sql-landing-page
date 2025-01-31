@@ -1,5 +1,5 @@
-// const backendDomain = "https://server.jooneli.com";
-const backendDomain = "http://localhost:8080";
+const backendDomain = "https://server.jooneli.com";
+// const backendDomain = "http://localhost:8080";
 
 const SummaryApi = {
   HomeNewsImage: {
@@ -79,6 +79,7 @@ const SummaryApi = {
     url: `${backendDomain}/blogs/:slug`, // replace :slug with the actual slug
     method: "get",
   },
+ 
 
   // BlogDetailById: {
   //   url: `${backendDomain}/id/blog_id`, 
