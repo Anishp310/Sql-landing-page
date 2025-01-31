@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+import DataTable from "react-data-table-component";
 
 const PricingList = () => {
   const [pricingList, setPricingList] = useState([]);
@@ -125,6 +126,61 @@ const PricingList = () => {
     }
   };
 
+  // Define the columns for the DataTable
+  const columns = [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Price",
+      selector: (row) => row.price,
+      sortable: true,
+    },
+    {
+      name: "Duration",
+      selector: (row) => row.duration,
+      sortable: true,
+    },
+    {
+      name: "Features",
+      selector: (row) =>
+        Array.isArray(JSON.parse(row.features))
+          ? truncate(JSON.parse(row.features).join(";"), 50)
+          : truncate(row.features, 50),
+    },
+    {
+      name: "Excluded Features",
+      selector: (row) =>
+        Array.isArray(JSON.parse(row.excludedFeature))
+          ? truncate(JSON.parse(row.excludedFeature).join(";"), 50)
+          : truncate(row.excludedFeature, 50),
+    },
+    {
+      name: "Edit",
+      cell: (row) => (
+        <button
+          onClick={() => handleUpdateClick(row)}
+          className="px-4 py-2 text-white bg-blue-500 rounded"
+        >
+          Edit
+        </button>
+      ),
+    },
+    {
+      name: "Delete",
+      cell: (row) => (
+        <button
+          onClick={() => handleDeleteClick(row.pricing_id)}
+          className="px-4 py-2 text-white bg-red-500 rounded"
+        >
+          Delete
+        </button>
+      ),
+    },
+  ];
+
   return (
     <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg pricing-list-container">
       <Toaster position="top-left" />
@@ -150,80 +206,13 @@ const PricingList = () => {
       </button>
 
       <div className="overflow-x-auto h-100">
-        <table className="w-full border-collapse border-gray-300 shadow-lg">
-          <thead>
-            <tr className="text-black bg-gray-200">
-              <th className="px-4 py-2 text-left border border-gray-300">
-                Name
-              </th>
-              <th className="px-4 py-2 text-left border border-gray-300">
-                Price
-              </th>
-              <th className="px-4 py-2 text-left border border-gray-300">
-                Duration
-              </th>
-              <th className="px-4 py-2 text-left border border-gray-300">
-                Features
-              </th>
-              <th className="px-4 py-2 text-left border border-gray-300">
-                Excluded-Features
-              </th>
-              <th className="px-4 py-2 text-left border border-gray-300">
-                Edit
-              </th>
-              <th className="px-4 py-2 text-left border border-gray-300">
-                Delete
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {pricingList.map((pricing) => (
-              <tr
-                key={pricing.pricing_id}
-                className="hover:bg-gray-600 hover:text-white"
-              >
-                <td className="px-4 py-2 border border-gray-300">
-                  {pricing.name}
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  {pricing.price}
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  {pricing.duration}
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  {Array.isArray(JSON.parse(pricing.features))
-                    ? truncate(JSON.parse(pricing.features).join(";"), 50)
-                    : truncate(pricing.features, 50)}
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  {Array.isArray(JSON.parse(pricing.excludedFeature))
-                    ? truncate(
-                        JSON.parse(pricing.excludedFeature).join(";"),
-                        50
-                      )
-                    : truncate(pricing.excludedFeature, 50)}
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  <button
-                    onClick={() => handleUpdateClick(pricing)}
-                    className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  <button
-                    onClick={() => handleDeleteClick(pricing.pricing_id)}
-                    className="px-8 py-3 text-white bg-red-500 rounded"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={columns}
+          data={pricingList}
+          pagination
+          highlightOnHover
+          responsive
+        />
       </div>
 
       {isModalOpen && (

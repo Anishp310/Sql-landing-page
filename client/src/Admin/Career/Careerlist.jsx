@@ -4,6 +4,7 @@ import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+import DataTable from 'react-data-table-component';  // Importing the DataTable component
 
 const Careerlist = () => {
   const [careerList, setCareerList] = useState([]);
@@ -31,7 +32,6 @@ const Careerlist = () => {
       toast.error(`Error: ${error.message}`);
     }
   };
-  
 
   useEffect(() => {
     getCareer();
@@ -42,6 +42,7 @@ const Careerlist = () => {
     toast.error("No token found. Please log in again.");
     return;
   }
+
   const handleAddCareerClick = () => {
     setSelectedCareer(null);  // Clear selected career
     reset({
@@ -58,7 +59,7 @@ const Careerlist = () => {
     });  // Reset the form to empty values
     setIsModalOpen(true);
   };
-  
+
   const handleCareerSubmit = async (data) => {
     try {
       const url = selectedCareer
@@ -105,30 +106,28 @@ const Careerlist = () => {
     });
   };
 
-    const exportToExcel = () => {
-      const tableData = [
-        ["title", "JobType", "Experience", "Qualification", "Category", "Location", "ApplyBefore", "Description", "Salary", "SkillsRequired"],
-        ...careerList.map((item) => [
-          item.title,
-          item.job_type,  // Corrected field name
-          item.experience,
-          item.qualification,
-          item.category,
-          item.location,
-          item.apply_before.split("T")[0],  // Corrected field name
-          item.description,
-          item.salary,
-          item.skills_required,  // Corrected field name
-        ]),
-      ];
-  
-  
-      const worksheet = XLSX.utils.aoa_to_sheet(tableData);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Careerlist");
-      XLSX.writeFile(workbook, "Careerlist.xlsx");
-    };
-  
+  const exportToExcel = () => {
+    const tableData = [
+      ["title", "JobType", "Experience", "Qualification", "Category", "Location", "ApplyBefore", "Description", "Salary", "SkillsRequired"],
+      ...careerList.map((item) => [
+        item.title,
+        item.job_type,  // Corrected field name
+        item.experience,
+        item.qualification,
+        item.category,
+        item.location,
+        item.apply_before.split("T")[0],  // Corrected field name
+        item.description,
+        item.salary,
+        item.skills_required,  // Corrected field name
+      ]),
+    ];
+
+    const worksheet = XLSX.utils.aoa_to_sheet(tableData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Careerlist");
+    XLSX.writeFile(workbook, "Careerlist.xlsx");
+  };
 
   const handleDeleteClick = async (careerId) => {
     try {
@@ -150,13 +149,80 @@ const Careerlist = () => {
     }
   };
 
+  const columns = [
+    {
+      name: 'Title',
+      selector: row => row.title,
+    },
+    {
+      name: 'Job Type',
+      selector: row => row.job_type,
+    },
+    {
+      name: 'Experience',
+      selector: row => row.experience,
+    },
+    {
+      name: 'Qualification',
+      selector: row => row.qualification,
+    },
+    {
+      name: 'Salary',
+      selector: row => row.salary,
+    },
+    {
+      name: 'Category',
+      selector: row => row.category,
+    },
+    {
+      name: 'Location',
+      selector: row => row.location,
+    },
+    {
+      name: 'Apply Before',
+      selector: row => row.apply_before.split("T")[0],
+    },
+    {
+      name: 'Description',
+      selector: row => truncate(row.description, 50),
+    },
+    {
+      name: 'Skills Required',
+      selector: row => truncate(row.skills_required, 50),
+    },
+    {
+      name: 'Created At',
+      selector: row => row.created_at.replace("T", " ").split(".")[0],
+    },
+    {
+      name: 'Edit',
+      cell: row => (
+        <button
+          onClick={() => handleUpdateClick(row)}
+          className="px-4 py-2 text-white bg-blue-500 rounded"
+        >
+          Edit
+        </button>
+      ),
+    },
+    {
+      name: 'Delete',
+      cell: row => (
+        <button
+          onClick={() => handleDeleteClick(row.career_id)}
+          className="px-4 py-2 text-white bg-red-500 rounded"
+        >
+          Delete
+        </button>
+      ),
+    }
+  ];
+
   return (
     <div className="max-w-6xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg career-list-container">
       <Toaster position="top-right" />
       <h1 className="mb-5 text-2xl font-bold">Career List</h1>
-      <div className="overflow-x-auto h-100">
       <div className="flex justify-start mb-4">
-    
         <button
           className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none"
           onClick={exportToExcel}
@@ -164,78 +230,23 @@ const Careerlist = () => {
           Export to Excel
         </button>
         <button
-        onClick={() => {
-          setSelectedCareer(null);
-          reset();
-          setIsModalOpen(true);
-          handleAddCareerClick()
-        }}
-        className="px-4 py-2 ml-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none"
-
-      >
-        Add Career
-      </button>
-      </div>
-        <table className="w-full border-collapse border-gray-300 shadow-lg">
-          <thead className=''>
-            <tr className="text-black bg-gray-200">
-            <th className="px-4 py-2 text-left border border-gray-300 ">Title</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Job Type</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Experience</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Qualification</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Salary</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Category</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">location</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">ApplyBefore</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Description</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Salary</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">SkillsRequired</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Created_at</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Edit</th>
-            <th className="px-4 py-2 text-left border border-gray-300 ">Delete</th>
-
-            </tr>
-          </thead>
-          <tbody className=''>
-            {careerList.map((career) => (
-              <tr key={career.career_id} className="hover:bg-gray-600 hover:text-white">
-                <td className="w-8 h-8 px-4 py-2 overflow-hidden border border-gray-300">{career.title}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.job_type}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.experience}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.qualification}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.salary}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.category}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.location}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.apply_before.replace("T", " ").split(".")[0]}</td>
-              <td className="px-4 py-2 border border-gray-300 ">{truncate(career.description,50)}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.salary}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(career.skills_required,50)}</td>
-              <td className="px-4 py-2 border border-gray-300">{career.created_at.replace("T", " ").split(".")[0]}</td>
-              <td className="px-4 py-2 border border-gray-300 ">
-                <button
-                  onClick={() => handleUpdateClick(career)}
-                  className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
-                >
-                  Edit
-                </button>
-               
-              </td>
-              <td className="py-2 border-b px- ">
-              <button
-                  onClick={() => handleDeleteClick(career.career_id)}
-                  className="px-8 py-3 text-white bg-red-500 rounded"
-                >
-                  Delete
-                </button>
-                </td>
-
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          onClick={handleAddCareerClick}
+          className="px-4 py-2 ml-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none"
+        >
+          Add Career
+        </button>
       </div>
 
-      {isModalOpen && (
+      <DataTable
+        title="Career List"
+        columns={columns}
+        data={careerList}
+        pagination
+        highlightOnHover
+        pointerOnHover
+      />
+
+{isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal" open>
           <div className="relative modal-content bg-white text-black p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-3xl overflow-y-auto max-h-[90vh]">
             <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">{selectedCareer ? "Update Career" : "Add Career"}</h2>
@@ -376,5 +387,4 @@ const Careerlist = () => {
     </div>
   );
 };
-
 export default Careerlist;

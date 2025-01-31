@@ -2,6 +2,7 @@ import * as XLSX from "xlsx";
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../../common";
 import { Toaster, toast } from "react-hot-toast";
+import DataTable from "react-data-table-component";
 
 const BrochureList = () => {
   const [brochure, setBrochure] = useState([]);
@@ -87,8 +88,58 @@ const BrochureList = () => {
     XLSX.writeFile(workbook, "BrochureData.xlsx");
   };
 
+  // Define columns for DataTable
+  const columns = [
+    {
+      name: "UserName",
+      selector: (row) => row.username,
+      sortable: true,
+    },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+      sortable: true,
+    },
+    {
+      name: "Designation",
+      selector: (row) => truncate(row.designation, 50),
+      sortable: true,
+    },
+    {
+      name: "Phone",
+      selector: (row) => row.phone,
+      sortable: true,
+    },
+    {
+      name: "Description",
+      selector: (row) => truncate(row.description, 50),
+      sortable: true,
+    },
+    {
+      name: "Meeting",
+      selector: (row) => (row.meeting ? "Yes" : "No"),
+      sortable: true,
+    },
+    {
+      name: "Created At",
+      selector: (row) => row.created_at.replace("T", " ").split(".")[0],
+      sortable: true,
+    },
+    {
+      name: "Delete",
+      cell: (row) => (
+        <button
+          onClick={() => handleDeleteClick(row.brochure_id)}
+          className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none"
+        >
+          Delete
+        </button>
+      ),
+    },
+  ];
+
   return (
-    <div className="max-w-screen-xl p-4 mx-auto my-5 bg-gray-100 rounded shadow-lg ">
+    <div className="max-w-screen-xl p-4 mx-auto my-5 bg-gray-100 rounded shadow-lg">
       <Toaster position="top-right" />
       <h1 className="mb-5 text-2xl font-bold">Brochure List</h1>
 
@@ -100,43 +151,16 @@ const BrochureList = () => {
           Export to Excel
         </button>
       </div>
-      <table className="w-full border border-collapse border-gray-300 shadow-lg table-auto">
-        <thead>
-          <tr className="text-black bg-gray-200">
-            <th className="px-4 py-2 text-left border border-gray-300">UserName</th>
-            <th className="px-4 py-2 text-left border border-gray-300">Email</th>
-            <th className="px-4 py-2 text-left border border-gray-300">Designation</th>
-            <th className="px-4 py-2 text-left border border-gray-300">Phone</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Description</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Meeting</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Created at</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Delete</th>
-          </tr>
-        </thead>
-        <tbody className="hover">
-          {Array.isArray(brochure) && brochure.map((item, index) => (
-            <tr key={item.brochure_id || index} className="hover:bg-gray-600 hover:text-white">
-              <td className="px-4 py-2 border border-gray-300">{item.username}</td>
-              <td className="px-4 py-2 border border-gray-300">{item.email}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(item.designation, 50)}</td>
-              <td className="px-4 py-2 border border-gray-300">{item.phone}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(item.description, 50)}</td>
-              <td className="px-4 py-2 border border-gray-300">{item.meeting ? "Yes" : "No"}</td>
-              <td className="px-4 py-2 border border-gray-300">
-                {item.created_at.replace("T", " ").split(".")[0]}
-              </td>
-              <td className="px-4 py-2 text-center border border-gray-300">
-                <button
-                  className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none"
-                  onClick={() => handleDeleteClick(item.brochure_id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      <div className="overflow-x-auto">
+        <DataTable
+          columns={columns}
+          data={brochure}
+          pagination
+          highlightOnHover
+          responsive
+        />
+      </div>
     </div>
   );
 };

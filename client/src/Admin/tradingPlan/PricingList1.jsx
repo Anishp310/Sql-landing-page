@@ -1,8 +1,9 @@
-import SummaryApi from "../../common";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+import DataTable from 'react-data-table-component';
+import SummaryApi from "../../common";
 
 const PricingList1 = () => {
   const [pricingList, setPricingList] = useState([]);
@@ -38,14 +39,13 @@ const PricingList1 = () => {
 
   const handlePricingSubmit = async (data) => {
     try {
-      const body = { 
+      const body = {
         name: data.name,
         price: data.price,
         duration: data.duration,
-        features: data.features.split(";").map(item => item.trim()), // Split by ; and trim spaces
-        excludedFeature: data.excludedFeature.split(";").map(item => item.trim()) // Split by ;  and trim spaces
+        features: data.features.split(";").map(item => item.trim()),
+        excludedFeature: data.excludedFeature.split(";").map(item => item.trim())
       };
-      console.log(body);
 
       const url = selectedPricing
         ? `${SummaryApi.tradingUpdatePricing.url}/${selectedPricing.pricing_id}`
@@ -82,7 +82,7 @@ const PricingList1 = () => {
       features: Array.isArray(JSON.parse(pricing.features))
         ? JSON.parse(pricing.features).join("; ") // Join by ;
         : pricing.features,
-        excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature))
+      excludedFeature: Array.isArray(JSON.parse(pricing.excludedFeature))
         ? JSON.parse(pricing.excludedFeature).join("; ")
         : pricing.excludedFeature,
     });
@@ -124,6 +124,52 @@ const PricingList1 = () => {
     }
   };
 
+  // DataTable columns
+  const columns = [
+    {
+      name: 'Name',
+      selector: row => row.name,
+      sortable: true,
+    },
+    {
+      name: 'Price',
+      selector: row => row.price,
+      sortable: true,
+    },
+    {
+      name: 'Duration',
+      selector: row => row.duration,
+      sortable: true,
+    },
+    {
+      name: 'Features',
+      selector: row => truncate(parseFeatures(row.features), 50),
+    },
+    {
+      name: 'Excluded Features',
+      selector: row => truncate(parseFeatures(row.excludedFeature), 50),
+    },
+    {
+      name: 'Actions',
+      cell: (row) => (
+        <div>
+          <button
+            onClick={() => handleUpdateClick(row)}
+            className="px-4 py-2 text-white bg-blue-500 rounded"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => handleDeleteClick(row.pricing_id)}
+            className="ml-2 px-4 py-2 text-white bg-red-500 rounded"
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    }
+  ];
+
   return (
     <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg pricing-list-container">
       <Toaster position="top-left" />
@@ -132,7 +178,7 @@ const PricingList1 = () => {
       <button
         onClick={() => {
           setSelectedPricing(null);
-          reset({ // Reset the form fields to be empty
+          reset({
             name: '',
             price: '',
             duration: '',
@@ -146,54 +192,17 @@ const PricingList1 = () => {
       </button>
 
       <div className="overflow-x-auto h-100">
-        <table className="w-full border-collapse border-gray-300 shadow-lg">
-          <thead>
-            <tr className="text-black bg-gray-200">
-              <th className="px-4 py-2 text-left border border-gray-300">Name</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Price</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Duration</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Features</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Excluded-Features</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Edit</th>
-              <th className="px-4 py-2 text-left border border-gray-300">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.isArray(pricingList) && pricingList.map((pricing)=> (
-              <tr key={pricing.pricing_id} className="hover:bg-gray-600 hover:text-white">
-                <td className="px-4 py-2 border border-gray-300">{pricing.name}</td>
-                <td className="px-4 py-2 border border-gray-300">{pricing.price}</td>
-                <td className="px-4 py-2 border border-gray-300">{pricing.duration}</td>
-                <td className="px-4 py-2 border border-gray-300">
-                  {/* Ensure that features are parsed as an array before displaying */}
-                  {truncate(parseFeatures(pricing.features?.replaceAll(";", ";")), 50)}
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  {/* Ensure that features are parsed as an array before displaying */}
-                  {truncate(parseFeatures(pricing.excludedFeature?.replaceAll(";", ";")), 50)}
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  <button
-                    onClick={() => handleUpdateClick(pricing)}
-                    className="px-8 py-3 mr-2 text-white bg-blue-500 rounded"
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td className="px-4 py-2 border border-gray-300">
-                  <button
-                    onClick={() => handleDeleteClick(pricing.pricing_id)}
-                    className="px-8 py-3 text-white bg-red-500 rounded"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={columns}
+          data={pricingList}
+          pagination
+          highlightOnHover
+          striped
+          responsive
+        />
       </div>
 
+      {/* Modal for adding/editing pricing */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal" open>
           <div className="relative modal-content bg-white text-black p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-3xl overflow-y-auto max-h-[90vh]">
@@ -205,6 +214,7 @@ const PricingList1 = () => {
               />
             </div>
             <form onSubmit={handleSubmit(handlePricingSubmit)} className="space-y-6">
+              {/* Form fields */}
               <div className="mb-4">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
                 <input
@@ -241,7 +251,7 @@ const PricingList1 = () => {
                   {...register('features', { required: 'Features are required' })}
                   id="features"
                   rows="3"
-                   placeholder="Enter features separated by ; (e.g., Feature1; Feature2; Feature3)"
+                  placeholder="Enter features separated by ; (e.g., Feature1; Feature2; Feature3)"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -252,7 +262,7 @@ const PricingList1 = () => {
                   {...register('excludedFeature')}
                   id="excludedFeature"
                   rows="3"
-                   placeholder="Enter excluded features separated by ; (e.g., Excluded1; Excluded2)"
+                  placeholder="Enter excluded features separated by ; (e.g., Excluded1; Excluded2)"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>

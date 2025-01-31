@@ -2,6 +2,7 @@ import * as XLSX from "xlsx";
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../../common";
 import { Toaster, toast } from "react-hot-toast";
+import DataTable from 'react-data-table-component';  // Import DataTable component
 
 const ContactList = () => {
   const [contact, setContact] = useState([]);
@@ -10,20 +11,21 @@ const ContactList = () => {
   if (!token) {
     toast.error("No token found. Please log in again.");
   }
+
   const truncate = (str, length) => {
     if (!str) return '';  // Return empty string if str is undefined or null
     return str.length > length ? str.slice(0, length) + "..." : str;
   };
-  
+
   const getNews = async () => {
     try {
       const response = await fetch(SummaryApi.Contact.url, {
         headers: {
-          Authorization: `Bearer ${token}`, // Ensure token is passed in request header
+          Authorization: `Bearer ${token}`,
         },
       });
-      const textData = await response.text();  // First, get the raw response as text
-      const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
+      const textData = await response.text();
+      const jsonData = textData ? JSON.parse(textData) : [];
       setContact(jsonData);
     } catch (error) {
       toast.error(error.message);
@@ -39,7 +41,7 @@ const ContactList = () => {
     try {
       await fetch(`${SummaryApi.deleteContact.url}/${item}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Add token to Authorization header
+          Authorization: `Bearer ${token}`,
         },
         method: 'DELETE',
       });
@@ -71,6 +73,61 @@ const ContactList = () => {
     XLSX.writeFile(workbook, "Contacts.xlsx");
   };
 
+  const columns = [
+    {
+      name: 'UserName',
+      selector: row => row.username,
+      sortable: true,
+    },
+    {
+      name: 'Email',
+      selector: row => row.email,
+      sortable: true,
+    },
+    {
+      name: 'Company',
+      selector: row => row.company,
+      sortable: true,
+    },
+    {
+      name: 'Phone',
+      selector: row => row.telephone,
+      sortable: true,
+    },
+    {
+      name: 'Job',
+      selector: row => truncate(row.job, 50),
+      sortable: true,
+    },
+    {
+      name: 'Relationship',
+      selector: row => truncate(row.relationship, 50),
+      sortable: true,
+    },
+    {
+      name: 'Writing About',
+      selector: row => truncate(row.writingAbout, 50),
+      sortable: true,
+    },
+    {
+      name: 'Created At',
+      selector: row => row.created_at.replace("T", " ").split(".")[0],
+      sortable: true,
+    },
+    {
+      name: 'Delete',
+      button: true,
+      cell: (row) => (
+        <button
+          className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+          onClick={() => handleDeleteClick(row.contact_id)}
+        >
+          Delete
+        </button>
+      ),
+    }
+  ];
+
   return (
     <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg">
       <Toaster position="top-left" />
@@ -83,43 +140,14 @@ const ContactList = () => {
         Download Excel
       </button>
 
-      <table className="w-full border border-collapse border-gray-300 shadow-lg table-auto">
-        <thead>
-          <tr className="text-black bg-gray-200">
-            <th className="px-4 py-2 text-left border border-gray-300">UserName</th>
-            <th className="px-4 py-2 text-left border border-gray-300">Email</th>
-            <th className="px-4 py-2 text-left border border-gray-300">Company</th>
-            <th className="px-4 py-2 text-left border border-gray-300">Phone</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Job</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Relationship</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Writing About</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Created at</th>
-            <th className="px-4 py-2 text-center border border-gray-300">Delete</th>
-          </tr>
-        </thead>
-        <tbody className="hover">
-          {contact?.map((item, index) => (
-            <tr key={item.contact_id || index} className="hover:bg-gray-600 hover:text-white">
-              <td className="px-4 py-2 border border-gray-300">{item.username}</td>
-              <td className="px-4 py-2 border border-gray-300">{item.email}</td>
-              <td className="px-4 py-2 border border-gray-300">{item.company}</td>
-              <td className="px-4 py-2 border border-gray-300">{item.telephone}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(item.job, 50)}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(item.relationship, 50)}</td>
-              <td className="px-4 py-2 border border-gray-300">{truncate(item.writingAbout, 50)}</td>
-              <td className="px-4 py-2 border border-gray-300">{item.created_at.replace("T", " ").split(".")[0]}</td>
-              <td className="px-4 py-2 text-center border border-gray-300">
-                <button
-                  className="px-4 py-2 text-white bg-blue-500 rounded-lg btn btn-secondary hover:bg-blue-600 focus:outline-none"
-                  onClick={() => handleDeleteClick(item.contact_id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <DataTable
+        title="Contacts"
+        columns={columns}
+        data={contact}
+        pagination
+        highlightOnHover
+       
+      />
     </div>
   );
 };
