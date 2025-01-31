@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import SummaryApi from "../../common";
+import { useEffect, useState } from "react";
 
 const News = () => {
   const [allNews, setAllNews] = useState([]);
@@ -79,7 +79,7 @@ const News = () => {
 
         {/* News Section */}
         <div className="flex flex-col justify-between h-full max-w-full gap-0 px-2">
-          <p className="text-xl font-bold text-red-900 md:text-2xl">
+          <p className="text-xl font-bold text-red-900 md:text-2xl my-4 md:my-0">
             Corporate News
           </p>
 
@@ -90,16 +90,16 @@ const News = () => {
                 href={ensureProtocol(news.site)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm font-bold text-black underline md:text-base xl:text-lg hover:text-rose-900"
+                className="block text-sm font-bold my-2 text-black underline md:text-base xl:text-lg hover:text-rose-900"
               >
                 {news.title.length > 100
                   ? `${news.title.substring(0, 100)}...`
                   : news.title}
               </a>
-              <p className="text-xs text-gray-600 md:text-base">
+              <p className="text-xs text-gray-600 md:text-base my-1">
                 {news.source}
               </p>
-              <p className="text-sm text-gray-700 lg:text-base">
+              <p className="text-sm text-gray-700 lg:text-base my-2">
                 {news.description.length > 300
                   ? `${news.description.substring(0, 300)}...`
                   : news.description}

@@ -1,5 +1,5 @@
 import SummaryApi from "../../common";
-import pdffile from "../../Assets/contactforpdf.pdf";
+import pdffile from "../../Assets/BrochureofJooneliProductof360andTrading.pdf";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
@@ -63,7 +63,7 @@ const Carousel = () => {
         // Trigger the download of the brochure PDF file
         const downloadLink = document.createElement("a");
         downloadLink.href = pdffile; // Use the imported PDF file path
-        downloadLink.download = "contactforpdf.pdf"; // Name the file when downloaded
+        downloadLink.download = "BrochureofJooneliProductof360andTrading.pdf"; // Name the file when downloaded
         downloadLink.click(); // Simulate the click event to start the download
         setPopUpClicked(false);
       } else {
