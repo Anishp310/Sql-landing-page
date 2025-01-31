@@ -38,7 +38,7 @@ const Images = [
   {
     id: 3,
     image: <GiTrade className="text-4xl" />    ,
-    text: "Banking has never been this easy, with the help of 360 Core Banking System.",
+    text: "Jooneli Trading: Smart Accounting for Businesses",
     title: "Jooneli in Trading",
     link:"/trading",
     Content: [

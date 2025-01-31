@@ -35,7 +35,7 @@ const DemoList = () => {
   // Delete demo item by ID
   const handleDeleteClick = async (itemId) => {
     try {
-      await fetch(`${SummaryApi.deleteAllDemo.url}/${itemId}`, {
+      await fetch(`${SummaryApi.deleteDemo.url}/${itemId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
