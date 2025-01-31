@@ -10,7 +10,7 @@ const BusinessContent = () => {
             <span className="text-[16px] md:text-xl lg:text-2xl text-red-900">Corporate</span>{" "}
             Digital Banking
           </p>
-          <p className="md:mt-[4rem]  mt-[2rem]  text-justify md:text-base sm:text-[12px] text-[13px]">
+          <p className="mt-4  text-justify md:text-base sm:text-[12px] text-[13px]">
             360 Corporate Banking is a comprehensive solution suite built on an
             advanced architecture. The solution addresses the trade finance,
             lending, syndication, payments, origination, limits, collaterals,
@@ -31,7 +31,7 @@ const BusinessContent = () => {
             <BusinessListComponent/>
         </div>
           
-        <div className="mx-6 md:mt-[4rem]  mt-[2rem] text-center lg:mx-10 md:mx-8">
+        <div className="mx-6 mt-8 text-center lg:mx-10 md:mx-8">
           <p className="mb-3 text-[16px] md:text-xl lg:text-2xl font-bold">
             <span className="text-[16px] md:text-xl lg:text-2xl text-red-900">Grow your business</span>{" "}
             with Jooneli Trading
@@ -41,7 +41,7 @@ const BusinessContent = () => {
             country with nobility of technology
           </p>
         </div>
-        <div className="flex items-center justify-center w-full mt-5">
+        <div className="flex mt-8 items-center justify-center w-full ">
           <img src={BusinessImg} alt="" />
         </div>
       </div>
