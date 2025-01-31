@@ -81,11 +81,12 @@ router.get("/pricing1/:pricing_id", getTradingPlan);
 router.put("/updatepricing1/:pricing_id", updateTradingPlan); 
 router.delete("/deletepricing1/:pricing_id", deleteTradingPlan); 
 
-router.post("/addblog",upload.single('image_data'), createBlog); // Create a new blog post
-router.get("/blogs", getAllBlogs); // Get all blog posts
-router.get("/blog/:blog_id", getBlog); // Get a single blog post by ID
-router.put("/updateblog/:blog_id",upload.single('image_data'),updateBlog); // Update a blog post by ID
-router.delete("/deleteblog/:blog_id" ,deleteBlog); // Delete a blog post by ID
+router.get("/blogs", getAllBlogs); // Get all blogs
+// router.get("/blog/:blog_id", getBlog); // Get a blog by ID
+router.get("/blogs/:slug", getBlog); // Get a blog by slug
+router.post("/addblog", upload.single("image_data"), createBlog); // Create a blog
+router.put("/updateblog/:blog_id", upload.single("image_data"), updateBlog); // Update a blog
+router.delete("/deleteblog/:blog_id", deleteBlog); // Delete a blog
 
 
 export default router

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { abanner } from "../../../Assets";
 
 const Blog = () => {
@@ -14,8 +14,9 @@ const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 3;
   const [blogs, setBlogs] = useState([]);
-
+  const { slug } = useParams();
   const navigate = useNavigate();
+
 
   const settings = {
     dots: false,
@@ -31,12 +32,18 @@ const Blog = () => {
   const getBlogs = async () => {
     try {
       setLoading(true);
-      const response = await fetch(SummaryApi.Blog.url);
+      const url = slug ? `${SummaryApi.Blog.url}/${slug}` : SummaryApi.Blog.url;
+      const response = await fetch(url);
       const jsonData = await response.json();
-      const sortedData = jsonData.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
-      setBlogList(sortedData);
+      
+      if (slug) {
+        setBlogs([jsonData]);
+      } else {
+        const sortedData = jsonData.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        setBlogList(sortedData);
+      }
     } catch (error) {
       console.error("Failed to fetch blogs:", error);
     } finally {
@@ -44,28 +51,25 @@ const Blog = () => {
     }
   };
 
+
   const getTopPosts = async () => {
     try {
       const response = await fetch(SummaryApi.Blogs_top_clicked.url);
+      if (!response.ok) throw new Error("Failed to fetch top blogs");
       const topBlogs = await response.json();
       setTopPosts(topBlogs);
-    } catch (error) {
-      console.error("Failed to fetch top blogs:", error);
+    } catch (err) {
+      console.error("Error fetching top posts:", err);
     }
   };
+  
   const handleBlogClick = async (post) => {
     try {
       await fetch(`${SummaryApi.Blog.url}/${post.blog_id}/click`, {
         method: "PATCH",
       });
 
-      // Generate SEO-friendly slug
-      const formattedTitle = post.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-") // Replace special characters with dashes
-        .replace(/^-+|-+$/g, ""); // Remove leading or trailing dashes
-
-      navigate(`/blog/${formattedTitle}`, { state: post });
+      navigate(`/blog/${post.slug}`);
     } catch (error) {
       console.error("Failed to update click count:", error);
     }
@@ -73,7 +77,7 @@ const Blog = () => {
   useEffect(() => {
     getBlogs();
     getTopPosts();
-  }, []);
+  }, [slug]);
 
   // Pagination logic
   const indexOfLastPost = currentPage * postsPerPage;

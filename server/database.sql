@@ -121,4 +121,7 @@ CREATE TABLE blog (
 INSERT INTO users (username, email, password, role)
 VALUES ('admin', 'admin@example.com', 'hashedpassword', 'admin');
 
+ALTER TABLE blog ADD COLUMN slug VARCHAR(255) NOT NULL UNIQUE;
+
+
 

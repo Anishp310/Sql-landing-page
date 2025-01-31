@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
-import { FaTimes } from "react-icons/fa";
+
+// Function to generate slug
+const generateSlug = (title) => {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')  // Remove non-alphanumeric characters except space and hyphen
+    .replace(/\s+/g, '-')      // Replace spaces with hyphens
+    .replace(/-+/g, '-');      // Remove consecutive hyphens
+};
 
 const BlogList = () => {
   const [blogList, setBlogList] = useState([]);
@@ -47,12 +56,11 @@ const BlogList = () => {
   const openModal = (blog = null) => {
     setSelectedBlog(blog);
     if (blog) {
-      // Prefill form values for editing
       setValue("title", blog.title);
       setValue("description", blog.description);
-      setValue("image_data", null); // Reset the file input
+      setValue("image_data", null);
     } else {
-      reset(); // Reset the form for adding a new blog
+      reset();
     }
     setIsModalOpen(true);
   };
@@ -60,15 +68,17 @@ const BlogList = () => {
   const handleBlogSubmit = async (data) => {
     if (!validateToken()) return;
 
+    // Generate the slug from the title
+    const slug = generateSlug(data.title);
+
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
+    formData.append("slug", slug);  // Add the generated slug
 
     if (data.image_data && data.image_data.length > 0) {
-      // Add new image only if selected
       formData.append("image_data", data.image_data[0]);
     } else if (selectedBlog?.image_data) {
-      // Retain existing image
       formData.append("existing_image", selectedBlog.image_data);
     }
 

@@ -1,68 +1,54 @@
 import multer from "multer";
 import pool from "../db.js";
+import slugify from "slugify";
 
 // Configure multer to store files in memory with file type and size restrictions
 const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 },  // Limit file size to 10MB
+  limits: { fileSize: 10 * 1024 * 1024 }, // Limit file size to 10MB
   fileFilter: (req, file, cb) => {
-    // Check if the file is an image (jpeg, png, or gif)
-    if (file.mimetype.startsWith('image/')) {
+    if (file.mimetype.startsWith("image/")) {
       cb(null, true);
     } else {
-      cb(new Error('Only image files are allowed'), false);
+      cb(new Error("Only image files are allowed"), false);
     }
   },
 });
+
 // Helper function for validation
 const validateBlogData = (data) => {
   const { title, description, image_data } = data;
-
-  if (!title || title.trim() === "") {
-    return "Title is required";
-  }
-  if (!description || description.trim() === "") {
-    return "Description is required";
-  }
-  if (image_data && !Buffer.isBuffer(image_data)) {
-    return "Image data must be in valid binary format";
-  }
-
+  if (!title?.trim()) return "Title is required";
+  if (!description?.trim()) return "Description is required";
+  if (image_data && !Buffer.isBuffer(image_data)) return "Invalid image data";
   return null;
 };
 
 // Create Blog
 export const createBlog = async (req, res) => {
   const { title, description } = req.body;
-  const image_data = req.file ? req.file.buffer : null; // This will be the image buffer from multer
+  const image_data = req.file ? req.file.buffer : null;
+  const slug = slugify(title, { lower: true, strict: true });
 
-  // Validate the data
   const error = validateBlogData({ title, description, image_data });
-  if (error) {
-    return res.status(400).json({ message: error });
-  }
+  if (error) return res.status(400).json({ message: error });
 
   try {
-    // Insert the blog post into the database, `created_at` will auto-set due to the timestamp
-    const [newBlog] = await pool.query(
-      "INSERT INTO blog (title, description, image_data) VALUES(?, ?, ?)",
-      [title, description, image_data]
+    const [result] = await pool.query(
+      "INSERT INTO blog (title, description, image_data, slug) VALUES (?, ?, ?, ?)",
+      [title, description, image_data, slug]
     );
 
-    const [newBlogData] = await pool.query(
-      "SELECT * FROM blog WHERE blog_id = LAST_INSERT_ID()"
-    );
+    const [newBlogData] = await pool.query("SELECT * FROM blog WHERE blog_id = ?", [result.insertId]);
+
     res.status(201).json({
       message: "Blog created successfully",
       data: newBlogData[0],
     });
   } catch (error) {
     console.error("Error creating blog:", error.message);
-    res.status(500).json({
-      message: "Server error, unable to create blog",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -70,142 +56,92 @@ export const createBlog = async (req, res) => {
 export const updateBlog = async (req, res) => {
   const { blog_id } = req.params;
   const { title, description } = req.body;
-  const image_data = req.file ? req.file.buffer : null; // Check if a new image is uploaded
+  const image_data = req.file ? req.file.buffer : null;
 
-  if (!blog_id) {
-    return res.status(400).json({ message: "Blog ID is required" });
-  }
+  if (!blog_id) return res.status(400).json({ message: "Blog ID is required" });
 
   try {
-    // Retrieve the current blog post to ensure it exists and retain unchanged fields
     const [existingBlog] = await pool.query("SELECT * FROM blog WHERE blog_id = ?", [blog_id]);
-    if (existingBlog.length === 0) {
+
+    if (existingBlog.length === 0)
       return res.status(404).json({ message: `Blog with ID ${blog_id} not found` });
-    }
 
     const currentBlog = existingBlog[0];
 
-    // Use current values if new data is not provided
     const updatedTitle = title || currentBlog.title;
     const updatedDescription = description || currentBlog.description;
     const updatedImageData = image_data || currentBlog.image_data;
+    const updatedSlug = title ? slugify(title, { lower: true, strict: true }) : currentBlog.slug;
 
-    // Update the blog post in the database
     const [updatedBlog] = await pool.query(
-      "UPDATE blog SET title = ?, description = ?, image_data = ? WHERE blog_id = ?",
-      [updatedTitle, updatedDescription, updatedImageData, blog_id]
+      "UPDATE blog SET title = ?, description = ?, image_data = ?, slug = ? WHERE blog_id = ?",
+      [updatedTitle, updatedDescription, updatedImageData, updatedSlug, blog_id]
     );
 
-    if (updatedBlog.affectedRows === 0) {
+    if (updatedBlog.affectedRows === 0)
       return res.status(500).json({ message: "Failed to update blog" });
-    }
 
-    // Fetch the updated blog post
     const [blog] = await pool.query("SELECT * FROM blog WHERE blog_id = ?", [blog_id]);
 
-    res.status(200).json({
-      message: "Blog updated successfully",
-      data: blog[0],
-    });
+    res.status(200).json({ message: "Blog updated successfully", data: blog[0] });
   } catch (error) {
     console.error("Error updating blog:", error.message);
-    res.status(500).json({
-      message: "Server error, unable to update blog",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-
-
-
-// Get All Blogs
 // Get All Blogs
 export const getAllBlogs = async (req, res) => {
   try {
-    const [getAllBlogs] = await pool.query("SELECT * FROM blog");
+    const [blogs] = await pool.query("SELECT * FROM blog");
 
-    // Convert the image buffer to a base64 string
-    getAllBlogs.forEach(blog => {
+    blogs.forEach((blog) => {
       if (blog.image_data) {
-        blog.image_data = `data:image/jpeg;base64,${blog.image_data.toString('base64')}`;
+        blog.image_data = `data:image/jpeg;base64,${blog.image_data.toString("base64")}`;
       }
     });
 
-    res.status(200).json(getAllBlogs);
+    res.status(200).json(blogs);
   } catch (error) {
     console.error("Error retrieving blogs:", error.message);
-    res.status(500).json({
-      message: "Server error, unable to retrieve blogs",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
+// Get Single Blog by ID or Slug
+// export const getBlog = async (req, res) => {
+//   const { blog_id, slug } = req.params;
 
-// Get Single Blog
-export const getBlog = async (req, res) => {
-  const { blog_id } = req.params;
-
-  if (!blog_id) {
-    return res.status(400).json({ message: "Blog ID is required" });
-  }
-
-  try {
-    const [gBlog] = await pool.query("SELECT * FROM blog WHERE blog_id = ?", [blog_id]);
-
-    if (gBlog.length === 0) {
-      return res.status(404).json({
-        message: `Blog with ID ${blog_id} not found`,
-      });
-    }
-
-    res.status(200).json(gBlog[0]);
-  } catch (error) {
-    console.error("Error retrieving blog:", error.message);
-    res.status(500).json({
-      message: "Server error, unable to retrieve blog",
-      error: error.message,
-    });
-  }
-};
-
-// // Update Blog
-// export const updateBlog = async (req, res) => {
-//   const { blog_id } = req.params;
-//   const { title, description, image_data } = req.body;
-
-//   // Validate input data
-//   const error = validateBlogData({ title, description, image_data });
-//   if (error) {
-//     return res.status(400).json({ message: error });
-//   }
+//   if (!blog_id && !slug)
+//     return res.status(400).json({ message: "Blog ID or slug is required" });
 
 //   try {
-//     const [updatedBlog] = await pool.query(
-//       "UPDATE blog SET title = ?, description = ?, image_data = ? WHERE blog_id = ?",
-//       [title, description, image_data, blog_id]
-//     );
+//     let query = "SELECT * FROM blog WHERE ";
+//     let param = [];
 
-//     if (updatedBlog.affectedRows === 0) {
-//       return res.status(404).json({
-//         message: `Blog with ID ${blog_id} not found`,
-//       });
+//     if (blog_id) {
+//       query += "blog_id = ?";
+//       param.push(blog_id);
+//     } else {
+//       query += "slug = ?";
+//       param.push(slug);
 //     }
 
-//     // Fetch the updated blog post
-//     const [blog] = await pool.query("SELECT * FROM blog WHERE blog_id = ?", [blog_id]);
+//     const [gBlog] = await pool.query(query, param);
 
-//     res.status(200).json({
-//       message: "Blog updated successfully",
-//       data: blog[0],
-//     });
+//     if (gBlog.length === 0)
+//       return res.status(404).json({ message: `Blog not found` });
+
+//     const blog = gBlog[0];
+
+//     if (blog.image_data) {
+//       blog.image_data = `data:image/jpeg;base64,${blog.image_data.toString("base64")}`;
+//     }
+
+//     res.status(200).json(blog);
 //   } catch (error) {
-//     console.error("Error updating blog:", error.message);
-//     res.status(500).json({
-//       message: "Server error, unable to update blog",
-//       error: error.message,
-//     });
+//     console.error("Error retrieving blog:", error.message);
+//     res.status(500).json({ message: "Server error", error: error.message });
 //   }
 // };
 
@@ -213,36 +149,44 @@ export const getBlog = async (req, res) => {
 export const deleteBlog = async (req, res) => {
   const { blog_id } = req.params;
 
-  if (!blog_id) {
-    return res.status(400).json({ message: "Blog ID is required" });
-  }
+  if (!blog_id) return res.status(400).json({ message: "Blog ID is required" });
 
   try {
-    // Fetch the blog before deleting (check if blog exists)
     const [blog] = await pool.query("SELECT * FROM blog WHERE blog_id = ?", [blog_id]);
 
-    // Ensure the blog exists before attempting deletion
-    if (!blog || blog.length === 0) {
-      return res.status(404).json({
-        message: `Blog with ID ${blog_id} not found`,
-      });
-    }
+    if (!blog.length)
+      return res.status(404).json({ message: `Blog with ID ${blog_id} not found` });
 
-    // Proceed to delete the blog
     await pool.query("DELETE FROM blog WHERE blog_id = ?", [blog_id]);
 
-    res.status(200).json({
-      message: "Blog deleted successfully",
-      data: blog[0],  // Return the deleted blog data
-    });
+    res.status(200).json({ message: `Blog deleted successfully`, data: blog[0] });
   } catch (error) {
     console.error("Error deleting blog:", error.message);
-    res.status(500).json({
-      message: "Server error, unable to delete blog",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
+export const getBlog = async (req, res) => {
+  const { slug } = req.params;
 
+  if (!slug)
+    return res.status(400).json({ message: "Slug is required" });
 
+  try {
+    const [gBlog] = await pool.query("SELECT * FROM blog WHERE slug = ?", [slug]);
+
+    if (gBlog.length === 0)
+      return res.status(404).json({ message: "Blog not found" });
+
+    const blog = gBlog[0];
+
+    if (blog.image_data) {
+      blog.image_data = `data:image/jpeg;base64,${blog.image_data.toString("base64")}`;
+    }
+
+    res.status(200).json(blog);
+  } catch (error) {
+    console.error("Error retrieving blog:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};

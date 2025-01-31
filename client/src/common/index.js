@@ -1,5 +1,5 @@
 // const backendDomain = "https://server.jooneli.com";
-  const backendDomain = "http://localhost:8080";
+const backendDomain = "http://localhost:8080";
 
 const SummaryApi = {
   HomeNewsImage: {
@@ -11,13 +11,13 @@ const SummaryApi = {
     method: "get",
   },
 
-  //admin news 
+  //admin news
 
   updateNews: {
     url: `${backendDomain}/updateNews`,
     method: "put",
   },
-    addNews: {
+  addNews: {
     url: `${backendDomain}/addNews`,
     method: "post",
   },
@@ -25,7 +25,6 @@ const SummaryApi = {
     url: `${backendDomain}/deleteNews`,
     method: "delete",
   },
-
 
   //brochure
   AddBrochure: {
@@ -55,8 +54,6 @@ const SummaryApi = {
     method: "delete",
   },
 
-  
-
   //blog
   Blog: {
     url: `${backendDomain}/blogs`,
@@ -78,7 +75,18 @@ const SummaryApi = {
     url: `${backendDomain}/blogs/top-clicked`,
     method: "get",
   },
- //career
+  BlogDetailBySlug: {
+    url: `${backendDomain}/blogs/:slug`, // replace :slug with the actual slug
+    method: "get",
+  },
+
+  // BlogDetailById: {
+  //   url: `${backendDomain}/id/blog_id`, 
+  //   method: "get",
+  // },
+
+
+  //career
   getCareer: {
     url: `${backendDomain}/career`,
     method: "get",
@@ -164,11 +172,11 @@ const SummaryApi = {
     url: `${backendDomain}/forgotPassword`,
     method: "post",
   },
-  Login:{
+  Login: {
     url: `${backendDomain}/login`,
     method: "post",
   },
-   Register:{
+  Register: {
     url: `${backendDomain}/register`,
     method: "post",
   },
