@@ -9,7 +9,10 @@ export default {
   theme: {
     extend: {
       screens: {
-        'xxl': '2600px', // Custom breakpoint for 2600px and above
+        '5k': '2800px',
+        '4k': '2560px',
+        '2k': '2250px',
+        '2xl': '1536px', // Custom breakpoint for 2600px and above
       },
       keyframes: {
         fadeInUp: {

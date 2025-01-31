@@ -84,14 +84,14 @@ const BlogDetail = () => {
           alt="Blog Banner"
           className="object-left-top w-full"
         />
-        <div className="absolute lg:top-[40%] xl:left-[20%] lg:left-[15%] md:top-[30%] left-[0%] top-[25%] md:text-4xl">
+        <div className="absolute lg:top-[40%] xl:left-[20%] lg:left-[15%] md:top-[30%] left-[0%] top-[25%] md:text-4xl 4k:left-[28%] 2k:left-[29%] 5k:left-[32%]">
           <div className="flex items-center">
             <hr className="rotate-90 w-[80px] border-white border-1" />
             <div>
               <p className="text-[16px] md:text-xl lg:text-2xl ">
                 Engaging Content & Brand Growth
               </p>
-              <p className="xl:text-4xl lg:text-4xl md:text-3xl font-bold text-xl mt-2">Blog</p>
+              <p className="mt-2 text-xl font-bold xl:text-4xl lg:text-4xl md:text-3xl">Blog</p>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ const BlogDetail = () => {
         <div className="mb-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
           {/* Top Posts Carousel */}
           <div className="mt-[2rem] md:mx-0 mx-[1rem]">
-            <h3 className="text-base font-semibold  md:text-xl ">Top Posts</h3>
+            <h3 className="text-base font-semibold md:text-xl ">Top Posts</h3>
             {loading && <p>Loading top posts...</p>}
             {error && <p>{error}</p>}
             {!loading && !error && (

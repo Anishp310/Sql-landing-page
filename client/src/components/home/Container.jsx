@@ -81,7 +81,7 @@ const Container = () => {
               alt={item.title}
               className="object-cover w-12 h-12 bg-gray-200 rounded-full hover:opacity-60 "
             /> */}
-            <div className="flex items-center justify-center object-cover w-12 h-12 bg-gray-50 rounded-full hover:opacity-60 ">
+            <div className="flex items-center justify-center object-cover w-12 h-12 rounded-full bg-gray-50 hover:opacity-60 ">
             {item.image}
             </div>
             <p className="mt-4 text-[10px] sm:text-sm font-medium text-center md:text-base h-[40px] flex justify-center hover:underline item-baseline ">

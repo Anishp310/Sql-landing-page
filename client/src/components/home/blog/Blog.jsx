@@ -81,7 +81,7 @@ const Blog = () => {
       <div>
         <div className="relative md:h-[200px] text-white overflow-hidden">
           <img src={abanner} alt="Banner" className="object-left-top w-full" />
-          <div className="absolute lg:top-[40%] xl:left-[20%] lg:left-[15%] md:top-[30%] left-[0%] top-[25%] md:text-4xl">
+          <div className="absolute lg:top-[40%] xl:left-[20%] lg:left-[15%] md:top-[30%] left-[0%] top-[25%] md:text-4xl 4k:left-[28%] 2k:left-[29%] 5k:left-[32%]">
             <div className="flex items-center">
               <hr className="rotate-90 w-[80px] border-white border-1" />
               <div>
@@ -155,12 +155,12 @@ const Blog = () => {
                     </div>
                     <div>
                       <h3
-                        className="text-base font-semibold  md:text-xl  text-black cursor-pointer"
+                        className="text-base font-semibold text-black cursor-pointer md:text-xl"
                         onClick={() => handleBlogClick(post)}
                       >
                         {post.title}
                       </h3>
-                      <p className="my-2  text-justify text-gray-600 ">
+                      <p className="my-2 text-justify text-gray-600 ">
                         {post.description.length > 300
                           ? `${post.description.substring(0, 300)}...`
                           : post.description}

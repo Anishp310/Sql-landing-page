@@ -33,14 +33,14 @@ const AboutListComponent = ({ onSectionChange }) => {
   return (
     <nav aria-label="About Sections ">
       <ul className="relative max-w-[1600px] mx-auto ">
-        <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] flex cursor-pointer gap-2  md:gap-x-6 lg:gap-x-8 ext-[16px] md:text-xl lg:text-2xl mt-2 ">
+        <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] flex cursor-pointer gap-2  md:gap-x-6 lg:gap-x-8 text-[0.55rem] md:text-base lg:text-lg mt-2 ">
           {AboutList.map((item) => (
             <li key={item.id}>
               <NavLink
                 to={item.link}
                 onClick={() => onSectionChange(item.section)}
                 className={({ isActive }) =>
-                  `flex items-center rounded-md transition-colors ease-out duration-200 ext-[16px] md:text-xl lg:text-2xl
+                  `flex items-center rounded-md transition-colors ease-out duration-200 
                 ${
                   isActive
                     ? "text-orange-400 font-semibold"

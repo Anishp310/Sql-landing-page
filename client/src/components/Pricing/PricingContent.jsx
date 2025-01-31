@@ -1,6 +1,8 @@
-import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
+
 import { checkIcon, crossIcon } from "../../Assets";
+import SummaryApi from "../../common";
+
 
 // import { BsCheck2Circle } from "react-icons/bs";
 
@@ -71,7 +73,7 @@ const PricingContent = () => {
               Corporate Banking Plan
             </button>
             {selectedPlan === "Corporate Banking Plan" && (
-              <hr className="absolute bottom-0 left-0 w-full border-b border-slate-900 " />
+              <hr className="absolute bottom-0 left-0 w-full border-red-900 border-b-1 " />
             )}
           </div>
           <div className="relative">
@@ -86,7 +88,7 @@ const PricingContent = () => {
               Trading Plan
             </button>
             {selectedPlan === "Trading Plan" && (
-              <hr className="absolute bottom-0 left-0 w-full border-b border-slate-900 " />
+              <hr className="absolute bottom-0 left-0 w-full border-red-900 border-b-1 " />
             )}
           </div>
         </div>
@@ -202,9 +204,8 @@ const PricingContent = () => {
                     {plan.name}
                   </h2>
                   <p className="mb-2 text-slate-900">
-                    Best for service-based businesses that require basic
-                    accounting
-                  </p>
+                      {currentPlanText[index]?.text || "Default description"}
+                    </p>
                   <div className="my-6 text-4xl font-semibold text-gray-800">
                     {plan.price} / {plan.duration}
                   </div>

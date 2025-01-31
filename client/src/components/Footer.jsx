@@ -56,7 +56,7 @@ const Footer = () => {
                         >
                           <Link
                             to={item.to}
-                            className="text-slate-700 hover:text-rose-700"
+                            className="text-slate-700 hover:text-rose-700 md:text-base text-[12px] "
                           >
                             {item.name}
                           </Link>
@@ -72,7 +72,7 @@ const Footer = () => {
                     </h1>
                     <div className="py-1 md:py-2">
                       <li className="flex items-center py-2 list-none md:py-1">
-                        <Link to="#" className="text-slate-700 hover:text-rose-700">
+                        <Link to="#" className="text-slate-700 md:text-base text-[12px] hover:text-rose-700">
                           Terms Of Services
                         </Link>
                       </li>
@@ -82,7 +82,7 @@ const Footer = () => {
                     </h1>
                     <div className="py-1 md:py-2">
                       <li className="flex items-center py-2 list-none md:py-1">
-                        <Link to="#" className="text-slate-700 hover:text-rose-700">
+                        <Link to="#" className="text-slate-700 md:text-base text-[12px] hover:text-rose-700">
                           API Docs
                         </Link>
                       </li>
@@ -98,17 +98,17 @@ const Footer = () => {
                   <div className="py-1 md:py-2">
                     <li className="flex items-center py-1 list-none md:py-1">
                       <MdLocationOn />
-                      <span className="px-1 md:text-base">
+                      <span className="px-1 md:text-base text-[12px]">
                         Sanepa-2, Lalitpur, Nepal
                       </span>
                     </li>
                     <li className="flex items-center py-1 list-none md:py-1">
                       <FaPhone />
-                      <span className="px-2">01-5153449, 9803719451</span>
+                      <span className="px-2 md:text-base text-[12px]">01-5153449, 9803719451</span>
                     </li>
                     <li className="flex items-center py-1 list-none md:py-1">
                       <MdEmail />
-                      <Link to="#" className="px-2 text-black underline decoration-1">
+                      <Link to="#" className="px-2 md:text-base text-[12px] text-black underline decoration-1">
                         sales@jooneli.com
                       </Link>
                     </li>
@@ -145,7 +145,7 @@ const Footer = () => {
 
           {/* Footer Bottom Section */}
           <div className="mt-6 ml-1 md:text-center md:ml-0">
-            <p className="font-semi-bold sm:text-2xl md:text-xl">
+            <p className="font-semi-bold md:text-base text-[12px]">
               &copy; {currentYear} Jooneli Inc. All Rights Reserved.
             </p>
           </div>
