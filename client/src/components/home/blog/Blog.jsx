@@ -54,7 +54,8 @@ const Blog = () => {
 
   const fetchTopPosts = async () => {
     try {
-      const response = await fetch("http://localhost:8080/blog/top-clicked");
+      // const response = await fetch("http://localhost:8080/blog/top-clicked");
+       const response = await fetch(SummaryApi.Blogs_top_clicked.url);
       if (!response.ok) throw new Error("Failed to fetch top blogs");
       const data = await response.json();
       console.log("Top Posts Data:", data); 

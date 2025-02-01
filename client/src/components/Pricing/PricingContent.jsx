@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-
-import { checkIcon, crossIcon } from "../../Assets";
 import SummaryApi from "../../common";
-
+import { useEffect, useState } from "react";
+import { checkIcon, crossIcon } from "../../Assets";
 
 // import { BsCheck2Circle } from "react-icons/bs";
 
@@ -111,7 +109,7 @@ const PricingContent = () => {
                     </p>
 
                     <div className="my-6 text-4xl font-semibold text-gray-800">
-                      {plan.price} / {plan.duration}
+                      Rs.{plan.price} / {plan.duration}
                     </div>
                     <button className="w-full px-4 py-2 mb-4 font-semibold text-white bg-red-900 border-2 border-red-900 rounded">
                       Get Started
@@ -207,7 +205,7 @@ const PricingContent = () => {
                       {currentPlanText[index]?.text || "Default description"}
                     </p>
                   <div className="my-6 text-4xl font-semibold text-gray-800">
-                    {plan.price} / {plan.duration}
+                    Rs.{plan.price} / {plan.duration}
                   </div>
 
                   <button className="w-full px-4 py-2 mb-4 font-semibold text-red-900 border-2 border-red-900 rounded ">

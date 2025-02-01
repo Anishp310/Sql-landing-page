@@ -1,9 +1,9 @@
+import DataTable from "react-data-table-component";
 import EditNews from "./EditNews";
 import SummaryApi from "../common";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useOutletContext } from "react-router-dom";
-import DataTable from 'react-data-table-component'; // Import react-data-table-component
 
 const TableLists = () => {
   const { setOpenModal, refreshNews } = useOutletContext();
@@ -61,17 +61,19 @@ const TableLists = () => {
     {
       name: 'Site',
       selector: row => row.site,
+      cell: row => row.site.substring(0, 40),
       sortable: true,
     },
     {
       name: 'Source',
       selector: row => row.source,
+      cell: row => row.source.substring(0, 40),
       sortable: true,
     },
     {
       name: 'Description',
       selector: row => row.description,
-      cell: row => row.description.substring(0, 50),
+      cell: row => row.description.substring(0, 60),
       sortable: true,
     },
     {
