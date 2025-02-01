@@ -35,7 +35,7 @@ const Navbar = ({ setOpenModal }) => {
           {/* User Dropdown */}
           <div className="relative">
             <button
-              className="p-4 rounded-full bg-slate-300 focus:outline-none"
+              className="p-4 rounded-lg bg-slate-300 focus:outline-none"
               aria-label="User Menu"
               onClick={() => setOpenDropDown(!openDropDown)}
             >

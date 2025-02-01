@@ -130,3 +130,11 @@ WHERE slug IS NULL OR slug = '';
 ALTER TABLE blog MODIFY COLUMN slug VARCHAR(255) NOT NULL UNIQUE;
 
 
+CREATE TABLE subscriptions (
+    subs_id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-increment subscription ID
+    Name VARCHAR(100) NOT NULL,              -- Name of the subscriber
+    email VARCHAR(100) NOT NULL,             -- Email address of the subscriber
+    phone VARCHAR(15),                       -- Phone number (optional)
+    type VARCHAR(50) NOT NULL,               -- Subscription type (e.g., basic, premium)
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date of subscription (auto-generated)
+);

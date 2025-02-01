@@ -1,6 +1,7 @@
 import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
 import { checkIcon, crossIcon } from "../../Assets";
+import { Link } from "react-router-dom";
 
 // import { BsCheck2Circle } from "react-icons/bs";
 
@@ -111,9 +112,11 @@ const PricingContent = () => {
                     <div className="my-6 text-4xl font-semibold text-gray-800">
                       Rs.{plan.price} / {plan.duration}
                     </div>
-                    <button className="w-full px-4 py-2 mb-4 font-semibold text-white bg-red-900 border-2 border-red-900 rounded">
+                    <Link to="/subscriptionForm">
+                    <button  className="w-full px-4 py-2 mb-4 font-semibold text-white bg-red-900 border-2 border-red-900 rounded">
                       Get Started
                     </button>
+                    </Link>
                     <ul className="space-y-2 text-slate-900">
                       {plan.features &&
                         JSON.parse(plan.features).map((feature, i) => (
@@ -207,10 +210,11 @@ const PricingContent = () => {
                   <div className="my-6 text-4xl font-semibold text-gray-800">
                     Rs.{plan.price} / {plan.duration}
                   </div>
-
+                  <Link to="/subscriptionForm">
                   <button className="w-full px-4 py-2 mb-4 font-semibold text-red-900 border-2 border-red-900 rounded ">
                     Get Started
                   </button>
+                  </Link>
                   <ul className="space-y-2 text-red-900">
                     {plan.features &&
                       JSON.parse(plan.features).map((feature, i) => (
