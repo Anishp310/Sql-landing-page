@@ -4,14 +4,35 @@ import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 
-// Function to generate slug
+const romanizeNepali = (nepaliText) => {
+  const nepaliToRomanMap = {
+    "क": "ka", "ख": "kha", "ग": "ga", "घ": "gha", "ङ": "nga",
+    "च": "cha", "छ": "chha", "ज": "ja", "झ": "jha", "ञ": "nya",
+    "ट": "ṭa", "ठ": "ṭha", "ड": "ḍa", "ढ": "ḍha", "ण": "ṇa",
+    "त": "ta", "थ": "tha", "द": "da", "ध": "dha", "न": "na",
+    "प": "pa", "फ": "pha", "ब": "ba", "भ": "bha", "म": "ma",
+    "य": "ya", "र": "ra", "ल": "la", "व": "wa", "श": "sha",
+    "ष": "ṣa", "स": "sa", "ह": "ha", "क्ष": "kṣa", "त्र": "tra",
+    "ज्ञ": "jna", "ा": "aa", "ि": "i", "ी": "ii", "ु": "u", "ू": "uu",
+    "ृ": "ru", "े": "e", "ै": "ai", "ो": "o", "ौ": "au", "ं": "um",
+    "ः": "ah", "ं": "m", "अ": "a", "आ": "aa", "इ": "i", "ई": "ii",
+    "उ": "u", "ऊ": "uu", "ए": "e", "ऐ": "ai", "ओ": "o", "औ": "au",
+    "अं": "am", "अः": "ah"
+  };
+
+  return nepaliText.split("").map(char => nepaliToRomanMap[char] || char).join("");
+};
+
+// Generate slug for both Nepali and Romanized Latin text
 const generateSlug = (title) => {
-  return title
-    .toLowerCase()
+  // Convert Nepali Unicode to Romanized Latin (if necessary)
+  const romanizedTitle = /[\u0900-\u097F]/.test(title) ? romanizeNepali(title) : title;
+
+  return romanizedTitle
     .trim()
-    .replace(/[^\w\s-]/g, "") // Remove non-alphanumeric characters except space and hyphen
-    .replace(/\s+/g, "-") // Replace spaces with hyphens
-    .replace(/-+/g, "-"); // Remove consecutive hyphens
+    .replace(/[\s।,-]+/g, "-") // Replace spaces and punctuation with "-"
+    .replace(/[^\u0900-\u097F\u0020-\u007F\u0030-\u0039\u0966-\u096F-]/g, "") // Keep Nepali, English, numbers, and "-"
+    .toLowerCase();
 };
 
 const BlogList = () => {
@@ -84,7 +105,7 @@ const BlogList = () => {
 
   const updateBlog = async (selectedBlog, formData) => {
     try {
-      const url = `http://server.jooneli.com/updateblog/${selectedBlog.blog_id}`;
+      const url = `https://server.jooneli.com/updateblog/${selectedBlog.blog_id}`;
       const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -106,9 +127,18 @@ const BlogList = () => {
   };
 
   const handleBlogSubmit = async (data) => {
+    // Generate the slug, using existing slug if updating
+    const romanizedTitle = romanizeNepali(data.title);
+    console.log("Romanized Title:", romanizedTitle);
+
+    const slug = selectedBlog ? selectedBlog.slug || generateSlug(romanizedTitle) : generateSlug(romanizedTitle);
+    console.log("Generated Slug:", slug);
+
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
+    // Preserve existing slug if updating
+    formData.append("slug", slug);
     if (data.image_data?.[0]) {
       formData.append("image_data", data.image_data[0]);
     }
@@ -204,6 +234,7 @@ const BlogList = () => {
       setValue("title", blog.title);
       setValue("description", blog.description);
       setValue("image_data", null); // Reset image input
+      setValue("slug", blog.slug || generateSlug(blog.title));
     } else {
       reset(); // Reset form if no blog selected
     }

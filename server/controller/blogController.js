@@ -108,42 +108,41 @@ export const getAllBlogs = async (req, res) => {
   }
 };
 
-// Get Single Blog by ID or Slug
-// export const getBlog = async (req, res) => {
-//   const { blog_id, slug } = req.params;
+export const getBlogById = async (req, res) => {
+  const { blog_id } = req.params;
 
-//   if (!blog_id && !slug)
-//     return res.status(400).json({ message: "Blog ID or slug is required" });
+  // Ensure blog_id is provided
+  if (!blog_id)
+    return res.status(400).json({ message: "Blog ID is required" });
 
-//   try {
-//     let query = "SELECT * FROM blog WHERE ";
-//     let param = [];
+  try {
+    // Prepare the query to get the blog by ID
+    const query = "SELECT * FROM blog WHERE blog_id = ?";
+    const param = [blog_id];
 
-//     if (blog_id) {
-//       query += "blog_id = ?";
-//       param.push(blog_id);
-//     } else {
-//       query += "slug = ?";
-//       param.push(slug);
-//     }
+    // Execute the query to retrieve the blog
+    const [gBlog] = await pool.query(query, param);
 
-//     const [gBlog] = await pool.query(query, param);
+    // Check if the blog was found
+    if (gBlog.length === 0)
+      return res.status(404).json({ message: "Blog not found" });
 
-//     if (gBlog.length === 0)
-//       return res.status(404).json({ message: `Blog not found` });
+    const blog = gBlog[0];
 
-//     const blog = gBlog[0];
+    // If image_data exists, convert it to Base64 string
+    if (blog.image_data) {
+      blog.image_data = `data:image/jpeg;base64,${blog.image_data.toString("base64")}`;
+    }
 
-//     if (blog.image_data) {
-//       blog.image_data = `data:image/jpeg;base64,${blog.image_data.toString("base64")}`;
-//     }
+    // Return the blog data
+    res.status(200).json(blog);
+  } catch (error) {
+    console.error("Error retrieving blog:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 
-//     res.status(200).json(blog);
-//   } catch (error) {
-//     console.error("Error retrieving blog:", error.message);
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// };
+
 
 // Delete Blog
 export const deleteBlog = async (req, res) => {
@@ -166,7 +165,7 @@ export const deleteBlog = async (req, res) => {
   }
 };
 
-export const getBlog = async (req, res) => {
+export const getBlogbySlug = async (req, res) => {
   const { slug } = req.params;
 
   if (!slug)
