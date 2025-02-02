@@ -1,8 +1,8 @@
 import * as XLSX from "xlsx";
+import DataTable from "react-data-table-component";
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../../common";
 import { Toaster, toast } from "react-hot-toast";
-import DataTable from 'react-data-table-component';  // Import DataTable component
 
 const SubscriptionList = () => {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -80,11 +80,13 @@ const SubscriptionList = () => {
       name: 'Name',
       selector: row => row.Name,
       sortable: true,
+      minWidth: "180px", 
     },
     {
       name: 'Email',
       selector: row => row.email,
       sortable: true,
+      minWidth: "250px", // Increased space for Email
     },
     {
       name: 'Phone',
@@ -95,6 +97,7 @@ const SubscriptionList = () => {
       name: 'Subscription Type',
       selector: row => row.type,
       sortable: true,
+      minWidth: "200px", // Increased space for Subscription Type
     },
     {
       name: 'Created At',
@@ -112,8 +115,9 @@ const SubscriptionList = () => {
           Delete
         </button>
       ),
-    }
+    },
   ];
+  
 
   return (
     <div className="max-w-screen-xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg">

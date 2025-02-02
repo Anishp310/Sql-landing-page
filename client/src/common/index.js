@@ -26,6 +26,7 @@ const SummaryApi = {
     url: `${backendDomain}/deleteSubscription`,
     method: "delete",
   },
+  
 
   //admin news
 
