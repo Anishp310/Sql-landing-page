@@ -24,7 +24,6 @@ import MobileTeller from "./business/Pages/MobileTeller";
 import NotFoundPage from "../pages/PageNotFound";
 import Partnership from "./about/Partnership";
 import Pricing from "../pages/Pricing";
-
 import Register from "../Admin/Register";
 import ResetPassword from "../Admin/ResetPassword";
 import TableLists from "../Admin/TableLists";
@@ -36,6 +35,8 @@ import PricingList from "../Admin/bankingPlan/PricingList";
 import Blog from "./home/blog/Blog";
 import BlogList from "../Admin/blog/BlogList";
 import BlogDetail from "./home/blog/BlogDetail";
+import SubscriptionForm from "../pages/SubscriptionForm";
+import SubscriptionList from "../Admin/subscription/SubscriptionList";
 
 const router = createBrowserRouter([
   {
@@ -80,9 +81,9 @@ const router = createBrowserRouter([
       { path: "mobile-teller", element: <MobileTeller /> },
       { path: "atm", element: <Atm /> },
       { path: "trading", element: <Trading /> },
+      { path: "subscriptionForm", element: <SubscriptionForm /> },
       { path: "blog", element: <Blog />},
       { path: "blog/:slug", element: <BlogDetail /> },
-
     ],
   },
   {
@@ -98,8 +99,9 @@ const router = createBrowserRouter([
       { path: "pricing-list", element: <PricingList /> },
       { path: "pricing-list1", element: <PricingList1 /> },
       { path: "bloglist", element: <BlogList /> },
+      { path: "subscriptionlist", element: <SubscriptionList /> },
 
-
+      
     ],
   },
   { path: "/forgot-password", element: <ForgotPassword /> },
