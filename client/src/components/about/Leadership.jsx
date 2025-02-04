@@ -7,7 +7,7 @@ const LeadershipData = [
  
   {
     id: 1,
-    name: "Jane Smith",
+    name: "",
     position: "Director",
     image: team,
     companyName: "Jooneli Inc.",
@@ -21,7 +21,7 @@ const LeadershipData = [
   },
   {
     id: 3,
-    name: "John Doe",
+    name: "",
     position: "Manager",
     image: team,
     companyName: "Jooneli Inc.",
@@ -29,7 +29,7 @@ const LeadershipData = [
   },
   {
     id: 4,
-    name: "Alice Williams",
+    name: "",
     position: "CTO",
     image: team,
     companyName: "Jooneli Inc.",

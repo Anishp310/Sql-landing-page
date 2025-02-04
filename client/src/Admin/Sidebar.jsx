@@ -32,6 +32,9 @@ const Sidebar = () => {
         <li>
           <Link to="/admin/bloglist" className="block px-4 py-2 rounded hover:bg-gray-600">Blogs</Link>
         </li>
+        <li>
+          <Link to="/admin/subscriptionlist" className="block px-4 py-2 rounded hover:bg-gray-600">Subscription Request</Link>
+        </li>
       </ul>
     </div>
   );

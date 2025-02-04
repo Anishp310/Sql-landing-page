@@ -17,7 +17,6 @@ const Blog = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-
   const settings = {
     dots: false,
     infinite: true,
@@ -35,7 +34,7 @@ const Blog = () => {
       const url = slug ? `${SummaryApi.Blog.url}/${slug}` : SummaryApi.Blog.url;
       const response = await fetch(url);
       const jsonData = await response.json();
-      
+
       if (slug) {
         setBlogs([jsonData]);
       } else {
@@ -51,20 +50,19 @@ const Blog = () => {
     }
   };
 
-
   const fetchTopPosts = async () => {
     try {
       // const response = await fetch("http://localhost:8080/blog/top-clicked");
-       const response = await fetch(SummaryApi.Blogs_top_clicked.url);
+      const response = await fetch(SummaryApi.Blogs_top_clicked.url);
       if (!response.ok) throw new Error("Failed to fetch top blogs");
       const data = await response.json();
-      console.log("Top Posts Data:", data); 
+      console.log("Top Posts Data:", data);
       setTopPosts(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching top posts:", err);
     }
   };
-  
+
   const handleBlogClick = async (post) => {
     try {
       await fetch(`${SummaryApi.Blog.url}/${post.blog_id}/click`, {
@@ -262,7 +260,7 @@ const Blog = () => {
                     <FaTwitter />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/p/Jooneli-Inc-100063535842460/"
                     className="text-xl text-blue-700"
                     aria-label="Facebook"
                   >

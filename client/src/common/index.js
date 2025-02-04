@@ -1,5 +1,5 @@
 // const backendDomain = "https://server.jooneli.com";
-const backendDomain = "http://localhost:8080";
+  const backendDomain = "http://localhost:8080";
 
 const SummaryApi = {
   HomeNewsImage: {
@@ -12,7 +12,7 @@ const SummaryApi = {
   },
 
   
-  //admin subs
+  //admin news
 
   createSubscription: {
     url: `${backendDomain}/addSubscription`,

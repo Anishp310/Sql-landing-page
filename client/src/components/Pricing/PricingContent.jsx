@@ -1,5 +1,6 @@
 import SummaryApi from "../../common";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { checkIcon, crossIcon } from "../../Assets";
 
 // import { BsCheck2Circle } from "react-icons/bs";
@@ -9,16 +10,18 @@ const PricingContent = () => {
   const [data, setData] = useState([]);
 
   const bankingPlanText = [
-    { text: "Best for service-based businesses that require basic accounting" },
-    { text: "Ideal for companies with expanding needs" },
-    { text: "Complete financial management package" },
+    { text: "Tailored for startups needing essential banking services" },
+    { text: "Ideal for growing businesses with expanding transactions" },
+    { text: "Comprehensive banking solutions for large enterprises" },
   ];
-
+  
   const tradingPlanText = [
-    { text: "Perfect for beginner traders entering the market" },
-    { text: "Designed for intermediate traders with growing portfolios" },
-    { text: "Advanced tools for experienced traders" },
+    { text: "Tailored for beginners entering the trading markets" },
+    { text: "Ideal for traders with growing portfolios and experience" },
+    { text: "Comprehensive tools and insights for expert traders" },
   ];
+  
+  
 
   useEffect(() => {
     // Fetch data based on the selected plan
@@ -111,9 +114,11 @@ const PricingContent = () => {
                     <div className="my-6 text-4xl font-semibold text-gray-800">
                       Rs.{plan.price} / {plan.duration}
                     </div>
-                    <button className="w-full px-4 py-2 mb-4 font-semibold text-white bg-red-900 border-2 border-red-900 rounded">
+                    <Link to="/subscriptionForm">
+                    <button  className="w-full px-4 py-2 mb-4 font-semibold text-white bg-red-900 border-2 border-red-900 rounded">
                       Get Started
                     </button>
+                    </Link>
                     <ul className="space-y-2 text-slate-900">
                       {plan.features &&
                         JSON.parse(plan.features).map((feature, i) => (
@@ -168,12 +173,14 @@ const PricingContent = () => {
                                 clipRule="evenodd"
                               />
                             </svg> */}
-                                {feature &&  <img
-                                src={crossIcon}
-                                alt={crossIcon}
-                                className="flex-shrink-0 object-cover w-5 h-5 text-red-900"
-                              />}
-                             
+                              {feature && (
+                                <img
+                                  src={crossIcon}
+                                  alt={crossIcon}
+                                  className="flex-shrink-0 object-cover w-5 h-5 text-red-900"
+                                />
+                              )}
+
                               <span>{feature}</span>
                             </li>
                           ));
@@ -202,15 +209,16 @@ const PricingContent = () => {
                     {plan.name}
                   </h2>
                   <p className="mb-2 text-slate-900">
-                      {currentPlanText[index]?.text || "Default description"}
-                    </p>
+                    {currentPlanText[index]?.text || "Default description"}
+                  </p>
                   <div className="my-6 text-4xl font-semibold text-gray-800">
                     Rs.{plan.price} / {plan.duration}
                   </div>
-
+                  <Link to="/subscriptionForm">
                   <button className="w-full px-4 py-2 mb-4 font-semibold text-red-900 border-2 border-red-900 rounded ">
                     Get Started
                   </button>
+                  </Link>
                   <ul className="space-y-2 text-red-900">
                     {plan.features &&
                       JSON.parse(plan.features).map((feature, i) => (

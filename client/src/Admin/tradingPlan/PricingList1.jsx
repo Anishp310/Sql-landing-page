@@ -1,9 +1,9 @@
+import DataTable from "react-data-table-component";
 import React, { useEffect, useState } from "react";
+import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
-import DataTable from 'react-data-table-component';
-import SummaryApi from "../../common";
 
 const PricingList1 = () => {
   const [pricingList, setPricingList] = useState([]);
@@ -161,7 +161,7 @@ const PricingList1 = () => {
           </button>
           <button
             onClick={() => handleDeleteClick(row.pricing_id)}
-            className="ml-2 px-4 py-2 text-white bg-red-500 rounded"
+            className="px-4 py-2 ml-2 text-white bg-red-500 rounded"
           >
             Delete
           </button>
@@ -286,6 +286,8 @@ const PricingList1 = () => {
           </div>
         </div>
       )}
+
+      
     </div>
   );
 };

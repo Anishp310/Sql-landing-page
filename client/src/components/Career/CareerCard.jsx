@@ -3,22 +3,22 @@ import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-const CareerCard = () => {
+const CareerPage = () => {
   const [careerList, setCareerList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const [filteredCareers, setFilteredCareers] = useState([]);
+  const [departmentFilter, setDepartmentFilter] = useState("All departments");
+  const [locationFilter, setLocationFilter] = useState("Anywhere");
+  const [searchTitle, setSearchTitle] = useState("");
 
   const getCareer = async () => {
     try {
       const response = await fetch(SummaryApi.getCareer.url);
-      const textData = await response.text();  // First, get the raw response as text
-      const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
-      console.log(jsonData)
-      const sortedData = jsonData.sort((a, b) => new Date(b.createdat) - new Date(a.createdat));
-
-      console.log(sortedData)
-
+      const textData = await response.text();
+      const jsonData = textData ? JSON.parse(textData) : [];
+      const sortedData = jsonData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setCareerList(sortedData);
+      console.log(sortedData)
+      setFilteredCareers(sortedData);
     } catch (error) {
       toast.error(error.message);
     }
@@ -28,86 +28,107 @@ const CareerCard = () => {
     getCareer();
   }, []);
 
-  // Pagination Logic
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = careerList.slice(indexOfFirstItem, indexOfLastItem);
+  useEffect(() => {
+    filterCareers();
+  }, [departmentFilter, locationFilter, searchTitle, careerList]);
 
-  const totalPages = Math.ceil(careerList.length / itemsPerPage);
+  const filterCareers = () => {
+    let filtered = careerList;
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (departmentFilter !== "All departments") {
+      filtered = filtered.filter((career) => career.category.toLowerCase()?.includes(departmentFilter.toLowerCase()));
+    }
+    if (locationFilter !== "Anywhere") {
+      filtered = filtered.filter((career) => career.location.toLowerCase()?.includes(locationFilter.toLowerCase()));
+    }
+
+    if (searchTitle) {
+      filtered = filtered.filter((career) => career.title.toLowerCase().includes(searchTitle.toLowerCase()));
+    }
+
+    setFilteredCareers(filtered);
   };
 
   return (
     <div className="max-w-[1600px] mx-auto">
-      <div className="p-6 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]">
       <Toaster position="top-right" />
-      <h1 className="mb-6 text-[16px] md:text-xl lg:text-2xl  font-bold text-gray-800">Career Opportunities</h1>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {currentItems.map((career) => (
-          <div
-            key={career.career_id}
-            className="p-6 text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-red-500 to-pink-600 rounded-xl hover:scale-105"
+      <div className="p-6 xl:mx-[10rem]">
+        <h1 className="mb-6 text-2xl font-bold text-gray-800">Open Positions</h1>
+
+        {/* Filters Section */}
+        <div className="flex flex-wrap justify-center items-center gap-4 mb-6">
+          <select
+            className="p-2 border rounded-md"
+            value={departmentFilter}
+            onChange={(e) => setDepartmentFilter(e.target.value)}
           >
-            <h2 className="mb-2 text-2xl font-semibold">{career.title}</h2>
-            <p className="mb-4 text-sm italic">{career.category} | {career.job_type}</p>
+            <option>All departments</option>
+            <option>IT</option>
+            <option>Marketing</option>
+            <option>Graphics</option>
+          </select>
 
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <p className="text-sm font-light">Location</p>
-                <p className="text-md">{career.location}</p>
-              </div>
-              <div>
-                <p className="text-sm font-light">Salary</p>
-                <p className="font-semibold text-md">{career.salary}</p>
-              </div>
-            </div>
+          <select
+            className="p-2 border rounded-md"
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+          >
+            <option>Anywhere</option>
+            <option>New York</option>
+            <option>San Francisco</option>
+            <option>Remote</option>
+          </select>
 
-            <p className="mb-4 text-sm line-clamp-2">{career.description}</p>
-            <div className="flex items-center justify-between mt-4 text-sm">
-              <div>
-                <p>Apply Before</p>
-                <p className="font-bold">
-                  {new Date(career.applybefore).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-              <Link to="/get-in-touch">
-                <button className="px-4 py-2 font-bold text-red-600 transition-all bg-white rounded-full shadow-md hover:bg-gray-200">
-                  Apply Now
-                </button>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Pagination UI */}
-      {careerList.length > itemsPerPage && (
-        <div className="flex justify-center mt-6 space-x-2">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 rounded ${
-                currentPage === index + 1
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-300 text-gray-800 hover:bg-gray-400"
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          <input
+            type="text"
+            placeholder="Find by job title..."
+            className="p-2 border rounded-md w-full md:w-auto"
+            value={searchTitle}
+            onChange={(e) => setSearchTitle(e.target.value)}
+          />
         </div>
-      )}
+
+        {/* Job Listings */}
+        <div>
+  {filteredCareers.length > 0 ? (
+    filteredCareers.map((career) => (
+      <div key={career.career_id} className="border-b py-4 hover:bg-gray-100">
+        <div className="flex justify-between items-start space-x-4">
+          
+          {/* Left Section: Career Details */}
+          <div>
+            <p className="font-bold text-gray-700">{career.category} | {career.job_type}</p>
+            <p className="text-sm text-gray-600">Salary: {career.salary}</p>
+            <p className="text-sm mt-1">
+              Apply Before:{" "}
+              <span className="font-bold">
+                {new Date(career.apply_before).toLocaleDateString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </span>
+            </p>
+          </div>
+
+          {/* Right Section: Title and Location */}
+          <div className="text-right ">
+            <Link to={`/career/${career.career_id}`}>
+            <h2 className="text-lg font-bold">{career.title}</h2>
+            </Link>
+            <p className="text-sm text-gray-600">{career.location}</p>
+          </div>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p>No open positions found.</p>
+  )}
+</div>
+
+      </div>
     </div>
-    </div>
-    
   );
 };
 
-export default CareerCard;
+export default CareerPage;

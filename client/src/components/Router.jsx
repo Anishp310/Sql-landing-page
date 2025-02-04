@@ -37,6 +37,7 @@ import BlogList from "../Admin/blog/BlogList";
 import BlogDetail from "./home/blog/BlogDetail";
 import SubscriptionForm from "../pages/SubscriptionForm";
 import SubscriptionList from "../Admin/subscription/SubscriptionList";
+import CareerDetails from "./Career/CareerDetails";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,8 @@ const router = createBrowserRouter([
         // ],
       },
       { path: "career", element: <Career /> },
+      { path: "career/:id", element: <CareerDetails /> },
+
       { path: "pricing", element: <Pricing /> },
       { path: "get-in-touch", element: <GetinTouch /> },
       { path: "media", element: <Media/> },
