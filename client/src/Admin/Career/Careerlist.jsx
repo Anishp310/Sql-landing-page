@@ -1,33 +1,50 @@
 import * as XLSX from "xlsx";
 import DataTable from "react-data-table-component";
 import React, { useEffect, useState } from "react";
+import Select from "react-select";
 import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+
+const categoryOptions = [
+  { value: "Engineering", label: "Engineering" },
+  { value: "Business Development", label: "Business Development" },
+  { value: "Finance", label: "Finance" },
+  { value: "Other", label: "other" },
+];
+const LocationOptions = [
+  { value: "Full Time", label: "Full Time" },
+  { value: "Internship", label: "Internship" },
+  { value: "Remote", label: "Remote" },
+  { value: "Nepal", label: "Nepal" },
+  { value: "Kenya", label: "Kenya" },
+  { value: "Myanmar", label: "Myanmar" },
+  { value: "Bangladesh", label: "Bangladesh" },  
+];
 
 const Careerlist = () => {
   const [careerList, setCareerList] = useState([]);
   const [selectedCareer, setSelectedCareer] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const truncate = (str, length) => {
-    if (!str) return '';  // Return empty string if str is undefined or null
+    if (!str) return ""; // Return empty string if str is undefined or null
     return str.length > length ? str.slice(0, length) + "..." : str;
   };
-  
-  const { register, handleSubmit, reset } = useForm();
+
+  const { register, handleSubmit, reset, setValue, watch } = useForm();
 
   const getCareer = async () => {
     try {
       const response = await fetch(SummaryApi.getCareer.url);
       if (!response.ok) {
-        throw new Error('Failed to fetch career data');
+        throw new Error("Failed to fetch career data");
       }
-      const textData = await response.text();  // First, get the raw response as text
-      const jsonData = textData ? JSON.parse(textData) : [];  // Parse only if data is not empty
-      console.log(jsonData)
+      const textData = await response.text(); // First, get the raw response as text
+      const jsonData = textData ? JSON.parse(textData) : []; // Parse only if data is not empty
+      console.log(jsonData);
 
-      setCareerList(jsonData);  // Update state with the data
+      setCareerList(jsonData); // Update state with the data
     } catch (error) {
       toast.error(`Error: ${error.message}`);
     }
@@ -44,20 +61,20 @@ const Careerlist = () => {
   }
 
   const handleAddCareerClick = () => {
-    setSelectedCareer(null);  // Clear selected career
+    setSelectedCareer(null); // Clear selected career
     reset({
-      Title: '',
-      JobType: '',
-      Experience: '',
-      Qualification: '',
-      Category: '',
-      Location: '',
-      ApplyBefore: '', 
-      Description: '',
-      Salary: '',
-      SkillsRequired: '',
-      Responsibility: '',  // Added Responsibility field
-    });  // Reset the form to empty values
+      Title: "",
+      JobType: "",
+      Experience: "",
+      Qualification: "",
+      Category: categoryOptions[0]?.value,
+      Location: LocationOptions[0]?.value,
+      ApplyBefore: "",
+      Description: "",
+      Salary: "",
+      SkillsRequired: "",
+      Responsibility: "", // Added Responsibility field
+    }); // Reset the form to empty values
     setIsModalOpen(true);
   };
 
@@ -66,7 +83,7 @@ const Careerlist = () => {
       const url = selectedCareer
         ? `${SummaryApi.updateCareer.url}/${selectedCareer.career_id}`
         : SummaryApi.addCareer.url;
-      const method = selectedCareer ? 'PUT' : 'POST';
+      const method = selectedCareer ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
@@ -78,11 +95,17 @@ const Careerlist = () => {
       });
 
       if (!response.ok) {
-        toast.error(selectedCareer ? "Failed to update career" : "Failed to add career");
+        toast.error(
+          selectedCareer ? "Failed to update career" : "Failed to add career"
+        );
         return;
       }
 
-      toast.success(selectedCareer ? "Career updated successfully!" : "Career added successfully!");
+      toast.success(
+        selectedCareer
+          ? "Career updated successfully!"
+          : "Career added successfully!"
+      );
       setIsModalOpen(false);
       getCareer();
     } catch (error) {
@@ -95,34 +118,46 @@ const Careerlist = () => {
     setIsModalOpen(true);
     reset({
       Title: career.title,
-      JobType: career.job_type,  // Corrected field name
+      JobType: career.job_type, // Corrected field name
       Experience: career.experience,
       Qualification: career.qualification,
-      Category: career.category,
-      Location: career.location,
-      ApplyBefore: career.apply_before.split("T")[0],  // Corrected field name
+      Category: career.category || categoryOptions[0].value,
+      Location: career.location || categoryOptions[0].value,
+      ApplyBefore: career.apply_before.split("T")[0], // Corrected field name
       Description: career.description,
       Salary: career.salary,
-      SkillsRequired: career.skills_required,  // Corrected field name
-      Responsibility: career.responsibility || '',  // Added Responsibility field
+      SkillsRequired: career.skills_required, // Corrected field name
+      Responsibility: career.responsibility || "", // Added Responsibility field
     });
   };
 
   const exportToExcel = () => {
     const tableData = [
-      ["title", "JobType", "Experience", "Qualification", "Category", "Location", "ApplyBefore", "Description", "Salary", "SkillsRequired", "Responsibility"],
+      [
+        "title",
+        "JobType",
+        "Experience",
+        "Qualification",
+        "Category",
+        "Location",
+        "ApplyBefore",
+        "Description",
+        "Salary",
+        "SkillsRequired",
+        "Responsibility",
+      ],
       ...careerList.map((item) => [
         item.title,
-        item.job_type,  // Corrected field name
+        item.job_type, // Corrected field name
         item.experience,
         item.qualification,
         item.category,
         item.location,
-        item.apply_before.split("T")[0],  // Corrected field name
+        item.apply_before.split("T")[0], // Corrected field name
         item.description,
         item.salary,
-        item.skills_required,  // Corrected field name
-        item.responsibility,  // Added Responsibility field
+        item.skills_required, // Corrected field name
+        item.responsibility, // Added Responsibility field
       ]),
     ];
 
@@ -134,76 +169,83 @@ const Careerlist = () => {
 
   const handleDeleteClick = async (careerId) => {
     try {
-      const response = await fetch(`${SummaryApi.deleteCareer.url}/${careerId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${SummaryApi.deleteCareer.url}/${careerId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to delete career');
+        throw new Error("Failed to delete career");
       }
 
-      setCareerList(careerList.filter((career) => career.career_id !== careerId));
+      setCareerList(
+        careerList.filter((career) => career.career_id !== careerId)
+      );
       toast.success("Deleted Successfully!");
     } catch (error) {
-      toast.error(error.message || "Failed to delete career. Please try again.");
+      toast.error(
+        error.message || "Failed to delete career. Please try again."
+      );
     }
   };
 
   const columns = [
     {
-      name: 'Title',
-      selector: row => row.title,
+      name: "Title",
+      selector: (row) => row.title,
     },
     {
-      name: 'Job Type',
-      selector: row => row.job_type,
+      name: "Job Type",
+      selector: (row) => row.job_type,
     },
     {
-      name: 'Experience',
-      selector: row => row.experience,
+      name: "Experience",
+      selector: (row) => row.experience,
     },
     {
-      name: 'Qualification',
-      selector: row => row.qualification,
+      name: "Qualification",
+      selector: (row) => row.qualification,
     },
     {
-      name: 'Salary',
-      selector: row => row.salary,
+      name: "Salary",
+      selector: (row) => row.salary,
     },
     {
-      name: 'Category',
-      selector: row => row.category,
+      name: "Category",
+      selector: (row) => row.category,
     },
     {
-      name: 'Location',
-      selector: row => row.location,
+      name: "Location",
+      selector: (row) => row.location,
     },
     {
-      name: 'Apply Before',
-      selector: row => row.apply_before.split("T")[0],
+      name: "Apply Before",
+      selector: (row) => row.apply_before.split("T")[0],
     },
     {
-      name: 'Description',
-      selector: row => truncate(row.description, 50),
+      name: "Description",
+      selector: (row) => truncate(row.description, 50),
     },
     {
-      name: 'Skills Required',
-      selector: row => truncate(row.skills_required, 50),
+      name: "Skills Required",
+      selector: (row) => truncate(row.skills_required, 50),
     },
     {
-      name: 'Responsibility',  // New column for Responsibility
-      selector: row => truncate(row.responsibility, 50), 
+      name: "Responsibility", // New column for Responsibility
+      selector: (row) => truncate(row.responsibility, 50),
     },
     {
-      name: 'Created At',
-      selector: row => row.created_at.replace("T", " ").split(".")[0],
+      name: "Created At",
+      selector: (row) => row.created_at.replace("T", " ").split(".")[0],
     },
     {
-      name: 'Edit',
-      cell: row => (
+      name: "Edit",
+      cell: (row) => (
         <button
           onClick={() => handleUpdateClick(row)}
           className="px-4 py-2 text-white bg-blue-500 rounded"
@@ -213,8 +255,8 @@ const Careerlist = () => {
       ),
     },
     {
-      name: 'Delete',
-      cell: row => (
+      name: "Delete",
+      cell: (row) => (
         <button
           onClick={() => handleDeleteClick(row.career_id)}
           className="px-4 py-2 text-white bg-red-500 rounded"
@@ -222,7 +264,7 @@ const Careerlist = () => {
           Delete
         </button>
       ),
-    }
+    },
   ];
 
   return (
@@ -253,20 +295,36 @@ const Careerlist = () => {
         pointerOnHover
       />
 
-{isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal" open>
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-50 modal"
+          open
+        >
           <div className="relative modal-content bg-white text-black p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-3xl overflow-y-auto max-h-[90vh]">
-            <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">{selectedCareer ? "Update Career" : "Add Career"}</h2>
-            <div className='absolute top-3 right-2'>
-        <FaTimes className='text-2xl cursor-pointer'
-        onClick={()=>{setIsModalOpen(false)}} />
-      </div>
-            <form onSubmit={handleSubmit(handleCareerSubmit)} className="space-y-6">
-              
+            <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
+              {selectedCareer ? "Update Career" : "Add Career"}
+            </h2>
+            <div className="absolute top-3 right-2">
+              <FaTimes
+                className="text-2xl cursor-pointer"
+                onClick={() => {
+                  setIsModalOpen(false);
+                }}
+              />
+            </div>
+            <form
+              onSubmit={handleSubmit(handleCareerSubmit)}
+              className="space-y-6"
+            >
               <div className="mb-4">
-                <label htmlFor="Title" className="block text-sm font-medium text-gray-700">Title</label>
+                <label
+                  htmlFor="Title"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Title
+                </label>
                 <input
-                  {...register('Title', { required: 'Job title is required' })}
+                  {...register("Title", { required: "Job title is required" })}
                   id="Title"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -275,9 +333,14 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="JobType" className="block text-sm font-medium text-gray-700">Job Type</label>
+                <label
+                  htmlFor="JobType"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Job Type
+                </label>
                 <input
-                  {...register('JobType', { required: 'JobType is required' })}
+                  {...register("JobType", { required: "JobType is required" })}
                   id="JobType"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -286,9 +349,16 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="Experience" className="block text-sm font-medium text-gray-700">Experience</label>
+                <label
+                  htmlFor="Experience"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Experience
+                </label>
                 <input
-                  {...register('Experience', { required: 'Experience is required' })}
+                  {...register("Experience", {
+                    required: "Experience is required",
+                  })}
                   id="Experience"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -297,9 +367,16 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="Qualification" className="block text-sm font-medium text-gray-700">Qualification and Experience</label>   
+                <label
+                  htmlFor="Qualification"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Qualification and Experience
+                </label>
                 <textarea
-                  {...register('Qualification', { required: 'Qualification is required' })}
+                  {...register("Qualification", {
+                    required: "Qualification is required",
+                  })}
                   id="Qualification"
                   rows="4"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -308,32 +385,74 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="Category" className="block text-sm font-medium text-gray-700">Category</label>
-                <input
-                  {...register('Category', { required: 'Category is required' })}
+                <label
+                  htmlFor="Category"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Category
+                </label>
+                <Select
                   id="Category"
-                  type="text"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Category (e.g., IT, Marketing)"
+                  options={categoryOptions}
+                  {...register("Category", {
+                    required: "Category is required",
+                  })}
+                  value={
+                    categoryOptions.find(
+                      (option) => option.value === watch("Category")
+                    ) || null
+                  }
+                  onChange={(selectedOption) =>
+                    setValue("Category", selectedOption.value)
+                  }
+                  className="w-full py-2 pr-4 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Select a category"
+                  isClearable
                 />
-                
               </div>
 
               <div className="mb-4">
-                <label htmlFor="Location" className="block text-sm font-medium text-gray-700">Location</label>
-                <input
-                  {...register('Location', { required: 'Location is required' })}
+                <label
+                  htmlFor="Location"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Location
+                </label>
+                <Select
+                  {...register("Location", {
+                    required: "Location is required",
+                  })}
                   id="Location"
+                  options={LocationOptions}
+                  {...register("Location", {
+                    required: "Location is required",
+                  })}
+                  value={
+                    LocationOptions.find(
+                      (option) => option.value === watch("Location")
+                    ) || null
+                  }
+                  onChange={(selectedOption) =>
+                    setValue("Location", selectedOption.value)
+                  }
+                  cla
                   type="text"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Location (e.g., New York, Remote)"
+                  className="w-full py-2 pr-4 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Select a Location"
                 />
               </div>
 
               <div className="mb-4">
-                <label htmlFor="ApplyBefore" className="block text-sm font-medium text-gray-700">Apply Before</label>
+                <label
+                  htmlFor="ApplyBefore"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Apply Before
+                </label>
                 <input
-                  {...register('ApplyBefore', { required: 'Application deadline is required' })}
+                  {...register("ApplyBefore", {
+                    required: "Application deadline is required",
+                  })}
                   id="ApplyBefore"
                   type="date"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -341,9 +460,16 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="Description" className="block text-sm font-medium text-gray-700">Description</label>
+                <label
+                  htmlFor="Description"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Description
+                </label>
                 <textarea
-                  {...register('Description', { required: 'Description is required' })}
+                  {...register("Description", {
+                    required: "Description is required",
+                  })}
                   id="Description"
                   rows="4"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -352,9 +478,14 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="Salary" className="block text-sm font-medium text-gray-700">Salary</label>
+                <label
+                  htmlFor="Salary"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Salary
+                </label>
                 <input
-                  {...register('Salary', { required: 'Salary is required' })}
+                  {...register("Salary", { required: "Salary is required" })}
                   id="Salary"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -363,9 +494,16 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="SkillsRequired" className="block text-sm font-medium text-gray-700">Skills Required</label>
+                <label
+                  htmlFor="SkillsRequired"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Skills Required
+                </label>
                 <input
-                  {...register('SkillsRequired', { required: 'Skills is required' })}
+                  {...register("SkillsRequired", {
+                    required: "Skills is required",
+                  })}
                   id="SkillsRequired"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -373,9 +511,16 @@ const Careerlist = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="Responsibility" className="block text-sm font-medium text-gray-700">Responsibility</label>
+                <label
+                  htmlFor="Responsibility"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Responsibility
+                </label>
                 <textarea
-                  {...register('Responsibility', { required: 'Responsibility is required' })}
+                  {...register("Responsibility", {
+                    required: "Responsibility is required",
+                  })}
                   id="Responsibility"
                   rows="4"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -394,7 +539,7 @@ const Careerlist = () => {
                   type="submit"
                   className="w-full px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:w-auto"
                 >
-                  {selectedCareer ? 'Update Career' : 'Add Career'}
+                  {selectedCareer ? "Update Career" : "Add Career"}
                 </button>
               </div>
             </form>

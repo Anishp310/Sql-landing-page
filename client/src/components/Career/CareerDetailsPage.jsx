@@ -69,30 +69,67 @@ const CareerDetailsPage = () => {
           <h2 className="mt-8 text-2xl font-semibold text-gray-800">
             Job Description
           </h2>
+          <hr className="my-4 border-red-900"></hr>
           <p className="mt-2 text-gray-700">{careerDetails.description}</p>
         </section>
 
         <section className="mt-8">
           <h2 className="text-2xl font-semibold text-gray-800">
-            Skills Required
+            Qualifications and Experience
           </h2>
-          <p className="mt-2 text-gray-700">{careerDetails.skills_required}</p>
+          <hr className="my-4 border-red-900"></hr>
+          <ul className="pl-5 mt-2 text-gray-700 list-disc">
+            {careerDetails.qualification
+              ?.split(";")
+              .map(
+                (item, index) =>
+                  item.trim() && <li key={index}>{item.trim()}</li>
+              )}
+          </ul>
         </section>
         <section className="mt-8">
           <h2 className="text-2xl font-semibold text-gray-800">
-            Responsibility
+            Skills Required
           </h2>
-          <p className="mt-2 text-gray-700">{careerDetails.responsibility}</p>
+          <hr className="my-4 border-red-900"></hr>
+          <ul className="pl-5 mt-2 text-gray-700 list-disc">
+            {careerDetails.skills_required
+              ?.split(";")
+              .map(
+                (item, index) =>
+                  item.trim() && <li key={index}>{item.trim()}</li>
+              )}
+          </ul>
         </section>
 
         <section className="mt-8">
           <h2 className="text-2xl font-semibold text-gray-800">
-            Additional Information
+            Responsibility
           </h2>
-          <p className="mt-2 text-gray-700">
-            Created At:{" "}
-            <span className="font-medium">
-              {new Date(careerDetails.created_at).toLocaleDateString(
+          <hr className="my-4 border-red-900"></hr>
+          <ul className="pl-5 mt-2 text-gray-700 list-disc">
+            {careerDetails.responsibility
+              ?.split(";")
+              .map(
+                (item, index) =>
+                  item.trim() && <li key={index}>{item.trim()}</li>
+              )}
+          </ul>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            How to apply?
+          </h2>
+          <hr className="my-4 border-red-900"></hr>
+          <p className="">
+            We are always keen to meet energetic and talented professionals who
+            would like to join our team. You can Apply Through Email: sales@jooneli.com.
+          </p>
+          <p className="my-2 text-gray-700">
+            Apply Before:{" "}
+            <span className="font-bold">
+              {new Date(careerDetails.apply_before).toLocaleDateString(
                 undefined,
                 {
                   month: "short",
@@ -102,6 +139,12 @@ const CareerDetailsPage = () => {
               )}
             </span>
           </p>
+          {/* <button
+            type="submit"
+            className="px-8 py-2 my-2 text-xl text-white bg-green-500 rounded hover:bg-blue-700 focus:outline-none"
+          >
+          Apply Now 
+          </button> */}
         </section>
       </div>
     </div>

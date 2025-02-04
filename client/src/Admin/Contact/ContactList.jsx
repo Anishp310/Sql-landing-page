@@ -1,8 +1,8 @@
 import * as XLSX from "xlsx";
+import DataTable from "react-data-table-component";
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../../common";
 import { Toaster, toast } from "react-hot-toast";
-import DataTable from 'react-data-table-component';  // Import DataTable component
 
 const ContactList = () => {
   const [contact, setContact] = useState([]);
@@ -26,7 +26,8 @@ const ContactList = () => {
       });
       const textData = await response.text();
       const jsonData = textData ? JSON.parse(textData) : [];
-      setContact(jsonData);
+      // setContact(jsonData);
+      setContact(Array.isArray(jsonData) ? jsonData : []);
     } catch (error) {
       toast.error(error.message);
     }
@@ -111,7 +112,7 @@ const ContactList = () => {
     },
     {
       name: 'Created At',
-      selector: row => row.created_at.replace("T", " ").split(".")[0],
+      selector: row => row.created_at ? row.created_at.replace("T", " ").split(".")[0] : "N/A",
       sortable: true,
     },
     {
@@ -143,7 +144,7 @@ const ContactList = () => {
       <DataTable
         title="Contacts"
         columns={columns}
-        data={contact}
+        data={Array.isArray(contact) ? contact : []} 
         pagination
         highlightOnHover
        

@@ -6,6 +6,7 @@ import admin from "./admin.png";
 import checkIcon from "./check.png";
 import crossIcon from "./cross.png";
 import digijoon from "./digijoon.png";
+import girlteam from "./mteam1.png";
 import joonBanner from "./tech_heading.png";
 import joonLogo from "./joonlogo.png";
 import joonwork from "./joonwork.png";
@@ -32,6 +33,7 @@ export {
   onlineBanking,
   mobileBanking,
   team,
+  girlteam,
   checkIcon,
   crossIcon
 };
