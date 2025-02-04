@@ -10,16 +10,18 @@ const PricingContent = () => {
   const [data, setData] = useState([]);
 
   const bankingPlanText = [
-    { text: "Best for service-based businesses that require basic accounting" },
-    { text: "Ideal for companies with expanding needs" },
-    { text: "Complete financial management package" },
+    { text: "Tailored for startups needing essential banking services" },
+    { text: "Ideal for growing businesses with expanding transactions" },
+    { text: "Comprehensive banking solutions for large enterprises" },
   ];
-
+  
   const tradingPlanText = [
-    { text: "Perfect for beginner traders entering the market" },
-    { text: "Designed for intermediate traders with growing portfolios" },
-    { text: "Advanced tools for experienced traders" },
+    { text: "Tailored for beginners entering the trading markets" },
+    { text: "Ideal for traders with growing portfolios and experience" },
+    { text: "Comprehensive tools and insights for expert traders" },
   ];
+  
+  
 
   useEffect(() => {
     // Fetch data based on the selected plan

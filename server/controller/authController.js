@@ -99,7 +99,7 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign(
       { user_id: user.user_id, role: user.role },
       secretKey,
-      { expiresIn: "24h" }
+      { expiresIn: "8h" }
     );
 
     console.log(user.user_id,user.username,user.role)

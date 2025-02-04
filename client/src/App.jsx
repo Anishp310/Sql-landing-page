@@ -6,14 +6,15 @@ import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 const App = () => {
-  const location = useLocation();
+  
+  // const location = useLocation();
 
-  useEffect(() => {
-    if (!location.pathname.startsWith("/admin")) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   if (!location.pathname.startsWith("/admin")) {
+  //     localStorage.removeItem("token");
+  //     localStorage.removeItem("user");
+  //   }
+  // }, [location]);
 
   return (
     <div className="w-full min-h-screen bg-white">
