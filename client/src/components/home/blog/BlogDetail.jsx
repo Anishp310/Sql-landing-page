@@ -15,8 +15,8 @@ const BlogDetail = () => {
 
   const fetchBlogDetails = async () => {
     try {
-      const response = await fetch(`https://server.jooneli.com/blogs/${slug}`);
-      // const response = await fetch(`https://localhost:8080/blogs/${slug}`);
+     // const response = await fetch(`https://server.jooneli.com/blogs/${slug}`);
+       const response = await fetch(`http://localhost:8080/blogs/${slug}`);
 
       if (!response.ok) {
         // Log the response to debug further

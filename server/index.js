@@ -12,6 +12,7 @@ dotenv.config();
 // app.use(
 //   cors({
 //     origin: (origin, callback) => {
+  
 //       // const allowedOrigins = ["https://jooneli.com", "https://www.jooneli.com"];
 //       const allowedOrigins = process.env.FRONTEND_SITE;
 //       if (allowedOrigins.includes(origin)) {

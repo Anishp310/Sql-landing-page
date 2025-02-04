@@ -11,6 +11,7 @@ import { createDemo, deleteDemo, getAllDemos, updateDemo } from "../controller/d
 import { createImage, deleteImage, getAllImages, getImage, updateImage } from "../controller/imageController.js";
 import { DeleteNews, UpdateNews, createNews, getAllNews, getNews } from "../controller/newsController.js";
 import { createTradingPlan, deleteTradingPlan, getAllTradingPlans, getTradingPlan, updateTradingPlan } from "../controller/tradingContainer.js";
+import { createSubscription, deleteSubscription, getAllSubscriptions, updateSubscription } from "../controller/subscriptionController.js";
 
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage });
@@ -89,4 +90,11 @@ router.put("/updateblog/:blog_id", upload.single("image_data"), updateBlog); // 
 router.delete("/deleteblog/:blog_id", deleteBlog); // Delete a blog
 
 
+router.post("/addSubscription", createSubscription); 
+router.get("/getAllSubscription", getAllSubscriptions); 
+// router.get("/getSubscription/:subs_id", getTradingPlan); 
+// router.put("/updateSubscription/:subs_id", updateSubscription); 
+router.delete("/deleteSubscription/:subs_id",authenticateToken, deleteSubscription); 
+
 export default router
+
