@@ -97,7 +97,15 @@ const CareerPage = () => {
           
           {/* Left Section: Career Details */}
           <div>
-            <p className="font-bold text-gray-700">{career.category} | {career.job_type}</p>
+          <Link to={`/career/${career.career_id}`}>
+            <h2 className="text-lg font-bold">{career.title}</h2>
+            </Link>
+            <p className="text-sm text-gray-600">{career.location}</p>
+          </div>
+
+          {/* Right Section: Title and Location */}
+          <div className="text-right ">
+             <p className="font-bold text-gray-700">{career.category} | {career.job_type}</p>
             <p className="text-sm text-gray-600">Salary: {career.salary}</p>
             <p className="text-sm mt-1">
               Apply Before:{" "}
@@ -109,14 +117,6 @@ const CareerPage = () => {
                 })}
               </span>
             </p>
-          </div>
-
-          {/* Right Section: Title and Location */}
-          <div className="text-right ">
-            <Link to={`/career/${career.career_id}`}>
-            <h2 className="text-lg font-bold">{career.title}</h2>
-            </Link>
-            <p className="text-sm text-gray-600">{career.location}</p>
           </div>
         </div>
       </div>
