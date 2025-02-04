@@ -125,13 +125,6 @@ CREATE TABLE subscriptions (
 );
 
 
-<<<<<<< HEAD
-ALTER TABLE career ADD COLUMN slug VARCHAR(255);
-UPDATE career
-SET slug = CONCAT('slug-', blog_id)
-WHERE slug IS NULL OR slug = '';
-ALTER TABLE career MODIFY COLUMN slug VARCHAR(255) NOT NULL UNIQUE;
-=======
 -- Career Table
 CREATE TABLE career (
     career_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -152,4 +145,3 @@ CREATE TABLE career (
 ALTER TABLE career 
 ADD COLUMN responsibility TEXT;
 
->>>>>>> 5f086dd51ea37fe98a4a466041d84e0e17555366

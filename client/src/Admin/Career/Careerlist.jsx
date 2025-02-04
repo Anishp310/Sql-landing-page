@@ -1,10 +1,10 @@
 import * as XLSX from "xlsx";
+import DataTable from "react-data-table-component";
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../../common";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
-import DataTable from 'react-data-table-component';  // Importing the DataTable component
 
 const Careerlist = () => {
   const [careerList, setCareerList] = useState([]);
@@ -226,7 +226,7 @@ const Careerlist = () => {
   ];
 
   return (
-    <div className="max-w-7xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg career-list-container">
+    <div className="p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg max-w-7xl career-list-container">
       <Toaster position="top-right" />
       <h1 className="mb-5 text-2xl font-bold">Career List</h1>
       <div className="flex justify-start mb-4">
@@ -297,14 +297,14 @@ const Careerlist = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="Qualification" className="block text-sm font-medium text-gray-700">Qualification</label>
-                <input
+                <label htmlFor="Qualification" className="block text-sm font-medium text-gray-700">Qualification and Experience</label>   
+                <textarea
                   {...register('Qualification', { required: 'Qualification is required' })}
                   id="Qualification"
-                  type="text"
+                  rows="4"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Qualification (e.g., Bachelor's)"
-                />
+                  placeholder="Qualification and Experience"
+                ></textarea>
               </div>
 
               <div className="mb-4">
@@ -316,6 +316,7 @@ const Careerlist = () => {
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Category (e.g., IT, Marketing)"
                 />
+                
               </div>
 
               <div className="mb-4">
