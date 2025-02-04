@@ -9,6 +9,9 @@ const CareerContent = () => {
          <span className='font-extrabold text-red-900'> Something Bigger</span>
          
         </p>
+        <p className="text-[16px] md:text-xl lg:text-2xl  text-center py-2">
+          At Jooneli 
+        </p>
     </div>
     </div>
     
