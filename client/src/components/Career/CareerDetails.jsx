@@ -1,7 +1,9 @@
+import CareerCover from "./CareerCover";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Toaster, toast } from "react-hot-toast";
 import SummaryApi from "../../common";
+import { Toaster, toast } from "react-hot-toast";
+import { MdAttachMoney, MdCalendarToday, MdLocationOn, MdWork } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
 const CareerDetails = () => {
   const { id } = useParams();
@@ -22,66 +24,86 @@ const CareerDetails = () => {
   }, [id]);
 
   if (!careerDetails) {
-    return <div className="text-center text-gray-600">Loading career details...</div>;
+    return (
+      <div className="text-center text-gray-600">Loading career details...</div>
+    );
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6 md:p-12 lg:px-16 xl:px-32 bg-white shadow-lg rounded-lg">
-      <Toaster position="top-right" />
-      <header className="mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900">{careerDetails.title}</h1>
-        <div className="mt-4 space-y-1">
-          <p className="text-sm text-gray-600">
-            Location: <span className="font-medium">{careerDetails.location}</span>
-          </p>
-          <p className="text-sm text-gray-600">
-            Job Type: <span className="font-medium">{careerDetails.job_type}</span>
-          </p>
-          <p className="text-sm text-gray-600">
-            Category: <span className="font-medium">{careerDetails.category}</span>
-          </p>
-          <p className="text-sm text-gray-600">
-            Salary: <span className="font-medium">{careerDetails.salary}</span>
-          </p>
-          <p className="text-sm text-gray-600">
-            Apply Before: <span className="font-medium">
-              {new Date(careerDetails.apply_before).toLocaleDateString(undefined, {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
-          </p>
-        </div>
-      </header>
+    <div>
+    <CareerCover/>
+      <div className="p-6 mx-auto bg-white rounded-lg shadow-xl md:p-12 lg:px-16 xl:px-32 max-w-[1600px] ">
+        <Toaster position="top-right" />
+        <header className="mb-8 ">
+          <h1 className="text-3xl font-extrabold text-gray-900">
+            {careerDetails.title}
+          </h1>
+          <div className="flex gap-4 mt-4 space-y-1">
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <MdLocationOn className="text-lg text-gray-500" />
+              <span className="font-medium">{careerDetails.location}</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <MdWork className="text-lg text-gray-500" />
+              <span className="font-medium">{careerDetails.job_type}</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <MdAttachMoney className="text-lg text-gray-500" />
+              <span className="font-medium">{careerDetails.salary}</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <MdCalendarToday className="text-lg text-gray-500" />
+              <span className="font-medium">
+                {new Date(careerDetails.apply_before).toLocaleDateString(
+                  undefined,
+                  {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  }
+                )}
+              </span>
+            </div>
+          </div>
+        </header>
 
-      <section>
-        <h2 className="text-2xl font-semibold text-gray-800 mt-8">Job Description</h2>
-        <p className="mt-2 text-gray-700">{careerDetails.description}</p>
-      </section>
+        <section>
+          <h2 className="mt-8 text-2xl font-semibold text-gray-800">
+            Job Description
+          </h2>
+          <p className="mt-2 text-gray-700">{careerDetails.description}</p>
+        </section>
 
-      <section className="mt-8">
-        <h2 className="text-2xl font-semibold text-gray-800">Skills Required</h2>
-        <p className="mt-2 text-gray-700">{careerDetails.skills_required}</p>
-      </section>
-      <section className="mt-8">
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Skills Required
+          </h2>
+          <p className="mt-2 text-gray-700">{careerDetails.skills_required}</p>
+        </section>
+        <section className="mt-8">
         <h2 className="text-2xl font-semibold text-gray-800">Responsibility</h2>
         <p className="mt-2 text-gray-700">{careerDetails.responsibility}</p>
       </section>
 
-      <section className="mt-8">
-        <h2 className="text-2xl font-semibold text-gray-800">Additional Information</h2>
-        <p className="mt-2 text-gray-700">
-          Created At:{" "}
-          <span className="font-medium">
-            {new Date(careerDetails.created_at).toLocaleDateString(undefined, {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>
-        </p>
-      </section>
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Additional Information
+          </h2>
+          <p className="mt-2 text-gray-700">
+            Created At:{" "}
+            <span className="font-medium">
+              {new Date(careerDetails.created_at).toLocaleDateString(
+                undefined,
+                {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                }
+              )}
+            </span>
+          </p>
+        </section>
+      </div>
     </div>
   );
 };

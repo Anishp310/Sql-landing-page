@@ -165,6 +165,8 @@ export const deleteBlog = async (req, res) => {
   }
 };
 
+// slug used in get blog
+
 export const getBlog = async (req, res) => {
   const { slug } = req.params;
 

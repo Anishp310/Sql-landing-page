@@ -65,23 +65,6 @@ CREATE TABLE contact (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Career Table
-CREATE TABLE career (
-    career_id INT AUTO_INCREMENT PRIMARY KEY,
-    job_type VARCHAR(50) NOT NULL,
-    experience VARCHAR(50),
-    qualification VARCHAR(100),
-    category VARCHAR(100),
-    location VARCHAR(255),
-    title VARCHAR(100) NOT NULL,
-    apply_before DATE NOT NULL,
-    description TEXT,
-    salary TEXT,
-    skills_required TEXT,
-    responsibility TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 
 -- Images Table
 CREATE TABLE images (
@@ -141,6 +124,23 @@ CREATE TABLE subscriptions (
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date of subscription (auto-generated)
 );
 
+
+-- Career Table
+CREATE TABLE career (
+    career_id INT AUTO_INCREMENT PRIMARY KEY,
+    job_type VARCHAR(50) NOT NULL,
+    experience VARCHAR(50),
+    qualification VARCHAR(100),
+    category VARCHAR(100),
+    location VARCHAR(255),
+    title VARCHAR(100) NOT NULL,
+    apply_before DATE NOT NULL,
+    description TEXT,
+    salary TEXT,
+    skills_required TEXT,
+    responsibility TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 ALTER TABLE career 
 ADD COLUMN responsibility TEXT;
