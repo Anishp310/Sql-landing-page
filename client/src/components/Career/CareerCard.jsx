@@ -75,9 +75,10 @@ const CareerPage = () => {
               onChange={(e) => setDepartmentFilter(e.target.value)}
             >
               <option>All Departments</option>
-              <option>IT Department</option>
-              <option>Marketing Department</option>
-              <option>Graphics Department</option>
+              <option>Engineering</option>
+              <option>Business Development</option>
+              <option>Finance</option>
+              <option>Other</option>
             </select>
 
             <select
@@ -86,9 +87,11 @@ const CareerPage = () => {
               onChange={(e) => setLocationFilter(e.target.value)}
             >
               <option>Anywhere</option>
+              <option>Full Time</option>
               <option>Remote</option>
-              <option>Intern</option>
-              <option>Onsite</option>
+              <option>Internship</option>
+              <option>Nepal</option>
+              <option>Kenya</option>
               <option>Myanmar</option>
               <option>Bangladesh</option>
               <option>Ghana</option>

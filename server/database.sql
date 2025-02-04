@@ -138,3 +138,10 @@ CREATE TABLE subscriptions (
     type VARCHAR(50) NOT NULL,               -- Subscription type (e.g., basic, premium)
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date of subscription (auto-generated)
 );
+
+
+ALTER TABLE career ADD COLUMN slug VARCHAR(255);
+UPDATE career
+SET slug = CONCAT('slug-', blog_id)
+WHERE slug IS NULL OR slug = '';
+ALTER TABLE career MODIFY COLUMN slug VARCHAR(255) NOT NULL UNIQUE;

@@ -10,8 +10,8 @@ import { createContact, deleteContact, getAllContacts, getContact, updateContact
 import { createDemo, deleteDemo, getAllDemos, updateDemo } from "../controller/demoController.js";
 import { createImage, deleteImage, getAllImages, getImage, updateImage } from "../controller/imageController.js";
 import { DeleteNews, UpdateNews, createNews, getAllNews, getNews } from "../controller/newsController.js";
-import { createTradingPlan, deleteTradingPlan, getAllTradingPlans, getTradingPlan, updateTradingPlan } from "../controller/tradingContainer.js";
 import { createSubscription, deleteSubscription, getAllSubscriptions, updateSubscription } from "../controller/subscriptionController.js";
+import { createTradingPlan, deleteTradingPlan, getAllTradingPlans, getTradingPlan, updateTradingPlan } from "../controller/tradingContainer.js";
 
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage });

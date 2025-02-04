@@ -2,14 +2,19 @@ import About from "../pages/About";
 import Admin from "../Admin/Admin";
 import App from "../App";
 import Atm from "./business/Pages/Atm";
+import Blog from "./home/blog/Blog";
+import BlogDetail from "./home/blog/BlogDetail";
+import BlogList from "../Admin/blog/BlogList";
 import Brochurelist from "../Admin/Brochure/Brochurelist";
 import Business from "../pages/Business";
 import Career from "../pages/Career";
+import CareerDetails from "./Career/CareerDetails";
 import Careerlist from "../Admin/Career/Careerlist";
 import Company from "./about/Company";
 import ContactList from "../Admin/Contact/ContactList";
 import CoreBankingSystem from "./business/Pages/CoreBankingSystem";
 import DemoList from "../Admin/demo/DemoList";
+import DigitalBanking from "./home/DigitalBanking";
 import Ecosystem from "./about/Ecosystem";
 import ForgotPassword from "../Admin/ForgotPassword";
 import GetinTouch from "../pages/GetinTouch";
@@ -24,20 +29,15 @@ import MobileTeller from "./business/Pages/MobileTeller";
 import NotFoundPage from "../pages/PageNotFound";
 import Partnership from "./about/Partnership";
 import Pricing from "../pages/Pricing";
+import PricingList from "../Admin/bankingPlan/PricingList";
+import PricingList1 from "../Admin/tradingPlan/PricingList1";
 import Register from "../Admin/Register";
 import ResetPassword from "../Admin/ResetPassword";
-import TableLists from "../Admin/TableLists";
-import { createBrowserRouter } from "react-router-dom";
-import DigitalBanking from "./home/DigitalBanking";
-import Trading from "./home/Trading";
-import PricingList1 from "../Admin/tradingPlan/PricingList1";
-import PricingList from "../Admin/bankingPlan/PricingList";
-import Blog from "./home/blog/Blog";
-import BlogList from "../Admin/blog/BlogList";
-import BlogDetail from "./home/blog/BlogDetail";
 import SubscriptionForm from "../pages/SubscriptionForm";
 import SubscriptionList from "../Admin/subscription/SubscriptionList";
-import CareerDetails from "./Career/CareerDetails";
+import TableLists from "../Admin/TableLists";
+import Trading from "./home/Trading";
+import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +73,7 @@ const router = createBrowserRouter([
       },
       { path: "career", element: <Career /> },
       { path: "career/:id", element: <CareerDetails /> },
+      { path: "career/:slug", element: <CareerDetails /> },
 
       { path: "pricing", element: <Pricing /> },
       { path: "get-in-touch", element: <GetinTouch /> },
