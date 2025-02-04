@@ -16,7 +16,7 @@ export const createCareer = async (req, res) => {
   const {
     JobType, Experience, Qualification, Category,
     Location, Title, ApplyBefore, Description,
-    Salary, SkillsRequired
+    Salary, SkillsRequired, Responsibility
   } = req.body;
 
   // Validate input data
@@ -29,23 +29,22 @@ export const createCareer = async (req, res) => {
     // Insert into the career table
     await pool.query(
       `INSERT INTO career 
-        (job_type, experience, qualification, category, location, title, apply_before, description, salary, skills_required)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, // Updated to match column names in the table
-      [JobType, Experience, Qualification, Category, Location, Title, ApplyBefore, Description, Salary, SkillsRequired]
+        (job_type, experience, qualification, category, location, title, apply_before, description, salary, skills_required, responsibility)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [JobType, Experience, Qualification, Category, Location, Title, ApplyBefore, Description, Salary, SkillsRequired, Responsibility]
     );
-    
-    
+
     // Get the last inserted ID
     const careerId = await pool.query("SELECT LAST_INSERT_ID() AS career_id");
 
     // Retrieve the inserted career data
     const createdCareer = await pool.query("SELECT * FROM career WHERE career_id = ?", [careerId[0].career_id]);
-    
+
     res.status(201).json({
       message: "Career created successfully",
       data: createdCareer[0],
     });
-    
+
   } catch (error) {
     console.error("Error creating career:", error.message);
     res.status(500).json({
@@ -54,6 +53,53 @@ export const createCareer = async (req, res) => {
     });
   }
 };
+
+// Update Career
+export const updateCareer = async (req, res) => {
+  const { career_id } = req.params;
+  const {
+    JobType, Experience, Qualification, Category,
+    Location, Title, ApplyBefore, Description,
+    Salary, SkillsRequired, Responsibility
+  } = req.body;
+
+  // Validate input data
+  const error = validateCareerData({ Title, JobType, ApplyBefore });
+  if (error) {
+    return res.status(400).json({ message: error });
+  }
+
+  try {
+    // Update career data
+    const updatedCareer = await pool.query(
+      `UPDATE career SET 
+        job_type = ?, experience = ?, qualification = ?, 
+        category = ?, location = ?, title = ?, apply_before = ?, 
+        description = ?, salary = ?, skills_required = ?, responsibility = ?
+        WHERE career_id = ?`, 
+      [JobType, Experience, Qualification, Category, Location, Title, ApplyBefore, Description, Salary, SkillsRequired, Responsibility, career_id]
+    );
+
+    if (updatedCareer.affectedRows === 0) {
+      return res.status(404).json({ message: `Career with ID ${career_id} not found` });
+    }
+
+    // Retrieve the updated career data
+    const [career] = await pool.query("SELECT * FROM career WHERE career_id = ?", [career_id]);
+
+    res.status(200).json({
+      message: "Career updated successfully",
+      data: career[0],
+    });
+  } catch (error) {
+    console.error("Error updating career:", error.message);
+    res.status(500).json({
+      message: "Server error, unable to update career",
+      error: error.message,
+    });
+  }
+};
+
 
 // Get All Careers
 export const getAllCareers = async (req, res) => {
@@ -94,51 +140,7 @@ export const getCareer = async (req, res) => {
   }
 };
 
-// Update Career
-export const updateCareer = async (req, res) => {
-  const { career_id } = req.params;
-  const {
-    JobType, Experience, Qualification, Category,
-    Location, Title, ApplyBefore, Description,
-    Salary, SkillsRequired
-  } = req.body;
 
-  // Validate input data
-  const error = validateCareerData({ Title, JobType, ApplyBefore });
-  if (error) {
-    return res.status(400).json({ message: error });
-  }
-
-  try {
-    // Update career data
-    const updatedCareer = await pool.query(
-      `UPDATE career SET 
-        job_type = ?, experience = ?, qualification = ?, 
-        category = ?, location = ?, title = ?, apply_before = ?, 
-        description = ?, salary = ?, skills_required = ?
-        WHERE career_id = ?`, 
-      [JobType, Experience, Qualification, Category, Location, Title, ApplyBefore, Description, Salary, SkillsRequired, career_id]
-    );
-
-    if (updatedCareer.affectedRows === 0) {
-      return res.status(404).json({ message: `Career with ID ${career_id} not found` });
-    }
-
-    // Retrieve the updated career data
-    const [career] = await pool.query("SELECT * FROM career WHERE career_id = ?", [career_id]);
-
-    res.status(200).json({
-      message: "Career updated successfully",
-      data: career[0],
-    });
-  } catch (error) {
-    console.error("Error updating career:", error.message);
-    res.status(500).json({
-      message: "Server error, unable to update career",
-      error: error.message,
-    });
-  }
-};
 
 // Delete Career
 export const deleteCareer = async (req, res) => {

@@ -56,7 +56,7 @@ const CareerPage = () => {
         <h1 className="mb-6 text-2xl font-bold text-gray-800">Open Positions</h1>
 
         {/* Filters Section */}
-        <div className="flex flex-wrap justify-center items-center gap-4 mb-6">
+        <div className="flex flex-wrap justify-center item-center gap-4 mb-6">
           <select
             className="p-2 border rounded-md"
             value={departmentFilter}

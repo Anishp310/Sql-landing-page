@@ -56,6 +56,7 @@ const Careerlist = () => {
       Description: '',
       Salary: '',
       SkillsRequired: '',
+      Responsibility: '',  // Added Responsibility field
     });  // Reset the form to empty values
     setIsModalOpen(true);
   };
@@ -102,13 +103,14 @@ const Careerlist = () => {
       ApplyBefore: career.apply_before.split("T")[0],  // Corrected field name
       Description: career.description,
       Salary: career.salary,
-      SkillsRequired: career.skills_required,  // Corrected field nam
+      SkillsRequired: career.skills_required,  // Corrected field name
+      Responsibility: career.responsibility || '',  // Added Responsibility field
     });
   };
 
   const exportToExcel = () => {
     const tableData = [
-      ["title", "JobType", "Experience", "Qualification", "Category", "Location", "ApplyBefore", "Description", "Salary", "SkillsRequired"],
+      ["title", "JobType", "Experience", "Qualification", "Category", "Location", "ApplyBefore", "Description", "Salary", "SkillsRequired", "Responsibility"],
       ...careerList.map((item) => [
         item.title,
         item.job_type,  // Corrected field name
@@ -120,6 +122,7 @@ const Careerlist = () => {
         item.description,
         item.salary,
         item.skills_required,  // Corrected field name
+        item.responsibility,  // Added Responsibility field
       ]),
     ];
 
@@ -191,6 +194,10 @@ const Careerlist = () => {
       selector: row => truncate(row.skills_required, 50),
     },
     {
+      name: 'Responsibility',  // New column for Responsibility
+      selector: row => truncate(row.responsibility, 50), 
+    },
+    {
       name: 'Created At',
       selector: row => row.created_at.replace("T", " ").split(".")[0],
     },
@@ -219,7 +226,7 @@ const Careerlist = () => {
   ];
 
   return (
-    <div className="max-w-6xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg career-list-container">
+    <div className="max-w-7xl p-4 mx-auto my-5 overflow-hidden bg-gray-100 rounded shadow-lg career-list-container">
       <Toaster position="top-right" />
       <h1 className="mb-5 text-2xl font-bold">Career List</h1>
       <div className="flex justify-start mb-4">
@@ -364,7 +371,16 @@ const Careerlist = () => {
                   placeholder="Skills Required (e.g., Java, React)"
                 />
               </div>
-
+              <div className="mb-4">
+                <label htmlFor="Responsibility" className="block text-sm font-medium text-gray-700">Responsibility</label>
+                <textarea
+                  {...register('Responsibility', { required: 'Responsibility is required' })}
+                  id="Responsibility"
+                  rows="4"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Job Responsibilities"
+                ></textarea>
+              </div>
               <div className="flex flex-wrap justify-between mt-4 space-x-4">
                 <button
                   type="button"

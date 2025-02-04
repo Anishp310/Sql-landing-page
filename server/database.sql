@@ -78,8 +78,10 @@ CREATE TABLE career (
     description TEXT,
     salary TEXT,
     skills_required TEXT,
+    responsibility TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- Images Table
 CREATE TABLE images (
@@ -138,3 +140,8 @@ CREATE TABLE subscriptions (
     type VARCHAR(50) NOT NULL,               -- Subscription type (e.g., basic, premium)
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date of subscription (auto-generated)
 );
+
+
+ALTER TABLE career 
+ADD COLUMN responsibility TEXT;
+
