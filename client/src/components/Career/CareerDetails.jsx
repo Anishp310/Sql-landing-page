@@ -80,10 +80,15 @@ const CareerDetails = () => {
           </h2>
           <p className="mt-2 text-gray-700">{careerDetails.skills_required}</p>
         </section>
-        <section className="mt-8">
+        <section>
         <h2 className="text-2xl font-semibold text-gray-800">Responsibility</h2>
-        <p className="mt-2 text-gray-700">{careerDetails.responsibility}</p>
+        <ul className="mt-2 text-gray-700 list-disc pl-5">
+          {careerDetails.responsibility?.split(';').map((item, index) => (
+            item.trim() && <li key={index}>{item.trim()}</li>
+          ))}
+        </ul>
       </section>
+
 
         <section className="mt-8">
           <h2 className="text-2xl font-semibold text-gray-800">
