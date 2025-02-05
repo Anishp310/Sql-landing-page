@@ -1,7 +1,7 @@
 const CareerContent = () => {
   return (
     <div className="max-w-[1600px] mx-auto">
-      <div className='my-10 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]'>
+      <div className='mt-10 xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem] mb-5'>
         <p className='text-[16px] md:text-xl lg:text-2xl  text-center '>
         Your Chance to
         <span className='font-extrabold text-red-900'> Be a Part </span>

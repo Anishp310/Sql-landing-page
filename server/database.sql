@@ -139,7 +139,8 @@ CREATE TABLE career (
     salary TEXT,
     skills_required TEXT,
     responsibility TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    slug VARCHAR(255) NOT NULL UNIQUE
 );
 
 ALTER TABLE career 

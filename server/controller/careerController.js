@@ -1,4 +1,5 @@
 import pool from "../db.js";
+import slugify from "slugify";
 
 // Helper function for validation
 const validateCareerData = (data) => {
@@ -26,25 +27,30 @@ export const createCareer = async (req, res) => {
   }
 
   try {
-    // Insert into the career table
-    await pool.query(
+    // Insert into the career table without the slug
+    const [insertResult] = await pool.query(
       `INSERT INTO career 
         (job_type, experience, qualification, category, location, title, apply_before, description, salary, skills_required, responsibility)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [JobType, Experience, Qualification, Category, Location, Title, ApplyBefore, Description, Salary, SkillsRequired, Responsibility]
     );
 
-    // Get the last inserted ID
-    const careerId = await pool.query("SELECT LAST_INSERT_ID() AS career_id");
+    // Get the career_id of the inserted row
+    const careerId = insertResult.insertId;
 
-    // Retrieve the inserted career data
-    const createdCareer = await pool.query("SELECT * FROM career WHERE career_id = ?", [careerId[0].career_id]);
+    // Now generate the slug as career_id + Title
+    const finalSlug = `${careerId}-${slugify(Title, { lower: true, strict: true })}`;
+
+    // Update the career with the generated slug
+    await pool.query("UPDATE career SET slug = ? WHERE career_id = ?", [finalSlug, careerId]);
+
+    // Retrieve the newly created career data with the final slug
+    const [createdCareer] = await pool.query("SELECT * FROM career WHERE career_id = ?", [careerId]);
 
     res.status(201).json({
       message: "Career created successfully",
       data: createdCareer[0],
     });
-
   } catch (error) {
     console.error("Error creating career:", error.message);
     res.status(500).json({
@@ -70,14 +76,17 @@ export const updateCareer = async (req, res) => {
   }
 
   try {
-    // Update career data
+    // Generate the slug as career_id + Title
+    const slug = `${career_id}-${slugify(Title, { lower: true, strict: true })}`;
+
+    // Update career data with the new slug
     const updatedCareer = await pool.query(
       `UPDATE career SET 
         job_type = ?, experience = ?, qualification = ?, 
         category = ?, location = ?, title = ?, apply_before = ?, 
-        description = ?, salary = ?, skills_required = ?, responsibility = ?
+        description = ?, salary = ?, skills_required = ?, responsibility = ?, slug = ?
         WHERE career_id = ?`, 
-      [JobType, Experience, Qualification, Category, Location, Title, ApplyBefore, Description, Salary, SkillsRequired, Responsibility, career_id]
+      [JobType, Experience, Qualification, Category, Location, Title, ApplyBefore, Description, Salary, SkillsRequired, Responsibility, slug, career_id]
     );
 
     if (updatedCareer.affectedRows === 0) {
