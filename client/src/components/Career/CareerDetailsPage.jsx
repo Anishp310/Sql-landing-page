@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../../common";
 import { Toaster, toast } from "react-hot-toast";
-import { MdAttachMoney, MdCalendarToday, MdLocationOn, MdWork } from "react-icons/md";
+import { FaRupeeSign } from "react-icons/fa";
+import { MdCalendarToday, MdLocationOn, MdWork } from "react-icons/md";
+import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { useParams } from "react-router-dom";
 
 const CareerDetailsPage = () => {
@@ -29,14 +31,14 @@ const CareerDetailsPage = () => {
   }
 
   return (
-    <div className="my-[2rem]">
+    <div className="my-[2rem] max-w-[1600px] mx-auto">
       <div className="xl:mx-[10rem] lg:mx-[3rem] md:mx-[2.5rem] mx-[1rem]  ">
         <Toaster position="top-right" />
         <header className="mb-8 ">
           <h1 className="text-3xl font-extrabold text-gray-900">
             {careerDetails.title}
           </h1>
-          <div className="flex gap-4 mt-4 space-y-1">
+          <div className="gap-4 mt-4 space-y-1 md:flex">
             <div className="flex items-center space-x-2 text-sm text-gray-600">
               <MdLocationOn className="text-lg text-gray-500" />
               <span className="font-medium">{careerDetails.location}</span>
@@ -46,7 +48,10 @@ const CareerDetailsPage = () => {
               <span className="font-medium">{careerDetails.job_type}</span>
             </div>
             <div className="flex items-center space-x-2 text-sm text-gray-600">
-              <MdAttachMoney className="text-lg text-gray-500" />
+              {/* <MdAttachMoney className="text-lg text-gray-500" /> */}
+              {/* <FaRupeeSign className="text-lg text-gray-500" /> */}
+              {/* <MdOutlineCurrencyRupee className="text-lg text-gray-500" /> */}
+              <span className="text-base font-medium text-gray-500">Rs.</span>
               <span className="font-medium">{careerDetails.salary}</span>
             </div>
             <div className="flex items-center space-x-2 text-sm text-gray-600">

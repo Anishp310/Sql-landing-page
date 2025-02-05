@@ -61,16 +61,16 @@ const CareerPage = () => {
   return (
     <div className="max-w-[1600px] mx-auto xl:mb-10 mb-8 ">
       <Toaster position="top-right" />
-      <div className="py-6 xl:mx-[10rem]">
-        <h1 className="mb-6 text-2xl font-bold text-center text-gray-800">
+      <div className="pb-6 xl:mx-[10rem]">
+        <h1 className="mb-6 text-lg font-bold text-center text-gray-800 xl:text-2xl md:text-xl">
           Open Positions
         </h1>
 
         {/* Filters Section */}
         <div className="flex-wrap items-center justify-center gap-4 px-6 mb-6 md:flex md:px-0">
-          <div className="flex items-center justify-center gap-2 mb-2 md:mb-0">
+          <div className="items-center justify-center gap-2 mb-2 md:flex md:mb-0">
             <select
-              className="px-6 py-2 border rounded-lg"
+              className="w-full px-6 py-2 mb-2 bg-white border rounded-lg md:mb-0"
               value={departmentFilter}
               onChange={(e) => setDepartmentFilter(e.target.value)}
             >
@@ -82,7 +82,7 @@ const CareerPage = () => {
             </select>
 
             <select
-              className="px-6 py-2 border rounded-lg"
+              className="w-full px-6 py-2 bg-white border rounded-lg"
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
             >
@@ -101,7 +101,7 @@ const CareerPage = () => {
           <input
             type="text"
             placeholder="Find by job title..."
-            className="w-full p-3 border rounded-md md:w-auto md:py-2 md:px-10"
+            className="w-full p-2 border rounded-md md:w-auto md:py-2 md:px-10"
             value={searchTitle}
             onChange={(e) => setSearchTitle(e.target.value)}
           />
@@ -115,16 +115,16 @@ const CareerPage = () => {
                 key={career.career_id}
                 className="px-10 py-8 border-b hover:bg-gray-100"
               >
-                <div className="md:flex items-start justify-between md:space-x-4 max-w-[900px] mx-auto">
+                <div className="md:flex items-start justify-between md:space-x-4 max-w-[900px] mx-auto ">
                   {/* Left Section: Career Details */}
-                  <div className="">
+                  <div className="mb-4 md:mb-0">
                     <Link>
-                      <h2 className="pt-2 text-lg font-bold">
+                      <h2 className="pt-2 text-base font-bold md:text-lg">
                         {career.category}
                       </h2>
                     </Link>
                     <div className="flex gap-1">
-                    <MdLocationOn className="text-lg text-gray-500" />
+                    <MdLocationOn className="text-base text-gray-500 md:text-lg" />
                     <p className="pb-2 text-sm text-gray-600">
                       {career.location}
                     </p>
@@ -135,7 +135,7 @@ const CareerPage = () => {
                   {/* Right Section: Title and Location */}
                   <div className="md:text-right ">
                     <Link to={`/career/${career.career_id}`}>
-                      <p className="font-bold text-gray-700">
+                      <p className="text-base font-bold text-gray-700 md:text-lg">
                         {career.title} | {career.job_type}
                       </p>
                     </Link>

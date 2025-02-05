@@ -39,7 +39,7 @@ const LeadershipData = [
   {
     id: 1,
     name: "Apar Thebe",
-    position: "CEO",
+    position: "Chairperson",
     image: team,
     companyName: "Jooneli Inc.",
   },

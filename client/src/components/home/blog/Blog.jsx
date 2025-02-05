@@ -12,7 +12,7 @@ const Blog = () => {
   const [loading, setLoading] = useState(false);
   const [topPosts, setTopPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 3;
+  const postsPerPage = 10;
   const [blogs, setBlogs] = useState([]);
   const { slug } = useParams();
   const navigate = useNavigate();

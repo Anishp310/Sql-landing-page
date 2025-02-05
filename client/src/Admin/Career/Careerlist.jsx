@@ -380,7 +380,7 @@ const Careerlist = () => {
                   id="Qualification"
                   rows="4"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Qualification and Experience"
+                  placeholder="Enter Qualification and Experience separated with (;) sign to render in list like pricing"
                 ></textarea>
               </div>
 
@@ -489,7 +489,7 @@ const Careerlist = () => {
                   id="Salary"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Salary (e.g., 50,000 USD)"
+                  placeholder="Salary (e.g., Rs.50,000 )"
                 />
               </div>
 
@@ -500,15 +500,24 @@ const Careerlist = () => {
                 >
                   Skills Required
                 </label>
-                <input
+                {/* <input
                   {...register("SkillsRequired", {
                     required: "Skills is required",
                   })}
                   id="SkillsRequired"
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Skills Required (e.g., Java, React)"
-                />
+                  placeholder="Enter Skills Required separated with (;) sign after adding first to render in list"
+                /> */}
+                 <textarea
+                  {...register("SkillsRequired", {
+                    required: "Skills is required",
+                  })}
+                  id="SkillsRequired"
+                  rows="4"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter Skills Required separated with (;) sign  to render in list like pricing "
+                ></textarea>
               </div>
               <div className="mb-4">
                 <label
@@ -524,7 +533,7 @@ const Careerlist = () => {
                   id="Responsibility"
                   rows="4"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Job Responsibilities"
+                  placeholder=" Enter Job Responsibilities separaed by (;) to render in list like pricing "
                 ></textarea>
               </div>
               <div className="flex flex-wrap justify-between mt-4 space-x-4">

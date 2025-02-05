@@ -92,7 +92,7 @@ const SubscriptionForm = () => {
       <Toaster position="top-right" />
       <div className="flex justify-center py-5">
         <div className="px-4 my-4 lg:mt-0">
-          <h2 className="mb-6 text-3xl font-bold">Create Subscription</h2>
+          <h2 className="mb-6 text-lg font-bold lg:text-2xl md:text-xl">Create Subscription</h2>
           <p className="mb-6">Fill out the form below to create your subscription.</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
