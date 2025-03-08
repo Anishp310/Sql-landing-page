@@ -1,5 +1,5 @@
 //const backendDomain = "https://server.jooneli.com";
-   const backendDomain = "http://localhost:8080";
+   const backendDomain = "https://sql-landing-page.onrender.com/";
 
 const SummaryApi = {
   HomeNewsImage: {
